@@ -1,0 +1,13 @@
+{
+  "description": "bill-split",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram",
+  "appid": "wxa9f86c634c79cd53",
+  "projectname": "bill-split-weapp",
+  "miniprogramRoot": "./dist"
+}
