@@ -1,0 +1,119 @@
+<style lang="less">
+  .page__bd_spacing{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  // 活动账单
+  .bill{
+    border: 1px solid #9e9e9e;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 5px;
+    .avatar{
+      display: block;
+      float: left;
+      border-radius: 5px;
+      width: 50px;
+      height: 50px;
+    }
+    .top{
+      width: 270px;
+      float: left;
+      margin-left: 10px;
+      color: #9e9e9e;
+      .title{
+        color: black;
+        font-weight: bold;
+        float: left;
+        font-size: 16px;
+      }
+      .date{
+        float: right;
+        font-size: 12px;
+      }
+      .content{
+        font-size: 14px;
+        .total{
+
+        }
+        .unpaid{
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view>
+
+    <view class="page__bd_spacing bg" style="padding-bottom: 75px;">
+      <navigator url="/pages/activities/bills/manage">
+        <view class="bill clear-fix">
+          <image class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg"></image>
+          <view class="top">
+            <view class="clear-fix">
+              <text class="title">魅力宝贝</text>
+              <text class="date">2019/3/1 20:30</text>
+            </view>
+            <view class="content">
+              <text >需支付：100.2</text><text class="unpaid">未支付：100.2</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+      <navigator url="/pages/activities/bills/manage">
+        <view class="bill clear-fix">
+          <image class="avatar" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3416619482,205295272&fm=27&gp=0.jpg"></image>
+          <view class="top">
+            <view class="clear-fix">
+              <text class="title">马杀鸡</text>
+              <text class="date">2019/3/1 23:00</text>
+            </view>
+            <view class="content">
+              <text >需支付：2000</text><text class="unpaid">未支付：2000</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+
+    </view>
+    <view class="page__bd_spacing" style="position: fixed; bottom: 15px; width: 345px; ">
+      <button class="weui-btn" type="primary" >
+        创建新的账单
+      </button>
+    </view>
+
+  </view>
+
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '活动账单'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+
+    onLoad() {
+    }
+  }
+</script>

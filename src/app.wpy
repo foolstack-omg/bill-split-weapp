@@ -1,14 +1,10 @@
 <style lang="less">
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
+@import "style/weui.less";
+    .clear-fix{overflow:hidden;_zoom:1;}
+    page{
+        background-color: #F8F8F8;
+    }
 </style>
-
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
@@ -22,13 +18,36 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index'
+      'pages/activities/index',
+      'pages/activities/create_and_edit',
+      'pages/activities/bills/index',
+      'pages/users/me'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarBackgroundColor: '#F8F8F8',
+      navigationBarTitleText: '算账小能手',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      list: [{
+        pagePath: 'pages/activities/index',
+        text: '活动',
+        iconPath: 'images/icon_activities.png',
+        selectedIconPath: 'images/icon_activities_selected.png'
+      }, {
+        pagePath: 'pages/activities/create_and_edit',
+        text: '发起',
+        iconPath: 'images/icon_add.png',
+        selectedIconPath: 'images/icon_add_selected.png'
+      }, {
+        pagePath: 'pages/users/me',
+        text: '我的',
+        iconPath: 'images/user.png',
+        selectedIconPath: 'images/user_selected.png'
+      }],
+      color: '#707070',
+      selectedColor: '#4dc86f'
     }
   }
 
@@ -41,16 +60,19 @@ export default class extends wepy.app {
     this.use('requestfix')
   }
 
-  onLaunch() {
+  async onLaunch() {
+    await this.getUserInfo()
   }
 
-  getUserInfo(cb) {
+  async getUserInfo(cb) {
     const that = this
     if (this.globalData.userInfo) {
+      console.log(this.globalData.userInfo)
       return this.globalData.userInfo
     }
-    wepy.getUserInfo({
+    await wepy.getUserInfo({
       success (res) {
+        console.log(res.userInfo)
         that.globalData.userInfo = res.userInfo
         cb && cb(res.userInfo)
       }

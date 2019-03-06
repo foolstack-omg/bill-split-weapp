@@ -1,0 +1,49 @@
+<style lang="less">
+  .profile{
+    text-align: center;
+  }
+</style>
+<template>
+  <view class="bg">
+    <view class="profile">
+      <view style="margin-top: 40px; margin-bottom: 10px;">
+        <image style="width: 100px; height: 100px; border-radius: 100%; border: 1px solid" src="{{ user.avatarUrl }}"></image>
+      </view>
+      <text>{{ user.nickName }}</text>
+      <view>坚持一下！每天都会有新的打击！</view>
+    </view>
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Me extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+      user: null
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+
+    async onLoad() {
+      this.user = await this.$parent.getUserInfo()
+      console.log(this.user)
+    }
+  }
+</script>

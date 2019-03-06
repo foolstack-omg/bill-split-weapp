@@ -1,0 +1,180 @@
+<style lang="less">
+  .section{
+    background-color: white;
+    border: 1px solid #f0f0f0;
+    border-left: none;
+    border-right: none;
+    margin: 10px 0;
+
+  }
+  .section:first-child{
+    border-top: none;
+  }
+  .portrait_wrap{
+    float: left;
+    width: 62px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+  }
+  .portrait_wrap:nth-child(5n){
+    margin-right: 0;
+  }
+  .portrait{
+
+    >image, .action-wrapper{
+      display: block;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      width: 60px;
+      height: 60px;
+    }
+    .action-wrapper{
+      border: 1px solid #f0f0f0;
+      text-align: center;
+      line-height: 55px;
+    }
+    .action-wrapper>image{
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
+    .nickname{
+      font-size: 12px;
+      display: block;
+      margin: 5px 0;
+    }
+  }
+  .weui-cell__bd.action{
+    text-align: center;
+  }
+  .weui-cell__bd.action.warning{
+    color: #ff3536;
+  }
+</style>
+<template class="bg">
+  <view >
+    <view class="section clear-fix" style="padding: 10px;">
+      <view class="portrait portrait_wrap">
+        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <text class="nickname">Leemeen</text>
+      </view>
+      <view class="portrait portrait_wrap">
+        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <text class="nickname">Leemeen</text>
+      </view>
+      <view class="portrait portrait_wrap">
+        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <text class="nickname">Leemeen</text>
+      </view>
+      <view class="portrait portrait_wrap">
+        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <text class="nickname">Leemeen</text>
+      </view>
+      <view class="portrait portrait_wrap">
+        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <text class="nickname">Leemeen</text>
+      </view>
+      <view class="portrait portrait_wrap">
+        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <text class="nickname">Leemeen</text>
+      </view>
+      <view class="portrait portrait_wrap">
+        <view class="action-wrapper">
+          <image src="/images/icon_m_add.png"></image>
+        </view>
+      </view>
+      <view class="portrait portrait_wrap">
+        <view class="action-wrapper">
+          <image src="/images/icon_m_minus.png"></image>
+        </view>
+      </view>
+
+
+    </view>
+
+    <view class="section weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">活动名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入活动名称"/>
+        </view>
+      </view>
+    </view>
+
+    <view class="section weui-cells weui-cells_after-title">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">活动二维码</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">
+          <image style="width: 25px; height: 25px;" src="/images/icon_qrcode.png"></image>
+        </view>
+      </navigator>
+    </view>
+
+    <view class="section weui-cells weui-cells_after-title">
+      <view class="weui-cell" hover-class="weui-cell_active" bindtap="save">
+        <view class="weui-cell__bd action">
+          保存
+        </view>
+      </view>
+      <view class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
+        <view class="weui-cell__bd action warning" >
+          删除并退出
+        </view>
+      </view>
+    </view>
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class CreateAndEdit extends wepy.page {
+    config = {
+      navigationBarTitleText: '活动管理'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+      save() {
+        wx.showActionSheet({
+          itemList: ['确定'],
+          itemColor: '#ff3536',
+          success(res) {
+            console.log(res.tapIndex)
+          },
+          fail(res) {
+            console.log(res.errMsg)
+          }
+        })
+      },
+      exit() {
+        wx.showActionSheet({
+          itemList: ['确定'],
+          itemColor: '#ff3536',
+          success(res) {
+            console.log(res.tapIndex)
+          },
+          fail(res) {
+            console.log(res.errMsg)
+          }
+        })
+      }
+    }
+
+    events = {
+    }
+  }
+</script>
