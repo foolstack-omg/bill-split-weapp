@@ -9,6 +9,8 @@
 import wepy from 'wepy'
 import 'wepy-async-function'
 
+import api from '@/utils/api'
+
 import { setStore } from 'wepy-redux'
 import configStore from './store'
 
@@ -19,9 +21,11 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/activities/index',
-      'pages/activities/create_and_edit',
+      'pages/activities/management',
       'pages/activities/bills/index',
-      'pages/users/me'
+      'pages/activities/bills/management',
+      'pages/users/me',
+      'pages/auth/login'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -35,11 +39,6 @@ export default class extends wepy.app {
         text: '活动',
         iconPath: 'images/icon_activities.png',
         selectedIconPath: 'images/icon_activities_selected.png'
-      }, {
-        pagePath: 'pages/activities/create_and_edit',
-        text: '发起',
-        iconPath: 'images/icon_add.png',
-        selectedIconPath: 'images/icon_add_selected.png'
       }, {
         pagePath: 'pages/users/me',
         text: '我的',
@@ -58,25 +57,36 @@ export default class extends wepy.app {
   constructor () {
     super()
     this.use('requestfix')
+    this.use('promisify')
   }
 
   async onLaunch() {
-    await this.getUserInfo()
+    await this.getCurrentUser()
   }
 
-  async getUserInfo(cb) {
-    const that = this
-    if (this.globalData.userInfo) {
-      console.log(this.globalData.userInfo)
-      return this.globalData.userInfo
-    }
-    await wepy.getUserInfo({
-      success (res) {
-        console.log(res.userInfo)
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
+  // 获取当前登录用户信息
+  async getCurrentUser() {
+    // 从缓存中获取用户信息
+    let user = wepy.getStorageSync('user')
+    // 如果用户未登录
+    if (!this.checkLogin() || !user) {
+      try {
+        await api.login()
+      } catch (err) {
+        console.log(err)
+        wepy.showModal({
+          title: '提示',
+          content: '服务器错误，请联系管理员'
+        })
+        return null
       }
-    })
+    }
+    return user
+  }
+
+  // 用户是否已经登录
+  checkLogin() {
+    return (wepy.getStorageSync('access_token') !== '')
   }
 }
 </script>

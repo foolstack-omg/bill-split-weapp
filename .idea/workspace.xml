@@ -2,71 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4766d14-f1fb-4a1f-8b74-10ac28e5385c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/images/icon_activities.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/icon_activities_selected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/icon_add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/icon_add_selected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/icon_m_add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/icon_m_minus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/icon_qrcode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/user.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/user_selected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/activities/bills/index.wpy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/activities/create_and_edit.wpy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/activities/index.wpy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/users/me.wpy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/fn.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/mixin/setArrow.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/mixin/setOnepx.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/mixin/text.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/reset.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/color.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/global.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/weui-button.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/weui-cell.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/weui-dialog.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/weui-grid.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/weui-msg.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/base/variable/weui-progress.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/weui.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-agree/weui-agree.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-animate/weui-animate.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-button/weui-button.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-access.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-cell.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-check.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-form.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-form/weui-form-preview.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-form/weui-form_common.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-form/weui-select.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-form/weui-vcode.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-switch.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-cell/weui-uploader.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-flex/weui-flex.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-footer/weui-footer.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-grid/weui-grid.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-loading/weui-loading.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-media-box/weui-media-box.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-page/weui-article.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-page/weui-msg.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-panel/weui-panel.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-progress/weui-progress.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-searchbar/weui-searchbar.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-tab/weui-navbar.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-tab/weui-tab.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-tips/weui-badge.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/widget/weui-tips/weui-loadmore.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/participantsChecker.wpy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/activities/management.wpy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/auth/login.wpy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/util.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.wepycache" beforeDir="false" afterPath="$PROJECT_DIR$/.wepycache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/counter.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/group.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/groupitem.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/list.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/panel.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/wepy-list.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mixins/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.wpy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/activities/bills/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/activities/bills/index.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/activities/create_and_edit.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/activities/bills/management.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/activities/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/activities/index.wpy" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,36 +25,79 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/activities/bills/index.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="80" column="74" selection-start-line="80" selection-start-column="74" selection-end-line="80" selection-end-column="74" />
+            <state relative-caret-position="176">
+              <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
               <folding>
-                <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#157#180#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/activities/create_and_edit.wpy">
+        <entry file="file://$PROJECT_DIR$/src/pages/activities/bills/index.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="93" column="11" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="93" selection-end-column="11" />
+            <state relative-caret-position="336">
+              <caret line="81" column="45" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="45" />
               <folding>
                 <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#view#0;n#view#0;n#template#0;n#!!top" />
-                <element signature="n#style#0;n#image#0;n#view#1;n#navigator#0;n#view#2;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="319">
+              <caret line="79" column="18" lean-forward="true" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/auth/login.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+              <folding>
+                <element signature="n#style#0;n#button#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project.config.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wepy.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/participantsChecker.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+              <folding>
+                <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#text#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#view#1;n#label#0;n#checkbox-group#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#image#0;n#view#1;n#label#0;n#checkbox-group#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,8 +106,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/users/me.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            <state relative-caret-position="75">
+              <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
               <folding>
                 <element signature="n#style#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#image#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
@@ -127,17 +119,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/activities/index.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+            <state relative-caret-position="406">
+              <caret line="99" selection-start-line="99" selection-end-line="99" />
+              <folding>
+                <element signature="n#style#0;n#button#0;n#navigator#1;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#image#0;n#navigator#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -156,6 +143,12 @@
       <find>clear</find>
       <find>9e9e9e</find>
       <find>d9d9d9</find>
+      <find>number</find>
+      <find>adjust</find>
+      <find>flex</find>
+      <find>onCheckerFinished</find>
+      <find>bind</find>
+      <find>toggleChecker</find>
     </findStrings>
     <replaceStrings>
       <replace>d9d9d9</replace>
@@ -174,9 +167,16 @@
         <option value="$PROJECT_DIR$/src/pages/index.wpy" />
         <option value="$PROJECT_DIR$/src/pages/users/me.wpy" />
         <option value="$PROJECT_DIR$/src/pages/activities/create_and_edit.wpy" />
-        <option value="$PROJECT_DIR$/src/app.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/activities/index.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/activities/manage.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/activities/management.wpy" />
         <option value="$PROJECT_DIR$/src/pages/activities/bills/index.wpy" />
+        <option value="$PROJECT_DIR$/src/components/participantsChecker.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/activities/bills/management.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/auths/userInfo.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/activities/index.wpy" />
+        <option value="$PROJECT_DIR$/src/app.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/auth/login.wpy" />
+        <option value="$PROJECT_DIR$/src/utils/api.js" />
       </list>
     </option>
   </component>
@@ -190,7 +190,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,7 +206,7 @@
               <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
               <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
@@ -230,10 +229,30 @@
               <item name="activities" type="462c0819:PsiDirectoryNode" />
               <item name="bills" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -246,15 +265,16 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/pages/activities/bills" />
       <recent name="$PROJECT_DIR$/src/images" />
       <recent name="$PROJECT_DIR$/src/pages/activities" />
       <recent name="$PROJECT_DIR$/src/pages/users" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/pages/activities" />
@@ -283,12 +303,24 @@
       <option name="presentableId" value="Default" />
       <updated>1551599835166</updated>
       <workItem from="1551599836413" duration="20089000" />
-      <workItem from="1551881905065" duration="2431000" />
+      <workItem from="1551881905065" duration="2853000" />
+      <workItem from="1551959959419" duration="5383000" />
+      <workItem from="1552041522495" duration="19146000" />
+      <workItem from="1552129994724" duration="7954000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22520000" />
+    <option name="totallyTimeSpent" value="55425000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -296,7 +328,7 @@
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.2532189" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.2639485" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32891566" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -309,7 +341,7 @@
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="bottom" id="TODO" order="11" weight="0.32891566" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -360,13 +392,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/users/me.wpy">
+    <entry file="file://$PROJECT_DIR$/src/images/icon_add_selected.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/images/icon_add.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        <state relative-caret-position="177">
+          <caret line="1155" column="4" selection-start-line="1155" selection-start-column="4" selection-end-line="1155" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es2015.core.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/activities/bills/management.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2535">
+          <caret line="170" column="10" selection-start-line="170" selection-start-column="10" selection-end-line="170" selection-end-column="10" />
           <folding>
-            <element signature="n#style#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#image#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#text#0;n#view#0;n#view#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#text#0;n#view#0;n#view#0;n#view#1;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#view#1;n#view#2;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#view#2;n#view#2;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#0;n#view#0;n#view#0;n#view#1;n#view#3;n#view#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/activities/management.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1425">
+          <caret line="132" column="25" selection-start-line="132" selection-start-column="25" selection-end-line="132" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#view#0;n#view#0;n#template#0;n#!!top" />
+            <element signature="n#style#0;n#image#0;n#view#1;n#navigator#0;n#view#2;n#view#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -381,44 +448,98 @@
     <entry file="file://$PROJECT_DIR$/src/index.template.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app.wpy">
+    <entry file="file://$PROJECT_DIR$/src/utils/util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="35" />
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.config.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wepy.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/participantsChecker.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+          <folding>
+            <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#text#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#label#0;n#checkbox-group#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#image#0;n#view#1;n#label#0;n#checkbox-group#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/users/me.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="10" lean-forward="true" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#image#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/activities/index.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/activities/create_and_edit.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="93" column="11" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="93" selection-end-column="11" />
+        <state relative-caret-position="406">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
           <folding>
-            <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#view#0;n#view#0;n#template#0;n#!!top" />
-            <element signature="n#style#0;n#image#0;n#view#1;n#navigator#0;n#view#2;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#navigator#1;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#image#0;n#navigator#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/images/icon_add_selected.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/images/icon_add.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/src/pages/auth/login.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/activities/bills/index.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="80" column="74" selection-start-line="80" selection-start-column="74" selection-end-line="80" selection-end-column="74" />
+        <state relative-caret-position="336">
+          <caret line="81" column="45" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="45" />
           <folding>
             <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="79" column="18" lean-forward="true" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+          <folding>
+            <element signature="e#157#180#0" expanded="true" />
           </folding>
         </state>
       </provider>

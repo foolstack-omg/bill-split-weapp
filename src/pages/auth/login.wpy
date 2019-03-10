@@ -1,0 +1,47 @@
+<style lang="less">
+
+</style>
+<template>
+    <view >
+        <button style="position: absolute; left: 95px; top: 400px; width: 50%;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">授权登录</button>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Login extends wepy.page {
+    config = {
+      navigationBarTitleText: '授权登录'
+    }
+    components = {
+
+    }
+
+    mixins = []
+
+    data = {
+
+    }
+
+    computed = {
+    }
+
+    methods = {
+      agreeGetUser(e) {
+        console.log(e)
+        if (!e.detail.userInfo) {
+          console.log('拒绝了授权')
+        } else {
+          console.log('同意了授权')
+        }
+      }
+    }
+
+    events = {
+    }
+
+    onLoad() {
+
+    }
+  }
+</script>

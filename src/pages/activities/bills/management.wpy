@@ -1,0 +1,179 @@
+<style lang="less">
+  .section{
+    background-color: white;
+    border: 1px solid #f0f0f0;
+    border-left: none;
+    border-right: none;
+    margin: 10px 0;
+
+  }
+  .section:first-child{
+    border-top: none;
+  }
+
+  .weui-cell__bd.action{
+    text-align: center;
+  }
+  .weui-cell__bd.action.warning{
+    color: #ff3536;
+  }
+</style>
+<template class="bg">
+  <view >
+    <view class="section weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">标题<text style="color: red;">（*）</text></view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入账单标题"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">金额<text style="color: red;">（*）</text></view>
+        </view>
+        <view class="weui-cell__bd">
+          <input type="digit" class="weui-input" placeholder="请输入账单金额"/>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="section weui-panel weui-panel_access">
+      <view class="weui-panel__hd">参与人员
+        <image bindtap="showChecker" style="width: 20px; height: 20px; vertical-align: middle; position: relative; top: -1px; margin-left: 10px;" src="/images/icon_add.png"></image>
+      </view>
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_appmsg">
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <image class="weui-media-box__thumb" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg"/>
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg clear-fix">
+            <view class="weui-media-box__title">
+              Leemeen
+              <icon style="float: right;" type="cancel" size="24px" bindtap="addItem"></icon>
+            </view>
+            <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
+              需支付：<input type="digit" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
+            </view>
+            <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
+              自动计算：<switch checked="false" style="margin-right: 10px;"></switch>
+              已支付：<switch checked="false" style="margin-right: 10px;"></switch>
+            </view>
+
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="section weui-cells weui-cells_after-title">
+      <view class="weui-cells__title">项（可选填）</view>
+      <view class="weui-cell">
+        <input type="text" placeholder="名称" />
+        <input style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
+        <icon type="success_no_circle" size="24px" bindtap="addItem"></icon>
+      </view>
+      <view class="weui-cell">
+        <input type="text" placeholder="名称" />
+        <input style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
+        <icon type="cancel" size="24px" bindtap="addItem"></icon>
+      </view>
+    </view>
+
+    <view class="section weui-cells weui-cells_after-title">
+      <view class="weui-cells__title">账单描述（可选填）</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="" style="height: 3.3rem;"></textarea>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section weui-cells weui-cells_after-title">
+      <view class="weui-cell" hover-class="weui-cell_active" bindtap="save">
+        <view class="weui-cell__bd action">
+          保存
+        </view>
+      </view>
+      <view class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
+        <view class="weui-cell__bd action warning" >
+          删除并退出
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <participants-checker :syncShow.sync="showChecker" :syncData.sync="participants" @finished.user="onCheckerFinished"></participants-checker>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import participantsChecker from '@/components/participantsChecker'
+
+  export default class Management extends wepy.page {
+    config = {
+      navigationBarTitleText: '账单管理'
+    }
+    components = {
+      'participants-checker': participantsChecker
+    }
+
+    mixins = []
+
+    data = {
+      participants: [
+        {value: 1, checked: false, name: 'Leemeen', url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg'},
+        {value: 2, checked: false, name: 'Stefan', url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg'}
+      ],
+      showChecker: false
+    }
+
+    computed = {
+    }
+    methods = {
+      addItem() {
+        wx.confirm('添加')
+      },
+      save() {
+        wx.showActionSheet({
+          itemList: ['确定'],
+          itemColor: '#ff3536',
+          success(res) {
+            console.log(res.tapIndex)
+          },
+          fail(res) {
+            console.log(res.errMsg)
+          }
+        })
+      },
+      exit() {
+        wx.showActionSheet({
+          itemList: ['确定'],
+          itemColor: '#ff3536',
+          success(res) {
+            console.log(res.tapIndex)
+          },
+          fail(res) {
+            console.log(res.errMsg)
+          }
+        })
+      },
+      onCheckerFinished(detail) {
+        console.log(detail)
+      },
+      showChecker() {
+        this.participants.forEach(item => {
+          item.checked = false
+        })
+        this.showChecker = true
+      }
+    }
+
+    events = {
+    }
+  }
+</script>

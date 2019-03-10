@@ -17,13 +17,15 @@
   "author": "liuxiaofeng <13602490352@163.com>",
   "license": "MIT",
   "dependencies": {
+    "moment": "^2.24.0",
+    "promise-polyfill": "^8.1.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-promise": "^0.5.3",
-    "wepy-redux": "^1.5.3",
     "wepy": "^1.6.0",
     "wepy-async-function": "^1.4.4",
-    "wepy-com-toast": "^1.0.2"
+    "wepy-com-toast": "^1.0.2",
+    "wepy-redux": "^1.5.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",

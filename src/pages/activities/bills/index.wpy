@@ -48,7 +48,7 @@
   <view>
 
     <view class="page__bd_spacing bg" style="padding-bottom: 75px;">
-      <navigator url="/pages/activities/bills/manage">
+      <navigator url="/pages/activities/bills/management">
         <view class="bill clear-fix">
           <image class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg"></image>
           <view class="top">
@@ -62,7 +62,7 @@
           </view>
         </view>
       </navigator>
-      <navigator url="/pages/activities/bills/manage">
+      <navigator url="/pages/activities/bills/management">
         <view class="bill clear-fix">
           <image class="avatar" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3416619482,205295272&fm=27&gp=0.jpg"></image>
           <view class="top">
