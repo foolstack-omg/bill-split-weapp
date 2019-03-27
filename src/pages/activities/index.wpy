@@ -45,26 +45,26 @@
 </style>
 <template>
   <view class="page__bd_spacing bg">
-
+    <repeat for="{{ activities }}" wx:key="id" index="index" item="activity">
       <view class="activity clear-fix">
-        <navigator url="/pages/activities/bills/index">
-          <image class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
+        <navigator url="/pages/activities/bills/index?id={{ activity.id }}">
+          <image class="avatar" src="{{ activity.user.avatar_url}}"></image>
           <view class="top">
             <view class="clear-fix">
-              <text class="title">暴走小分队</text>
-              <text class="date">2019/2/25</text>
+              <text class="title">{{ activity.name }}</text>
+              <text class="date">{{ activity.created_at }}</text>
             </view>
             <view class="content">
-              <text >需支付：100.2</text><text class="unpaid">未支付：50</text>
+              <text >需支付：{{ activity.split_sum }}</text><text class="unpaid">未支付：{{ activity.unpaid_sum }}</text>
             </view>
           </view>
         </navigator>
-        <navigator url="/pages/activities/management">
+        <navigator url="/pages/activities/management?id={{ activity.id }}">
             <button style="position: absolute; right: 5px; bottom: 5px;" class="weui-btn mini-btn" type="primary" size="mini">管理</button>
         </navigator>
 
       </view>
-
+    </repeat>
   </view>
   <navigator url="/pages/activities/management">
     <image style="width: 60px; height: 60px; display: inline-block; position: fixed; bottom: 10px; left: 157px;" src="/images/icon_add_selected.png"></image>
@@ -74,10 +74,12 @@
 
 <script>
   import wepy from 'wepy'
+  import api from '@/utils/api'
 
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: '活动'
+      navigationBarTitleText: '活动',
+      enablePullDownRefresh: true
     }
     components = {
     }
@@ -85,6 +87,7 @@
     mixins = []
 
     data = {
+      activities: []
     }
 
     computed = {
@@ -97,7 +100,34 @@
     }
 
     async onLoad() {
+      await this.$parent.getCurrentUser()
+      await this.reload()
+    }
 
+    async onPullDownRefresh() {
+      // 调用组件的 reload 方法
+      await this.reload()
+      wepy.stopPullDownRefresh()
+    }
+
+    async reload() {
+      try {
+        // 请求接口，传入参数
+        let response = await api.authRequest({
+          url: 'activities?include=user'
+        })
+
+        if (response.statusCode === 200) {
+          this.activities = response.data.data
+          this.$apply()
+        }
+      } catch (err) {
+        console.log(err)
+        wepy.showModal({
+          title: '提示',
+          content: '服务器错误，请联系管理员'
+        })
+      }
     }
   }
 </script>

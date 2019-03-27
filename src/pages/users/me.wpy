@@ -7,9 +7,9 @@
   <view class="bg">
     <view class="profile">
       <view style="margin-top: 40px; margin-bottom: 10px;">
-        <image style="width: 100px; height: 100px; border-radius: 100%; border: 1px solid" src="{{ user.avatarUrl }}"></image>
+        <image style="width: 100px; height: 100px; border-radius: 100%; border: 1px solid" src="{{ user.avatar_url }}"></image>
       </view>
-      <text>{{ user.nickName }}</text>
+      <text>{{ user.name }}</text>
       <view>坚持一下！每天都会有新的打击！</view>
     </view>
 
@@ -42,7 +42,7 @@
     }
 
     async onLoad() {
-      this.user = await this.$parent.getUserInfo()
+      this.user = await this.$parent.getCurrentUser()
       console.log(this.user)
     }
   }

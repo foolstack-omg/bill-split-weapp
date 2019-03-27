@@ -82,9 +82,16 @@ const login = async (params = {}) => {
 
     // 登录成功，记录 token 信息
   if (authResponse.statusCode === 201) {
-    wepy.setStorageSync('user', params)
     wepy.setStorageSync('access_token', authResponse.data.access_token)
     wepy.setStorageSync('access_token_expired_at', new Date().getTime() + authResponse.data.expires_in * 1000)
+
+    let response = await authRequest({
+      url: 'user'
+    })
+    if (response.statusCode === 200) {
+      params.id = response.data.id
+      wepy.setStorageSync('user', params)
+    }
   }
 
   return authResponse

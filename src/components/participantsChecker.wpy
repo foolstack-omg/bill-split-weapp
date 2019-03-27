@@ -11,14 +11,14 @@
         <view style="padding-top: 60px;" class="weui-cells weui-cells_after-title">
             <checkbox-group bindchange="checkboxChange">
                 <label class="weui-cell weui-check__label" wx:for="{{syncData}}" wx:key="value">
-                    <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+                    <checkbox class="weui-check" value="{{item.id}}" checked="{{item.checked}}"/>
 
                     <view class="weui-cell__hd weui-check__hd_in-checkbox">
                         <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"/>
                         <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"/>
                     </view>
                     <view class="weui-cell__bd" style="display: flex; align-items: center;">
-                        <image src="{{item.url}}" style="width: 40px; height: 40px; border-radius: 100%; margin-right: 5px;" />{{item.name}}
+                        <image src="{{item.avatar_url}}" style="width: 40px; height: 40px; border-radius: 100%; margin-right: 5px;" />{{item.name}}
                     </view>
                 </label>
             </checkbox-group>
@@ -43,15 +43,13 @@
       syncData: {
         type: Array,
         default: []
-      },
-      // 父页面传入，请求url
-      syncUrl: {
-        type: String,
-        default: 'topics'
       }
     }
     close() {
       this.syncShow = false
+      this.syncData.forEach(item => {
+        item.checked = false
+      })
       this.selectedData = []
     }
     methods = {
@@ -60,8 +58,8 @@
         console.log(this.syncData)
         this.syncData.forEach(item => {
           console.log(e.detail.value)
-          if (e.detail.value.includes(item.value.toString())) {
-            if (this.selectedData.findIndex(selectedItem => selectedItem.value === item.value) === -1) {
+          if (e.detail.value.includes(item.id.toString())) {
+            if (this.selectedData.findIndex(selectedItem => selectedItem.id === item.id) === -1) {
               item.checked = true
               this.selectedData.push(item)
               console.log('插入了数据：')
@@ -69,12 +67,12 @@
               console.log(this.selectedData)
             }
           } else {
-            console.log('需要删除的索引：' + this.selectedData.findIndex(selectedItem => selectedItem.value === item.value))
-            if (this.selectedData.findIndex(selectedItem => selectedItem.value === item.value) !== -1) {
+            console.log('需要删除的索引：' + this.selectedData.findIndex(selectedItem => selectedItem.id === item.id))
+            if (this.selectedData.findIndex(selectedItem => selectedItem.id === item.id) !== -1) {
               item.checked = false
               console.log('改变前：')
               console.log(this.selectedData)
-              this.selectedData.splice(this.selectedData.findIndex(selectedItem => selectedItem.value === item.value), 1)
+              this.selectedData.splice(this.selectedData.findIndex(selectedItem => selectedItem.id === item.id), 1)
               console.log('改变后：')
               console.log(this.selectedData)
             }

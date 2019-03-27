@@ -26,7 +26,7 @@
           <view class="weui-label">标题<text style="color: red;">（*）</text></view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入账单标题"/>
+          <input disabled="{{ !editable }}" class="weui-input" placeholder="请输入账单标题" value="{{ bill.title }}" @input="bindTitle()"/>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -34,7 +34,7 @@
           <view class="weui-label">金额<text style="color: red;">（*）</text></view>
         </view>
         <view class="weui-cell__bd">
-          <input type="digit" class="weui-input" placeholder="请输入账单金额"/>
+          <input disabled="{{ !editable }}" type="digit" class="weui-input" placeholder="请输入账单金额"  value="{{ bill.money }}" @input="bindMoney"/>
         </view>
       </view>
 
@@ -42,44 +42,50 @@
 
     <view class="section weui-panel weui-panel_access">
       <view class="weui-panel__hd">参与人员
-        <image bindtap="showChecker" style="width: 20px; height: 20px; vertical-align: middle; position: relative; top: -1px; margin-left: 10px;" src="/images/icon_add.png"></image>
+        <image wx:if="{{ editable }}" bindtap="showChecker" style="width: 20px; height: 20px; vertical-align: middle; position: relative; top: -1px; margin-left: 10px;" src="/images/icon_add.png"></image>
       </view>
       <view class="weui-panel__bd">
-        <view class="weui-media-box weui-media-box_appmsg">
-          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg"/>
-          </view>
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg clear-fix">
-            <view class="weui-media-box__title">
-              Leemeen
-              <icon style="float: right;" type="cancel" size="24px" bindtap="addItem"></icon>
+        <repeat for="{{ bill.participants.data }}" index="index" item="participant">
+          <view class="weui-media-box weui-media-box_appmsg">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="{{ participant.user.avatar_url }}"/>
             </view>
-            <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
-              需支付：<input type="digit" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
-            </view>
-            <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
-              自动计算：<switch checked="false" style="margin-right: 10px;"></switch>
-              已支付：<switch checked="false" style="margin-right: 10px;"></switch>
-            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg clear-fix">
+              <view class="weui-media-box__title">
+                {{ participant.user.name }}
+                <icon wx:if="{{ isOwner }}" style="float: right;" type="cancel" size="24px" bindtap="removeParticipant"></icon>
+              </view>
+              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
+                需支付：<input disabled="{{ !editable || !participant.fixed }}" type="digit" value="{{ participant.split_money }}" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
+              </view>
+              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
+                自动计算：<switch disabled="{{ !editable }}" checked="{{ !participant.fixed }}" style="margin-right: 10px;"></switch>
+                已支付：<switch disabled="{{ !editable }}" checked="{{ participant.paid }}" style="margin-right: 10px;"></switch>
+              </view>
 
+            </view>
           </view>
-        </view>
+        </repeat>
+
 
       </view>
     </view>
 
     <view class="section weui-cells weui-cells_after-title">
       <view class="weui-cells__title">项（可选填）</view>
-      <view class="weui-cell">
-        <input type="text" placeholder="名称" />
-        <input style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
-        <icon type="success_no_circle" size="24px" bindtap="addItem"></icon>
+      <view wx:if="{{ editable }}" class="weui-cell">
+        <input disabled="{{ !editable }}" value="{{ itemTitle }}" @input="bindItemTitle" type="text" placeholder="名称" />
+        <input disabled="{{ !editable }}" value="{{ itemMoney }}" @input="bindItemMoney" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
+        <icon type="success_no_circle" size="24px" @tap="addItem()"></icon>
       </view>
-      <view class="weui-cell">
-        <input type="text" placeholder="名称" />
-        <input style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
-        <icon type="cancel" size="24px" bindtap="addItem"></icon>
-      </view>
+      <repeat for="{{ bill.items.data }}" index="index" item="item">
+        <view class="weui-cell">
+          <input disabled="{{ !editable }}" value="{{ item.title }}" type="text" placeholder="名称" />
+          <input disabled="{{ !editable }}" value="{{ item.money }}" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
+          <icon wx:if="{{ editable }}" type="cancel" size="24px" @tap="removeItem({{ index }})"></icon>
+        </view>
+      </repeat>
+
     </view>
 
     <view class="section weui-cells weui-cells_after-title">
@@ -87,32 +93,36 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder="" style="height: 3.3rem;"></textarea>
+            <textarea disabled="{{ !editable }}" @input="bindDescription" class="weui-textarea" placeholder="" style="height: 3.3rem;">
+              {{ bill.description }}
+            </textarea>
           </view>
         </view>
       </view>
     </view>
 
-    <view class="section weui-cells weui-cells_after-title">
+    <view wx:if="{{ editable }}" class="section weui-cells weui-cells_after-title">
       <view class="weui-cell" hover-class="weui-cell_active" bindtap="save">
         <view class="weui-cell__bd action">
-          保存
+          保存账单
         </view>
       </view>
-      <view class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
+      <view wx:if="{{ isOwner }}" class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
         <view class="weui-cell__bd action warning" >
-          删除并退出
+          删除账单
         </view>
       </view>
     </view>
   </view>
 
-  <participants-checker :syncShow.sync="showChecker" :syncData.sync="participants" @finished.user="onCheckerFinished"></participants-checker>
+  <participants-checker :syncShow.sync="showChecker" :syncData.sync="otherParticipants" @finished.user="onCheckerFinished"></participants-checker>
 </template>
 
 <script>
   import wepy from 'wepy'
   import participantsChecker from '@/components/participantsChecker'
+  import api from '@/utils/api'
+  let Decimal = require('decimal')
 
   export default class Management extends wepy.page {
     config = {
@@ -125,18 +135,90 @@
     mixins = []
 
     data = {
-      participants: [
-        {value: 1, checked: false, name: 'Leemeen', url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg'},
-        {value: 2, checked: false, name: 'Stefan', url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg'}
-      ],
+      itemTitle: '',
+      itemMoney: '',
+      user: {},
+      bill: {
+        activity_id: null,
+        items: {
+          data: []
+        },
+        participants: {
+          data: []
+        }
+      },
+      activityParticipants: [],
       showChecker: false
     }
 
     computed = {
+      otherParticipants() {
+        let otherParticipants = []
+        if (this.bill && this.bill.participants) {
+          this.activityParticipants.forEach((item) => {
+            if (this.bill.participants.data.findIndex(selectedItem => selectedItem.user_id === item.id) === -1) {
+              otherParticipants.push(item)
+            }
+          })
+        }
+        return otherParticipants
+      },
+      isOwner() {
+        return this.bill.user_id === this.user.id
+      },
+      editable() {
+        return !this.bill.id || this.user.id === this.bill.user_id
+      }
     }
     methods = {
+      bindTitle(e) {
+        this.bill.title = e.detail.value
+      },
+      bindMoney(e) {
+        if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
+          return this.bill.money
+        }
+        let money = Number.parseFloat(e.detail.value)
+        if (Number.isNaN(money)) {
+          return this.bill.money
+        }
+        this.bill.money = money
+        this.reCaculateBill()
+      },
+      bindDescription(e) {
+        this.bill.description = e.detail.value
+      },
+      bindItemTitle(e) {
+        console.log(e)
+        this.itemTitle = e.detail.value
+      },
+      bindItemMoney(e) {
+        if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
+          return this.itemMoney
+        }
+        let money = Number.parseFloat(e.detail.value)
+        if (Number.isNaN(money)) {
+          return this.itemMoney
+        }
+        this.itemMoney = money
+      },
       addItem() {
-        wx.confirm('添加')
+        console.log(this.itemMoney)
+        console.log(this.itemTitle)
+        let money = Number.parseFloat(this.itemMoney)
+        if (Number.isNaN(money)) {
+          return false
+        }
+        this.itemMoney = money.toFixed(2)
+        console.log(this.itemMoney)
+        if (this.itemTitle.length === 0) {
+          return false
+        }
+        this.bill.items.data.unshift({title: this.itemTitle, money: this.itemMoney})
+      },
+      removeItem(index) {
+        console.log(index)
+        this.bill.items.data.splice(index, 1)
       },
       save() {
         wx.showActionSheet({
@@ -165,11 +247,88 @@
       onCheckerFinished(detail) {
         console.log(detail)
       },
-      showChecker() {
-        this.participants.forEach(item => {
-          item.checked = false
-        })
+      async showChecker() {
+        // 加载参与成员数据
+        await this.loadParticipants(this.bill.activity_id)
         this.showChecker = true
+        this.$apply()
+      }
+    }
+    async onLoad(options) {
+      this.user = await this.$parent.getCurrentUser()
+      this.bill.activity_id = options.activity_id
+      if (options.id) {
+        try {
+          // 请求接口，传入参数
+          let response = await api.authRequest({
+            url: 'bills/' + options.id + '?include=items,participants.user'
+          })
+
+          if (response.statusCode === 200) {
+            this.bill = response.data
+            this.$apply()
+          }
+        } catch (err) {
+          console.log(err)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+      }
+      // 加载参与成员数据
+      await this.loadParticipants(options.activity_id)
+    }
+    async loadParticipants(activityId) {
+      try {
+        let response = await api.authRequest({
+          url: 'activities/' + activityId + '/participants'
+        })
+        if (response.statusCode === 200) {
+          this.activityParticipants = response.data.data
+          this.$apply()
+        }
+      } catch (err) {
+        console.log(err)
+        wepy.showModal({
+          title: '提示',
+          content: '服务器错误，请联系管理员'
+        })
+      }
+    }
+    // TODO 继续用Decimal优化计算
+    reCaculateBill() {
+      let remainMoney = Number.parseFloat(this.bill.money)
+      if (Number.isNaN(remainMoney)) {
+        return false
+      }
+      console.log('Remain Money:' + remainMoney)
+      let splitCount = 0
+      this.bill.participants.data.forEach(item => {
+        if (item.fixed) {
+          console.log('Item Split Money:' + item.split_money)
+          remainMoney = Decimal(remainMoney).sub(item.split_money).toNumber()
+        } else {
+          splitCount += 1
+        }
+      })
+      if (splitCount > 0) {
+        console.log('Floor:' + remainMoney)
+        let splitMoney = Math.floor(remainMoney * 100) / 100
+        console.log('Split Count:' + splitCount)
+        console.log('Split Money:' + splitMoney)
+        let lastOneSplitMoney = remainMoney - splitMoney * (splitCount - 1)
+        console.log('Last One Split Money:' + lastOneSplitMoney)
+        this.bill.participants.data.forEach(item => {
+          if (!item.fixed) {
+            if (remainMoney === lastOneSplitMoney) {
+              item.split_money = splitMoney
+            } else {
+              item.split_money = splitMoney
+              remainMoney -= splitMoney
+            }
+          }
+        })
       }
     }
 

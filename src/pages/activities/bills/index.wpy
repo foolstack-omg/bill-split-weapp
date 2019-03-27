@@ -48,40 +48,30 @@
   <view>
 
     <view class="page__bd_spacing bg" style="padding-bottom: 75px;">
-      <navigator url="/pages/activities/bills/management">
-        <view class="bill clear-fix">
-          <image class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2364321716,3202099899&fm=27&gp=0.jpg"></image>
-          <view class="top">
-            <view class="clear-fix">
-              <text class="title">魅力宝贝</text>
-              <text class="date">2019/3/1 20:30</text>
-            </view>
-            <view class="content">
-              <text >需支付：100.2</text><text class="unpaid">未支付：100.2</text>
-            </view>
-          </view>
-        </view>
-      </navigator>
-      <navigator url="/pages/activities/bills/management">
-        <view class="bill clear-fix">
-          <image class="avatar" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3416619482,205295272&fm=27&gp=0.jpg"></image>
-          <view class="top">
-            <view class="clear-fix">
-              <text class="title">马杀鸡</text>
-              <text class="date">2019/3/1 23:00</text>
-            </view>
-            <view class="content">
-              <text >需支付：2000</text><text class="unpaid">未支付：2000</text>
+      <repeat for="{{ bills }}" index="index" item="item">
+        <navigator url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">
+          <view class="bill clear-fix">
+            <image class="avatar" src="{{ item.user.avatar_url }}"></image>
+            <view class="top">
+              <view class="clear-fix">
+                <text class="title">{{ item.title }}</text>
+                <text class="date">{{ item.created_at }}</text>
+              </view>
+              <view class="content">
+                <text >需支付：{{ item.split_money }}</text><text class="unpaid">未支付：{{ item.unpaid_money }}</text>
+              </view>
             </view>
           </view>
-        </view>
-      </navigator>
+        </navigator>
+      </repeat>
 
     </view>
     <view class="page__bd_spacing" style="position: fixed; bottom: 15px; width: 345px; ">
-      <button class="weui-btn" type="primary" >
-        创建新的账单
-      </button>
+      <navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">
+        <button class="weui-btn" type="primary" >
+          创建新的账单
+        </button>
+      </navigator>
     </view>
 
   </view>
@@ -91,10 +81,12 @@
 
 <script>
   import wepy from 'wepy'
+  import api from '@/utils/api'
 
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: '活动账单'
+      navigationBarTitleText: '活动账单',
+      enablePullDownRefresh: true
     }
     components = {
     }
@@ -102,6 +94,8 @@
     mixins = []
 
     data = {
+      activityId: null,
+      bills: []
     }
 
     computed = {
@@ -113,7 +107,35 @@
     events = {
     }
 
-    onLoad() {
+    async onLoad(options) {
+      this.activityId = options.id
+      await this.reload()
+    }
+
+    async onPullDownRefresh() {
+      // 调用组件的 reload 方法
+      await this.reload()
+      wepy.stopPullDownRefresh()
+    }
+
+    async reload() {
+      try {
+        // 请求接口，传入参数
+        let response = await api.authRequest({
+          url: 'activities/' + this.activityId + '/bills?include=user'
+        })
+
+        if (response.statusCode === 200) {
+          this.bills = response.data.data
+          this.$apply()
+        }
+      } catch (err) {
+        console.log(err)
+        wepy.showModal({
+          title: '提示',
+          content: '服务器错误，请联系管理员'
+        })
+      }
     }
   }
 </script>

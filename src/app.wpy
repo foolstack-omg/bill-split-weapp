@@ -61,7 +61,6 @@ export default class extends wepy.app {
   }
 
   async onLaunch() {
-    await this.getCurrentUser()
   }
 
   // 获取当前登录用户信息

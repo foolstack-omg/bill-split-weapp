@@ -43,6 +43,9 @@
       font-size: 12px;
       display: block;
       margin: 5px 0;
+      text-overflow: ellipsis;
+      white-space:nowrap;
+      overflow: hidden;
     }
   }
   .weui-cell__bd.action{
@@ -55,36 +58,18 @@
 <template class="bg">
   <view >
     <view class="section clear-fix" style="padding: 10px;">
-      <view class="portrait portrait_wrap">
-        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
-        <text class="nickname">Leemeen</text>
-      </view>
-      <view class="portrait portrait_wrap">
-        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
-        <text class="nickname">Leemeen</text>
-      </view>
-      <view class="portrait portrait_wrap">
-        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
-        <text class="nickname">Leemeen</text>
-      </view>
-      <view class="portrait portrait_wrap">
-        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
-        <text class="nickname">Leemeen</text>
-      </view>
-      <view class="portrait portrait_wrap">
-        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
-        <text class="nickname">Leemeen</text>
-      </view>
-      <view class="portrait portrait_wrap">
-        <image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=875239434,2605706687&fm=26&gp=0.jpg"></image>
-        <text class="nickname">Leemeen</text>
-      </view>
+      <repeat for="{{ participants }}" wx:key="id" index="index" item="user">
+        <view class="portrait portrait_wrap">
+          <image src="{{ user.avatar_url }}"></image>
+          <text class="nickname">{{index}} - {{ user.name }}</text>
+        </view>
+      </repeat>
       <view class="portrait portrait_wrap">
         <view class="action-wrapper">
           <image src="/images/icon_m_add.png"></image>
         </view>
       </view>
-      <view class="portrait portrait_wrap">
+      <view wx:if="{{ activity.id && user.id === activity.user_id }}" @tap="removeParticipants" class="portrait portrait_wrap">
         <view class="action-wrapper">
           <image src="/images/icon_m_minus.png"></image>
         </view>
@@ -99,7 +84,7 @@
           <view class="weui-label">活动名称</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入活动名称"/>
+          <input class="weui-input" value="{{ activity.name }}" @input="bindActivityName" placeholder="请输入活动名称"/>
         </view>
       </view>
     </view>
@@ -113,13 +98,13 @@
       </navigator>
     </view>
 
-    <view class="section weui-cells weui-cells_after-title">
-      <view class="weui-cell" hover-class="weui-cell_active" bindtap="save">
+    <view  class="section weui-cells weui-cells_after-title">
+      <view wx:if="{{ !activity.id || user.id === activity.user_id }}"  class="weui-cell" hover-class="weui-cell_active" bindtap="save">
         <view class="weui-cell__bd action">
           保存
         </view>
       </view>
-      <view class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
+      <view wx:if="{{ activity.id && user.id === activity.user_id }}" class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
         <view class="weui-cell__bd action warning" >
           删除并退出
         </view>
@@ -127,33 +112,78 @@
     </view>
   </view>
 
+  <participants-checker :syncShow.sync="showChecker" :syncData.sync="removeAbleParticipants" @finished.user="onCheckerFinished"></participants-checker>
+
 </template>
 
 <script>
   import wepy from 'wepy'
+  import api from '@/utils/api'
+  import participantsChecker from '@/components/participantsChecker'
 
   export default class Management extends wepy.page {
     config = {
       navigationBarTitleText: '活动管理'
     }
     components = {
+      'participants-checker': participantsChecker
     }
 
     mixins = []
 
     data = {
+      user: null,
+      activity: {},
+      participants: [],
+      showChecker: false
     }
 
     computed = {
+      removeAbleParticipants() {
+        let removeAbleParticipants = []
+        this.participants.forEach(item => {
+          if (item.id !== this.user.id) {
+            removeAbleParticipants.push(item)
+          }
+        })
+        return removeAbleParticipants
+      }
     }
 
     methods = {
+      bindActivityName(e) {
+        console.log(e)
+        this.activity.name = e.detail.value
+        console.log(this.activity.name)
+      },
       save() {
+        let that = this
         wx.showActionSheet({
           itemList: ['确定'],
           itemColor: '#ff3536',
-          success(res) {
+          async success(res) {
             console.log(res.tapIndex)
+            try {
+              let response = await api.authRequest({
+                method: 'POST',
+                url: 'activities/save/' + (that.activity.id ? that.activity.id : ''),
+                data: {
+                  name: that.activity.name
+                }
+              })
+              if (response.statusCode === 201) {
+                console.log('success')
+                wepy.reLaunch({
+                  url: '/pages/activities/index'
+                })
+              }
+            } catch (e) {
+              console.log(e)
+              wepy.showModal({
+                title: '提示',
+                content: '服务器错误，请联系管理员'
+              })
+            }
           },
           fail(res) {
             console.log(res.errMsg)
@@ -161,15 +191,112 @@
         })
       },
       exit() {
+        let that = this
         wx.showActionSheet({
           itemList: ['确定'],
           itemColor: '#ff3536',
-          success(res) {
+          async success(res) {
             console.log(res.tapIndex)
+            try {
+              let response = await api.authRequest({
+                method: 'DELETE',
+                url: 'activities/' + that.activity.id
+              })
+              if (response.statusCode === 204) {
+                console.log('success')
+                wepy.reLaunch({
+                  url: '/pages/activities/index'
+                })
+              }
+            } catch (e) {
+              console.log(e)
+              wepy.showModal({
+                title: '提示',
+                content: '服务器错误，请联系管理员'
+              })
+            }
           },
           fail(res) {
             console.log(res.errMsg)
           }
+        })
+      },
+      removeParticipants() {
+        this.showChecker = true
+      },
+      async onCheckerFinished(detail) {
+        console.log(detail.selected)
+        let selectedIds = []
+        detail.selected.forEach(item => {
+          selectedIds.push(item.id)
+        })
+        console.log(selectedIds)
+
+        try {
+          let response = await api.authRequest({
+            method: 'DELETE',
+            url: 'activities/' + this.activity.id + '/remove_participants',
+            data: {
+              user_ids: selectedIds
+            }
+          })
+          if (response.statusCode === 200) {
+            this.participants = response.data.data
+          }
+          this.$apply()
+        } catch (err) {
+          console.log(err)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+      }
+    }
+    async onLoad(options) {
+      this.user = await this.$parent.getCurrentUser()
+      console.log('user_id:' + this.user.id)
+
+      if (options.id) {
+        try {
+          // 请求接口，传入参数
+          let response = await api.authRequest({
+            url: 'activities/' + options.id + '?include=participatedUsers'
+          })
+
+          if (response.statusCode === 200) {
+            this.activity = response.data
+            this.$apply()
+            console.log('activty_id:' + this.activity.id)
+            console.log('activty_user_id:' + this.activity.user_id)
+            console.log(this.user.id === this.activity.user_id)
+            console.log(this.activity.id && this.user.id === this.activity.user_id)
+          }
+        } catch (err) {
+          console.log(err)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+        // 加载参与成员数据
+        await this.loadParticipants(options.id)
+      }
+    }
+
+    async loadParticipants(activityId) {
+      try {
+        let response = await api.authRequest({
+          url: 'activities/' + activityId + '/participants'
+        })
+        if (response.statusCode === 200) {
+          this.participants = response.data.data
+          this.$apply()
+        }
+      } catch (err) {
+        wepy.showModal({
+          title: '提示',
+          content: '服务器错误，请联系管理员'
         })
       }
     }
