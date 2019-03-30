@@ -56,11 +56,11 @@
                 <icon wx:if="{{ isOwner }}" style="float: right;" type="cancel" size="24px" bindtap="removeParticipant"></icon>
               </view>
               <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
-                需支付：<input disabled="{{ !editable || !participant.fixed }}" type="digit" value="{{ participant.split_money }}" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
+                需支付：<input disabled="{{ !editable || !participant.fixed }}" @input="bindSplitMoney({{ index }})" type="digit" value="{{ participant.split_money }}" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
               </view>
               <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
-                自动计算：<switch disabled="{{ !editable }}" checked="{{ !participant.fixed }}" style="margin-right: 10px;"></switch>
-                已支付：<switch disabled="{{ !editable }}" checked="{{ participant.paid }}" style="margin-right: 10px;"></switch>
+                自动计算：<switch disabled="{{ !editable }}" @change="bindFixed({{ index }})" checked="{{ !participant.fixed }}" style="margin-right: 10px;"></switch>
+                已支付：<switch disabled="{{ !editable }}" @change="bindPaid({{ index }})" checked="{{ participant.paid }}" style="margin-right: 10px;"></switch>
               </view>
 
             </view>
@@ -122,7 +122,8 @@
   import wepy from 'wepy'
   import participantsChecker from '@/components/participantsChecker'
   import api from '@/utils/api'
-  let Decimal = require('decimal')
+  import Decimal from 'decimal'
+  import {debounce} from 'debounce'
 
   export default class Management extends wepy.page {
     config = {
@@ -148,7 +149,9 @@
         }
       },
       activityParticipants: [],
-      showChecker: false
+      showChecker: false,
+      calculating: false,
+      _debounceReCalculate: null
     }
 
     computed = {
@@ -175,18 +178,66 @@
         this.bill.title = e.detail.value
       },
       bindMoney(e) {
-        if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
-          return this.bill.money
+        console.log(e.detail.value.length)
+        console.log(e.detail.value)
+        if (e.detail.value.length === 0) {
+          this.bill.money = 0
+          this.reCaculateBill()
+          return 0
+        } else {
+          if ((/^0[1-9]\d*$/.test(e.detail.value.toString()))) {
+            this.bill.money = Number.parseFloat(e.detail.value)
+            this.reCaculateBill()
+            return this.bill.money
+          }
+          let regex = /^(0|[1-9]\d*)(\.(\d){0,2})?$/
+          if (!regex.test(e.detail.value.toString())) {
+            return this.bill.money
+          }
+          let money = Number.parseFloat(e.detail.value)
+          if (Number.isNaN(money)) {
+            return this.bill.money
+          }
+          this.bill.money = money
+          this.reCaculateBill()
         }
-        let money = Number.parseFloat(e.detail.value)
-        if (Number.isNaN(money)) {
-          return this.bill.money
-        }
-        this.bill.money = money
-        this.reCaculateBill()
       },
       bindDescription(e) {
         this.bill.description = e.detail.value
+      },
+      bindSplitMoney(index, e) {
+        let participant = this.bill.participants.data[index]
+        if (e.detail.value.length === 0) {
+          participant.split_money = 0
+          this.reCaculateBill()
+          return participant.split_money
+        } else {
+          if ((/^0[1-9]\d*$/.test(e.detail.value.toString()))) {
+            participant.split_money = Number.parseFloat(e.detail.value)
+            this.reCaculateBill()
+            return participant.split_money
+          }
+          let regex = /^(0|[1-9]\d*)(\.(\d){0,2})?$/
+          if (!regex.test(e.detail.value.toString())) {
+            return participant.split_money
+          }
+          let money = Number.parseFloat(e.detail.value)
+          if (Number.isNaN(money)) {
+            return participant.split_money
+          }
+          participant.split_money = e.detail.value
+          console.log(this.bill.participants.data[index].split_money)
+          this.reCaculateBill()
+        }
+      },
+      bindFixed(index, e) {
+        let participant = this.bill.participants.data[index]
+        participant.fixed = !e.detail.value
+        this.reCaculateBill()
+      },
+      bindPaid(index, e) {
+        let participant = this.bill.participants.data[index]
+        participant.paid = e.detail.value
       },
       bindItemTitle(e) {
         console.log(e)
@@ -296,40 +347,55 @@
         })
       }
     }
-    // TODO 继续用Decimal优化计算
+
+    /**
+     * 重新计算分摊金额
+     * @returns {boolean}
+     */
     reCaculateBill() {
-      let remainMoney = Number.parseFloat(this.bill.money)
-      if (Number.isNaN(remainMoney)) {
-        return false
-      }
-      console.log('Remain Money:' + remainMoney)
-      let splitCount = 0
-      this.bill.participants.data.forEach(item => {
-        if (item.fixed) {
-          console.log('Item Split Money:' + item.split_money)
-          remainMoney = Decimal(remainMoney).sub(item.split_money).toNumber()
-        } else {
-          splitCount += 1
-        }
-      })
-      if (splitCount > 0) {
-        console.log('Floor:' + remainMoney)
-        let splitMoney = Math.floor(remainMoney * 100) / 100
-        console.log('Split Count:' + splitCount)
-        console.log('Split Money:' + splitMoney)
-        let lastOneSplitMoney = remainMoney - splitMoney * (splitCount - 1)
-        console.log('Last One Split Money:' + lastOneSplitMoney)
-        this.bill.participants.data.forEach(item => {
-          if (!item.fixed) {
-            if (remainMoney === lastOneSplitMoney) {
-              item.split_money = splitMoney
-            } else {
-              item.split_money = splitMoney
-              remainMoney -= splitMoney
-            }
+      this.calculating = true
+      if (this._debounceReCalculate === null) {
+        this._debounceReCalculate = debounce(() => {
+          let remainMoney = Number.parseFloat(this.bill.money)
+          if (Number.isNaN(remainMoney)) {
+            return false
           }
-        })
+          console.log('Remain Money:' + remainMoney)
+          let splitCount = 0
+          this.bill.participants.data.forEach(item => {
+            if (item.fixed) {
+              console.log('Item Split Money:' + item.split_money)
+              remainMoney = new Decimal(remainMoney).sub(item.split_money).toNumber()
+            } else {
+              splitCount += 1
+            }
+          })
+          if (splitCount > 0) {
+            console.log('Floor:' + remainMoney)
+            let splitMoney = new Decimal(Math.floor(remainMoney * 100 / splitCount)).div(100).toNumber()
+            console.log('Split Count:' + splitCount)
+            console.log('Split Money:' + splitMoney)
+            let lastOneSplitMoney = new Decimal(remainMoney).sub(new Decimal(splitMoney).mul(splitCount - 1).toNumber()).toNumber()
+            console.log('Last One Split Money:' + lastOneSplitMoney)
+            this.bill.participants.data.forEach(item => {
+              if (!item.fixed) {
+                if (remainMoney === lastOneSplitMoney) {
+                  item.split_money = lastOneSplitMoney
+                  console.log('last one:' + lastOneSplitMoney)
+                } else {
+                  item.split_money = splitMoney
+                  console.log('not last one:' + remainMoney)
+                }
+                remainMoney = new Decimal(remainMoney).sub(item.split_money).toNumber()
+              }
+            })
+          }
+          this.calculating = false
+          console.log('计算完毕')
+          this.$apply()
+        }, 500)
       }
+      this._debounceReCalculate()
     }
 
     events = {

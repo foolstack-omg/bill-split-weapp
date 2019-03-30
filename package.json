@@ -17,6 +17,7 @@
   "author": "liuxiaofeng <13602490352@163.com>",
   "license": "MIT",
   "dependencies": {
+    "debounce": "^1.2.0",
     "decimal": "0.0.2",
     "moment": "^2.24.0",
     "promise-polyfill": "^8.1.0",
