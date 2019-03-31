@@ -1,0 +1,47 @@
+<style lang="less">
+
+</style>
+<template>
+  <view style="text-align: center;position: relative; top: 140px;">
+    <image src="{{ url }}" style="width: 200px; height: 200px;"></image>
+  </view>
+  <view >
+    <button style="position: absolute; left: 95px; top: 400px; width: 50%;" @tap="save" class="weui-btn" type="primary">保存</button>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Code extends wepy.page {
+    config = {
+      navigationBarTitleText: '活动小程序码'
+    }
+    components = {
+
+    }
+
+    mixins = []
+
+    data = {
+      url: null
+    }
+
+    computed = {
+    }
+    methods = {
+      save() {
+        wx.saveImageToPhotosAlbum({
+          filePath: this.url,
+          success(res) { }
+        })
+      }
+    }
+
+    events = {
+    }
+
+    onLoad(options) {
+      this.url = options.wx_a_code
+    }
+  }
+</script>

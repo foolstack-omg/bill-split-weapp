@@ -111,11 +111,39 @@
     events = {
     }
 
-    async onLoad() {
-      await this.$parent.getCurrentUser()
+    async onLoad(options) {
+      console.log(options)
+      let activityId = null
+      if (options.scene) {
+        const scene = decodeURIComponent(options.scene)
+        const params = scene.split(':')
+        activityId = params[1]
+        console.log(params[1])
+      }
+      if (options.to_activity_id) {
+        activityId = options.to_activity_id
+      }
+      if (activityId) {
+        try {
+          // 请求接口，传入参数
+          await api.authRequest({
+            url: `activities/${activityId}/participate`,
+            method: 'PUT'
+          })
+        } catch (err) {
+          console.log(err)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+      }
     }
     async onShow() {
-      await this.reload()
+      let user = await this.$parent.getCurrentUser()
+      if (user) {
+        await this.reload()
+      }
     }
 
     async onPullDownRefresh() {

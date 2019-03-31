@@ -54,6 +54,17 @@
   .weui-cell__bd.action.warning{
     color: #ff3536;
   }
+
+  button#invite{
+    margin:0;
+    padding:0;
+    background:white;
+    width:62px;
+    height:62px;
+  }
+  button#invite:after{
+    border:1px solid #f0f0f0;
+  }
 </style>
 <template class="bg">
   <view >
@@ -64,10 +75,11 @@
           <text class="nickname">{{index}} - {{ user.name }}</text>
         </view>
       </repeat>
+
       <view class="portrait portrait_wrap">
-        <view class="action-wrapper">
+        <button open-type="share" id="invite" class="action-wrapper">
           <image src="/images/icon_m_add.png"></image>
-        </view>
+        </button>
       </view>
       <view wx:if="{{ activity.id && user.id === activity.user_id }}" @tap="removeParticipants" class="portrait portrait_wrap">
         <view class="action-wrapper">
@@ -90,7 +102,7 @@
     </view>
 
     <view wx:if="{{activity.id}}" class="section weui-cells weui-cells_after-title">
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="/pages/activities/code?wx_a_code={{ activity.wx_a_code }}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">活动二维码</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">
           <image style="width: 25px; height: 25px; vertical-align: middle;" src="/images/icon_qrcode.png"></image>
@@ -276,6 +288,7 @@
       console.log('user_id:' + this.user.id)
 
       if (options.id) {
+        this.activity.id = options.id
         try {
           // 请求接口，传入参数
           let response = await api.authRequest({
@@ -319,6 +332,13 @@
       }
     }
 
+    onShareAppMessage(res) {
+      return {
+        title: this.activity.name,
+        path: '/pages/activities/index?to_activity_id=' + (this.activity.id ? this.activity.id : ''),
+        imageUrl: '/images/placeholders/4.jpg'
+      }
+    }
     events = {
     }
   }

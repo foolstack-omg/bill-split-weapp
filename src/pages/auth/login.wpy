@@ -2,12 +2,16 @@
 
 </style>
 <template>
+    <view style="text-align: center;position: relative; top: 140px;">
+        <image src="/images/placeholders/3.jpg" style="width: 200px; height: 200px;"></image>
+    </view>
     <view >
-        <button style="position: absolute; left: 95px; top: 400px; width: 50%;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">授权登录</button>
+        <button style="position: absolute; left: 95px; top: 400px; width: 50%;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">上车</button>
     </view>
 </template>
 <script>
   import wepy from 'wepy'
+  import api from '@/utils/api'
 
   export default class Login extends wepy.page {
     config = {
@@ -27,12 +31,14 @@
     }
 
     methods = {
-      agreeGetUser(e) {
+      async agreeGetUser(e) {
         console.log(e)
         if (!e.detail.userInfo) {
           console.log('拒绝了授权')
         } else {
           console.log('同意了授权')
+          await api.login()
+          wepy.navigateBack()
         }
       }
     }

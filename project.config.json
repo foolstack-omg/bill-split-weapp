@@ -12,5 +12,47 @@
 	"appid": "wxa9f86c634c79cd53",
 	"projectname": "bill-split-weapp",
 	"miniprogramRoot": "dist/",
-	"condition": {}
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "邀请成员",
+					"pathName": "pages/activities/index",
+					"query": "to_activity_id=9",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "扫描小程序码邀请成员",
+					"pathName": "pages/activities/index",
+					"query": "scene=activity_id:9",
+					"scene": 1047
+				},
+				{
+					"id": -1,
+					"name": "扫描小程序码邀请成员",
+					"pathName": "pages/activities/index",
+					"query": "scene=activity_id:9",
+					"scene": 1047
+				}
+			]
+		}
+	}
 }
