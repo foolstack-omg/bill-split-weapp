@@ -2,7 +2,7 @@
 @import "style/weui.less";
     .clear-fix{overflow:hidden;_zoom:1;}
     page{
-        background-color: #F8F8F8;
+        background-color: white;
     }
 </style>
 <script>
@@ -29,7 +29,7 @@ export default class extends wepy.app {
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#F8F8F8',
+      navigationBarBackgroundColor: 'white',
       navigationBarTitleText: '算账小能手',
       navigationBarTextStyle: 'black'
     },

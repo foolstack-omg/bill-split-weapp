@@ -1,7 +1,7 @@
 <style lang="less">
   .section{
     background-color: white;
-    border: 1px solid #f0f0f0;
+    border: 1px solid transparent;
     border-left: none;
     border-right: none;
     margin: 10px 0;
@@ -57,7 +57,7 @@
 </style>
 <template class="bg">
   <view >
-    <view class="section clear-fix" style="padding: 10px;">
+    <view wx:if="{{activity.id}}" class="section clear-fix" style="padding: 10px;">
       <repeat for="{{ participants }}" wx:key="id" index="index" item="user">
         <view class="portrait portrait_wrap">
           <image src="{{ user.avatar_url }}"></image>
@@ -84,21 +84,21 @@
           <view class="weui-label">活动名称</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" value="{{ activity.name }}" @input="bindActivityName" placeholder="请输入活动名称"/>
+          <input class="weui-input" disabled="{{ activity.id && user.id !== activity.user_id }}" value="{{ activity.name }}" @input="bindActivityName" placeholder="请输入活动名称"/>
         </view>
       </view>
     </view>
 
-    <view class="section weui-cells weui-cells_after-title">
+    <view wx:if="{{activity.id}}" class="section weui-cells weui-cells_after-title">
       <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">活动二维码</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">
-          <image style="width: 25px; height: 25px;" src="/images/icon_qrcode.png"></image>
+          <image style="width: 25px; height: 25px; vertical-align: middle;" src="/images/icon_qrcode.png"></image>
         </view>
       </navigator>
     </view>
 
-    <view  class="section weui-cells weui-cells_after-title">
+    <view wx:if="{{ !activity.id || (activity.id && user.id === activity.user_id) }}"  class="section weui-cells weui-cells_after-title">
       <view wx:if="{{ !activity.id || user.id === activity.user_id }}"  class="weui-cell" hover-class="weui-cell_active" bindtap="save">
         <view class="weui-cell__bd action">
           保存
@@ -133,7 +133,9 @@
 
     data = {
       user: null,
-      activity: {},
+      activity: {
+        name: ''
+      },
       participants: [],
       showChecker: false
     }
@@ -162,6 +164,22 @@
           itemList: ['确定'],
           itemColor: '#ff3536',
           async success(res) {
+            if (that.activity.name.length === 0) {
+              wepy.showToast({
+                title: '请输入活动名称',
+                icon: 'none',
+                duration: 1500
+              })
+              return
+            }
+            if (that.activity.name.length > 20) {
+              wepy.showToast({
+                title: '活动名称太长啦~',
+                icon: 'none',
+                duration: 1500
+              })
+              return
+            }
             console.log(res.tapIndex)
             try {
               let response = await api.authRequest({

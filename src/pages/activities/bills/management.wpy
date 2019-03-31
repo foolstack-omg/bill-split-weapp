@@ -1,7 +1,7 @@
 <style lang="less">
   .section{
     background-color: white;
-    border: 1px solid #f0f0f0;
+    border: 1px solid transparent;
     border-left: none;
     border-right: none;
     margin: 10px 0;
@@ -17,21 +17,24 @@
   .weui-cell__bd.action.warning{
     color: #ff3536;
   }
+  input[disabled]{
+    border: 1px solid transparent !important;
+  }
 </style>
 <template class="bg">
   <view >
     <view class="section weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">标题<text style="color: red;">（*）</text></view>
+          <view class="weui-label">账单描述</view>
         </view>
         <view class="weui-cell__bd">
-          <input disabled="{{ !editable }}" class="weui-input" placeholder="请输入账单标题" value="{{ bill.title }}" @input="bindTitle()"/>
+          <input disabled="{{ !editable }}" class="weui-input" placeholder="请输入账单标题" value="{{ bill.title }}" @input="bindTitle"/>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">金额<text style="color: red;">（*）</text></view>
+          <view class="weui-label">账单金额</view>
         </view>
         <view class="weui-cell__bd">
           <input disabled="{{ !editable }}" type="digit" class="weui-input" placeholder="请输入账单金额"  value="{{ bill.money }}" @input="bindMoney"/>
@@ -51,9 +54,9 @@
               <image class="weui-media-box__thumb" src="{{ participant.user.avatar_url }}"/>
             </view>
             <view class="weui-media-box__bd weui-media-box__bd_in-appmsg clear-fix">
-              <view class="weui-media-box__title">
+              <view class="weui-media-box__title" style="width: 238px;">
                 {{ participant.user.name }}
-                <icon wx:if="{{ isOwner }}" style="float: right;" type="cancel" size="24px" bindtap="removeParticipant"></icon>
+                <icon wx:if="{{ isOwner }}" style="float: right;" type="cancel" size="24px" @tap="removeParticipant({{ index }})"></icon>
               </view>
               <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
                 需支付：<input disabled="{{ !editable || !participant.fixed }}" @input="bindSplitMoney({{ index }})" type="digit" value="{{ participant.split_money }}" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
@@ -72,16 +75,16 @@
     </view>
 
     <view class="section weui-cells weui-cells_after-title">
-      <view class="weui-cells__title">项（可选填）</view>
+      <view class="weui-cells__title">具体事项（可选填）</view>
       <view wx:if="{{ editable }}" class="weui-cell">
-        <input disabled="{{ !editable }}" value="{{ itemTitle }}" @input="bindItemTitle" type="text" placeholder="名称" />
-        <input disabled="{{ !editable }}" value="{{ itemMoney }}" @input="bindItemMoney" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
+        <input disabled="{{ !editable }}" value="{{ itemTitle }}" @input="bindTempItemTitle" type="text" placeholder="名称" />
+        <input disabled="{{ !editable }}" value="{{ itemMoney }}" @input="bindTempItemMoney" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
         <icon type="success_no_circle" size="24px" @tap="addItem()"></icon>
       </view>
       <repeat for="{{ bill.items.data }}" index="index" item="item">
         <view class="weui-cell">
-          <input disabled="{{ !editable }}" value="{{ item.title }}" type="text" placeholder="名称" />
-          <input disabled="{{ !editable }}" value="{{ item.money }}" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
+          <input disabled="{{ !editable }}" value="{{ item.title }}" @input="bindItemTitle({{ index }})" type="text" placeholder="名称" />
+          <input disabled="{{ !editable }}" value="{{ item.money }}" @input="bindItemMoney({{ index }})" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
           <icon wx:if="{{ editable }}" type="cancel" size="24px" @tap="removeItem({{ index }})"></icon>
         </view>
       </repeat>
@@ -93,8 +96,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea disabled="{{ !editable }}" @input="bindDescription" class="weui-textarea" placeholder="" style="height: 3.3rem;">
-              {{ bill.description }}
+            <textarea disabled="{{ !editable }}" value="{{ bill.description }}" @input="bindDescription" class="weui-textarea" placeholder="" style="height: 50px;">
             </textarea>
           </view>
         </view>
@@ -140,6 +142,9 @@
       itemMoney: '',
       user: {},
       bill: {
+        title: '',
+        description: '',
+        money: 0,
         activity_id: null,
         items: {
           data: []
@@ -150,8 +155,7 @@
       },
       activityParticipants: [],
       showChecker: false,
-      calculating: false,
-      _debounceReCalculate: null
+      calculating: false
     }
 
     computed = {
@@ -239,11 +243,28 @@
         let participant = this.bill.participants.data[index]
         participant.paid = e.detail.value
       },
-      bindItemTitle(e) {
+      removeParticipant(index) {
+        this.bill.participants.data.splice(index, 1)
+        this.reCaculateBill()
+      },
+      async showChecker() {
+        // 加载参与成员数据
+        await this.loadParticipants(this.bill.activity_id)
+        this.showChecker = true
+        this.$apply()
+      },
+      onCheckerFinished(detail) {
+        console.log(detail)
+        detail.selected.forEach(item => {
+          this.bill.participants.data.unshift({user_id: item.id, fixed: 0, paid: 0, user: item})
+        })
+        this.reCaculateBill()
+      },
+      bindTempItemTitle(e) {
         console.log(e)
         this.itemTitle = e.detail.value
       },
-      bindItemMoney(e) {
+      bindTempItemMoney(e) {
         if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
           return this.itemMoney
         }
@@ -271,12 +292,48 @@
         console.log(index)
         this.bill.items.data.splice(index, 1)
       },
+      bindItemTitle(index, e) {
+        let item = this.bill.items.data[index]
+        item.title = e.detail.value
+      },
+      bindItemMoney(index, e) {
+        let item = this.bill.items.data[index]
+        if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
+          return item.money
+        }
+        let money = Number.parseFloat(e.detail.value)
+        if (Number.isNaN(money)) {
+          return item.money
+        }
+        item.money = money
+      },
       save() {
+        let that = this
         wx.showActionSheet({
           itemList: ['确定'],
           itemColor: '#ff3536',
-          success(res) {
+          async success(res) {
             console.log(res.tapIndex)
+            try {
+              // 请求接口，传入参数
+              let response = await api.authRequest({
+                url: 'activities/' + that.bill.activity_id + '/bills/' + (that.bill.id ? that.bill.id : ''),
+                method: 'POST',
+                data: that.bill
+              })
+
+              if (response.statusCode === 204) {
+                wepy.navigateBack({
+                  delta: 1
+                })
+              }
+            } catch (err) {
+              console.log(err)
+              wepy.showModal({
+                title: '提示',
+                content: '服务器错误，请联系管理员'
+              })
+            }
           },
           fail(res) {
             console.log(res.errMsg)
@@ -284,25 +341,35 @@
         })
       },
       exit() {
+        let that = this
         wx.showActionSheet({
           itemList: ['确定'],
           itemColor: '#ff3536',
-          success(res) {
+          async success(res) {
+            try {
+              // 请求接口，传入参数
+              let response = await api.authRequest({
+                url: 'bills/' + that.bill.id,
+                method: 'DELETE'
+              })
+              if (response.statusCode === 204) {
+                wepy.navigateBack({
+                  delta: 1
+                })
+              }
+            } catch (err) {
+              console.log(err)
+              wepy.showModal({
+                title: '提示',
+                content: '服务器错误，请联系管理员'
+              })
+            }
             console.log(res.tapIndex)
           },
           fail(res) {
             console.log(res.errMsg)
           }
         })
-      },
-      onCheckerFinished(detail) {
-        console.log(detail)
-      },
-      async showChecker() {
-        // 加载参与成员数据
-        await this.loadParticipants(this.bill.activity_id)
-        this.showChecker = true
-        this.$apply()
       }
     }
     async onLoad(options) {
@@ -329,6 +396,46 @@
       }
       // 加载参与成员数据
       await this.loadParticipants(options.activity_id)
+
+      this._debounceReCalculate = debounce(() => {
+        let remainMoney = Number.parseFloat(this.bill.money)
+        if (Number.isNaN(remainMoney)) {
+          return false
+        }
+        console.log('Remain Money:' + remainMoney)
+        let splitCount = 0
+        this.bill.participants.data.forEach(item => {
+          if (item.fixed) {
+            console.log('Item Split Money:' + item.split_money)
+            remainMoney = new Decimal(remainMoney).sub(item.split_money).toNumber()
+          } else {
+            splitCount += 1
+          }
+        })
+        if (splitCount > 0) {
+          console.log('Floor:' + remainMoney)
+          let splitMoney = new Decimal(Math.floor(new Decimal(remainMoney).mul(100).div(splitCount).toNumber())).div(100).toNumber()
+          console.log('Split Count:' + splitCount)
+          console.log('Split Money:' + splitMoney)
+          let lastOneSplitMoney = new Decimal(remainMoney).sub(new Decimal(splitMoney).mul(splitCount - 1).toNumber()).toNumber()
+          console.log('Last One Split Money:' + lastOneSplitMoney)
+          this.bill.participants.data.forEach(item => {
+            if (!item.fixed) {
+              if (remainMoney === lastOneSplitMoney) {
+                item.split_money = lastOneSplitMoney
+                console.log('last one:' + lastOneSplitMoney)
+              } else {
+                item.split_money = splitMoney
+                console.log('not last one:' + remainMoney)
+              }
+              remainMoney = new Decimal(remainMoney).sub(item.split_money).toNumber()
+            }
+          })
+        }
+        this.calculating = false
+        console.log('计算完毕')
+        this.$apply()
+      }, 500)
     }
     async loadParticipants(activityId) {
       try {
@@ -347,54 +454,12 @@
         })
       }
     }
-
     /**
      * 重新计算分摊金额
      * @returns {boolean}
      */
     reCaculateBill() {
       this.calculating = true
-      if (this._debounceReCalculate === null) {
-        this._debounceReCalculate = debounce(() => {
-          let remainMoney = Number.parseFloat(this.bill.money)
-          if (Number.isNaN(remainMoney)) {
-            return false
-          }
-          console.log('Remain Money:' + remainMoney)
-          let splitCount = 0
-          this.bill.participants.data.forEach(item => {
-            if (item.fixed) {
-              console.log('Item Split Money:' + item.split_money)
-              remainMoney = new Decimal(remainMoney).sub(item.split_money).toNumber()
-            } else {
-              splitCount += 1
-            }
-          })
-          if (splitCount > 0) {
-            console.log('Floor:' + remainMoney)
-            let splitMoney = new Decimal(Math.floor(remainMoney * 100 / splitCount)).div(100).toNumber()
-            console.log('Split Count:' + splitCount)
-            console.log('Split Money:' + splitMoney)
-            let lastOneSplitMoney = new Decimal(remainMoney).sub(new Decimal(splitMoney).mul(splitCount - 1).toNumber()).toNumber()
-            console.log('Last One Split Money:' + lastOneSplitMoney)
-            this.bill.participants.data.forEach(item => {
-              if (!item.fixed) {
-                if (remainMoney === lastOneSplitMoney) {
-                  item.split_money = lastOneSplitMoney
-                  console.log('last one:' + lastOneSplitMoney)
-                } else {
-                  item.split_money = splitMoney
-                  console.log('not last one:' + remainMoney)
-                }
-                remainMoney = new Decimal(remainMoney).sub(item.split_money).toNumber()
-              }
-            })
-          }
-          this.calculating = false
-          console.log('计算完毕')
-          this.$apply()
-        }, 500)
-      }
       this._debounceReCalculate()
     }
 

@@ -1,4 +1,9 @@
 <style lang="less">
+  .text-ellipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   .page__bd_spacing{
     padding-left:15px;
     padding-right:15px;
@@ -26,6 +31,7 @@
         font-weight: bold;
         float: left;
         font-size: 16px;
+        width: 170px;
       }
       .date{
         float: right;
@@ -37,25 +43,28 @@
 
         }
         .unpaid{
-          margin-left: 20px;
+          //margin-left: 20px;
         }
       }
     }
   }
 </style>
 <template>
-  <view class="page__bd_spacing bg">
+  <view wx:if="{{ activities.length }}" class="page__bd_spacing bg">
     <repeat for="{{ activities }}" wx:key="id" index="index" item="activity">
       <view class="activity clear-fix">
-        <navigator url="/pages/activities/bills/index?id={{ activity.id }}">
+        <navigator url="/pages/activities/bills/index?id={{ activity.id }}" style="display: flex; align-items: center;">
           <image class="avatar" src="{{ activity.user.avatar_url}}"></image>
           <view class="top">
             <view class="clear-fix">
-              <text class="title">{{ activity.name }}</text>
+              <text class="title text-ellipsis">{{ activity.name }}</text>
               <text class="date">{{ activity.created_at }}</text>
             </view>
             <view class="content">
-              <text >需支付：{{ activity.split_sum }}</text><text class="unpaid">未支付：{{ activity.unpaid_sum }}</text>
+              <text >你需支付的金额：{{ activity.split_sum }}</text>
+            </view>
+            <view class="content">
+              <text class="unpaid">你未支付的金额：{{ activity.unpaid_sum }}</text>
             </view>
           </view>
         </navigator>
@@ -65,6 +74,9 @@
 
       </view>
     </repeat>
+  </view>
+  <view wx:else style="text-align: center;position: relative; top: 200px;">
+    <image src="/images/placeholders/4.jpg"></image>
   </view>
   <navigator url="/pages/activities/management">
     <image style="width: 60px; height: 60px; display: inline-block; position: fixed; bottom: 10px; left: 157px;" src="/images/icon_add_selected.png"></image>
@@ -101,6 +113,8 @@
 
     async onLoad() {
       await this.$parent.getCurrentUser()
+    }
+    async onShow() {
       await this.reload()
     }
 

@@ -1,15 +1,21 @@
 <style lang="less">
+  .text-ellipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   .page__bd_spacing{
     padding-left:15px;
     padding-right:15px;
   }
-
   // 活动账单
   .bill{
     border: 1px solid #9e9e9e;
     border-radius: 5px;
-    margin: 10px 0;
+    margin: 8px 0;
     padding: 5px;
+    display: flex;
+    align-items: center;
     .avatar{
       display: block;
       float: left;
@@ -27,6 +33,7 @@
         font-weight: bold;
         float: left;
         font-size: 16px;
+        width: 160px;
       }
       .date{
         float: right;
@@ -38,7 +45,7 @@
 
         }
         .unpaid{
-          margin-left: 20px;
+          //margin-left: 20px;
         }
       }
     }
@@ -47,25 +54,32 @@
 <template>
   <view>
 
-    <view class="page__bd_spacing bg" style="padding-bottom: 75px;">
+    <view wx:if="{{ bills.length }}" class="page__bd_spacing bg" style="padding-bottom: 75px;">
       <repeat for="{{ bills }}" index="index" item="item">
         <navigator url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">
           <view class="bill clear-fix">
             <image class="avatar" src="{{ item.user.avatar_url }}"></image>
             <view class="top">
               <view class="clear-fix">
-                <text class="title">{{ item.title }}</text>
+                <text class="title text-ellipsis">{{ item.title }}</text>
                 <text class="date">{{ item.created_at }}</text>
               </view>
               <view class="content">
-                <text >需支付：{{ item.split_money }}</text><text class="unpaid">未支付：{{ item.unpaid_money }}</text>
+                <text >你需支付的金额：{{ item.split_money }}</text>
+              </view>
+              <view class="content">
+                <text class="unpaid">你未支付的金额：{{ item.unpaid_money }}</text>
               </view>
             </view>
           </view>
         </navigator>
       </repeat>
-
     </view>
+    <view wx:else style="text-align: center;position: relative; top: 135px;">
+      <image src="/images/placeholders/1.jpg"></image>
+    </view>
+
+
     <view class="page__bd_spacing" style="position: fixed; bottom: 15px; width: 345px; ">
       <navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">
         <button class="weui-btn" type="primary" >
@@ -109,6 +123,8 @@
 
     async onLoad(options) {
       this.activityId = options.id
+    }
+    async onShow(options) {
       await this.reload()
     }
 
