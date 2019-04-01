@@ -41,6 +41,13 @@ module.exports = {
     }
   },
   plugins: {
+    replace: {
+      filter: /\.js$/,
+      config: {
+        find: /__BASE_URL__/g,
+        replace: prod ? "'https://bill-split.ergou.live/api'" : "'http://bill-split.test/api'"
+      }
+    }
   },
   appConfig: {
     noPromiseAPI: ['createSelectorQuery']
@@ -68,6 +75,13 @@ if (prod) {
         png: {
           quality: 80
         }
+      }
+    },
+    replace: {
+      filter: /\.js$/,
+      config: {
+        find: /__BASE_URL__/g,
+        replace: prod ? "'https://bill-split.ergou.live/api'" : "'http://bill-split.test/api'"
       }
     }
   }

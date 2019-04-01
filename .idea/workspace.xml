@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4766d14-f1fb-4a1f-8b74-10ac28e5385c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/images/placeholders/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/activities/code.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/activities/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/activities/index.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/activities/management.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/activities/management.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/auth/login.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/login.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wepy.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/wepy.config.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="58" column="6" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
+            <state relative-caret-position="60">
+              <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -57,24 +54,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/activities/bills/index.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
-              <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
-              <folding>
-                <element signature="n#style#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/activities/index.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="55" column="74" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="74" />
+            <state relative-caret-position="401">
+              <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
               <folding>
                 <element signature="n#style#0;n#navigator#0;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#navigator#1;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
@@ -87,19 +70,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wepy.config.js">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+              <caret line="3" column="5" lean-forward="true" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wepy.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="86">
+              <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/activities/code.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            <state relative-caret-position="180">
+              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
               <folding>
                 <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#image#0;n#view#0;n#template#0;n#!!top" expanded="true" />
@@ -184,8 +176,8 @@
       <find>image</find>
       <find>text-ellipsis</find>
       <find>login</find>
-      <find>url=</find>
       <find>navigat</find>
+      <find>url=</find>
     </findStrings>
     <replaceStrings>
       <replace>d9d9d9</replace>
@@ -208,15 +200,15 @@
         <option value="$PROJECT_DIR$/src/pages/auths/userInfo.wpy" />
         <option value="$PROJECT_DIR$/src/pages/users/me.wpy" />
         <option value="$PROJECT_DIR$/src/components/participantsChecker.wpy" />
-        <option value="$PROJECT_DIR$/src/utils/api.js" />
         <option value="$PROJECT_DIR$/src/pages/activities/bills/management.wpy" />
         <option value="$PROJECT_DIR$/src/pages/activities/bills/index.wpy" />
         <option value="$PROJECT_DIR$/src/pages/auth/login.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/activities/index.wpy" />
         <option value="$PROJECT_DIR$/src/pages/activities/code.wpy" />
-        <option value="$PROJECT_DIR$/wepy.config.js" />
         <option value="$PROJECT_DIR$/src/app.wpy" />
         <option value="$PROJECT_DIR$/src/pages/activities/management.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/activities/index.wpy" />
+        <option value="$PROJECT_DIR$/wepy.config.js" />
+        <option value="$PROJECT_DIR$/src/utils/api.js" />
       </list>
     </option>
   </component>
@@ -249,60 +241,11 @@
               <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
               <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="placeholders" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="activities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="activities" type="462c0819:PsiDirectoryNode" />
-              <item name="bills" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bill-split-weapp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bill-split-weapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="bcb0276e:PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -366,12 +309,12 @@
       <workItem from="1552726808352" duration="2688000" />
       <workItem from="1553259077706" duration="26464000" />
       <workItem from="1553691962082" duration="8767000" />
-      <workItem from="1553924215077" duration="35488000" />
+      <workItem from="1553924215077" duration="37287000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129034000" />
+    <option name="totallyTimeSpent" value="130833000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -384,6 +327,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
@@ -392,7 +336,7 @@
       <window_info anchor="bottom" id="Database Changes" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32891566" />
-      <window_info anchor="bottom" id="Version Control" order="3" weight="0.32891566" />
+      <window_info anchor="bottom" id="Version Control" order="3" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" />
@@ -400,7 +344,7 @@
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32891566" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -498,13 +442,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
           <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -624,13 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="58" column="6" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/auth/login.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -641,13 +571,6 @@
             <element signature="n#style#0;n#button#0;n#view#0;n#template#0;n#!!top" expanded="true" />
             <element signature="e#266#289#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wepy.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -682,16 +605,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/activities/index.wpy">
+    <entry file="file://$PROJECT_DIR$/src/pages/activities/code.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="55" column="74" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="74" />
+        <state relative-caret-position="180">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
           <folding>
-            <element signature="n#style#0;n#navigator#0;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#navigator#1;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#view#1;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#image#0;n#navigator#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#2041#2064#0" expanded="true" />
+            <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#image#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#view#1;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -709,15 +630,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/activities/code.wpy">
+    <entry file="file://$PROJECT_DIR$/src/pages/activities/index.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        <state relative-caret-position="401">
+          <caret line="141" column="9" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
           <folding>
-            <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#image#0;n#view#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#view#1;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#navigator#0;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#navigator#1;n#view#0;n#repeat#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#view#1;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#image#0;n#navigator#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#2041#2064#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="5" lean-forward="true" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wepy.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
         </state>
       </provider>
     </entry>
