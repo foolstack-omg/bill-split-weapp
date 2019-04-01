@@ -30,9 +30,22 @@
     }
     methods = {
       save() {
-        wx.saveImageToPhotosAlbum({
-          filePath: this.url,
-          success(res) { }
+        console.log(this.url)
+        wx.getImageInfo({
+          src: this.url,
+          success(res) {
+            wx.saveImageToPhotosAlbum({
+              filePath: res.path,
+              success(res) {
+                console.log(res)
+                wepy.showToast({
+                  title: '已保存',
+                  icon: 'none',
+                  duration: 1000
+                })
+              }
+            })
+          }
         })
       }
     }

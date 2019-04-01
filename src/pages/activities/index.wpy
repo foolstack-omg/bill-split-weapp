@@ -99,6 +99,7 @@
     mixins = []
 
     data = {
+      options: {},
       activities: []
     }
 
@@ -112,18 +113,21 @@
     }
 
     async onLoad(options) {
+      this.options = options
+    }
+    async onShow() {
       let user = await this.$parent.getCurrentUser()
       if (user) {
-        console.log(options)
+        console.log(this.options)
         let activityId = null
-        if (options.scene) {
-          const scene = decodeURIComponent(options.scene)
+        if (this.options.scene) {
+          const scene = decodeURIComponent(this.options.scene)
           const params = scene.split(':')
           activityId = params[1]
           console.log(params[1])
         }
-        if (options.to_activity_id) {
-          activityId = options.to_activity_id
+        if (this.options.to_activity_id) {
+          activityId = this.options.to_activity_id
         }
         if (activityId) {
           try {
@@ -132,19 +136,15 @@
               url: `activities/${activityId}/participate`,
               method: 'PUT'
             })
+            this.options = {} // 已加入活动, 下次不再处理
           } catch (err) {
             console.log(err)
             wepy.showModal({
               title: '提示',
-              content: '服务器错误，请联系管理员'
+              content: '服务器错误，请联系管理员' + JSON.stringify(err)
             })
           }
         }
-      }
-    }
-    async onShow() {
-      let user = await this.$parent.getCurrentUser()
-      if (user) {
         await this.reload()
       }
     }
@@ -170,7 +170,7 @@
         console.log(err)
         wepy.showModal({
           title: '提示',
-          content: '服务器错误，请联系管理员'
+          content: '服务器错误，请联系管理员' + JSON.stringify(err)
         })
       }
     }

@@ -6,10 +6,12 @@ const host = __BASE_URL__
 
 // 普通请求
 const request = async (options, showLoading = true) => {
+  let finalOptions = JSON.parse(JSON.stringify(options)) // 深复制
+
     // 简化开发，如果传入字符串则转换成 对象
-  if (typeof options === 'string') {
-    options = {
-      url: options
+  if (typeof finalOptions === 'string') {
+    finalOptions = {
+      url: finalOptions
     }
   }
     // 显示加载中
@@ -17,9 +19,9 @@ const request = async (options, showLoading = true) => {
     wepy.showLoading({title: '加载中'})
   }
     // 拼接请求地址
-  options.url = host + '/' + options.url
+  finalOptions.url = host + '/' + finalOptions.url
     // 调用小程序的 request 方法
-  let response = await wepy.request(options)
+  let response = await wepy.request(finalOptions)
 
   if (showLoading) {
         // 隐藏加载中
@@ -93,7 +95,6 @@ const login = async (params = {}) => {
       wepy.setStorageSync('user', params)
     }
   }
-
   return authResponse
 }
 
@@ -158,7 +159,17 @@ const authRequest = async (options, showLoading = true) => {
   header.Authorization = 'Bearer ' + accessToken
   options.header = header
 
-  return request(options, showLoading)
+  let response = await request(options, showLoading)
+  console.log(response)
+  if (response.statusCode === 401) {
+    wepy.clearStorage()
+    let loginResponse = await login()
+    console.log(loginResponse)
+    if (loginResponse.statusCode === 201) {
+      response = await authRequest(options, showLoading)
+    }
+  }
+  return response
 }
 
 //  退出登录

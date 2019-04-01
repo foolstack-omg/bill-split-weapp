@@ -139,7 +139,7 @@
 
     data = {
       itemTitle: '',
-      itemMoney: '',
+      itemMoney: 0,
       user: {},
       bill: {
         title: '',
@@ -265,14 +265,24 @@
         this.itemTitle = e.detail.value
       },
       bindTempItemMoney(e) {
-        if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
-          return this.itemMoney
+        if (e.detail.value.length === 0) {
+          this.itemMoney = 0
+          return 0
+        } else {
+          if ((/^0[1-9]\d*$/.test(e.detail.value.toString()))) {
+            this.itemMoney = Number.parseFloat(e.detail.value)
+            return this.itemMoney
+          }
+          let regex = /^(0|[1-9]\d*)(\.(\d){0,2})?$/
+          if (!regex.test(e.detail.value.toString())) {
+            return this.itemMoney
+          }
+          let money = Number.parseFloat(e.detail.value)
+          if (Number.isNaN(money)) {
+            return this.itemMoney
+          }
+          this.itemMoney = money
         }
-        let money = Number.parseFloat(e.detail.value)
-        if (Number.isNaN(money)) {
-          return this.itemMoney
-        }
-        this.itemMoney = money
       },
       addItem() {
         console.log(this.itemMoney)
@@ -298,14 +308,24 @@
       },
       bindItemMoney(index, e) {
         let item = this.bill.items.data[index]
-        if (e.detail.value.toString().split('.')[1] && e.detail.value.toString().split('.')[1].length > 2) {
-          return item.money
+        if (e.detail.value.length === 0) {
+          item.money = 0
+          return 0
+        } else {
+          if ((/^0[1-9]\d*$/.test(e.detail.value.toString()))) {
+            item.money = Number.parseFloat(e.detail.value)
+            return item.money
+          }
+          let regex = /^(0|[1-9]\d*)(\.(\d){0,2})?$/
+          if (!regex.test(e.detail.value.toString())) {
+            return item.money
+          }
+          let money = Number.parseFloat(e.detail.value)
+          if (Number.isNaN(money)) {
+            return item.money
+          }
+          item.money = money
         }
-        let money = Number.parseFloat(e.detail.value)
-        if (Number.isNaN(money)) {
-          return item.money
-        }
-        item.money = money
       },
       save() {
         let that = this
