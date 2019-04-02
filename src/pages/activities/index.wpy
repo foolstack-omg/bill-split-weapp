@@ -61,10 +61,13 @@
               <text class="date">{{ activity.created_at }}</text>
             </view>
             <view class="content">
-              <text >你需支付的金额：{{ activity.split_sum }}</text>
+              <text >你已消费：{{ activity.split_sum }}</text>
             </view>
             <view class="content">
-              <text class="unpaid">你未支付的金额：{{ activity.unpaid_sum }}</text>
+              <text >你未付款：{{ activity.unpaid_sum }}</text>
+            </view>
+            <view wx:if="{{ activity.all_unpaid_sum }}" class="content">
+              <text >你未收款：{{ activity.all_unpaid_sum }}</text>
             </view>
           </view>
         </navigator>

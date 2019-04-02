@@ -334,7 +334,7 @@
 
     onShareAppMessage(res) {
       return {
-        title: this.activity.name,
+        title: '加入活动：' + this.activity.name,
         path: '/pages/activities/index?to_activity_id=' + (this.activity.id ? this.activity.id : ''),
         imageUrl: '/images/placeholders/4.jpg'
       }

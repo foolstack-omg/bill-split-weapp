@@ -53,8 +53,7 @@
 </style>
 <template>
   <view>
-
-    <view wx:if="{{ bills.length }}" class="page__bd_spacing bg" style="padding-bottom: 75px;">
+    <view wx:if="{{ bills.length }}" class="page__bd_spacing bg" style="margin-bottom: 80px;">
       <repeat for="{{ bills }}" index="index" item="item">
         <navigator url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">
           <view class="bill clear-fix">
@@ -65,32 +64,31 @@
                 <text class="date">{{ item.created_at }}</text>
               </view>
               <view class="content">
-                <text >你需支付的金额：{{ item.split_money }}</text>
+                <text >你已消费：{{ item.split_money }}</text>
               </view>
               <view class="content">
-                <text class="unpaid">你未支付的金额：{{ item.unpaid_money }}</text>
+                <text >你未付款：{{ item.unpaid_money }}</text>
+              </view>
+              <view wx:if="{{ item.user_id === user.id }}" class="content">
+                <text >你未收款：{{ item.all_unpaid_money }}</text>
               </view>
             </view>
           </view>
         </navigator>
       </repeat>
     </view>
-    <view wx:else style="text-align: center;position: relative; top: 135px;">
-      <image src="/images/placeholders/1.jpg"></image>
-    </view>
-
-
-    <view class="page__bd_spacing" style="position: fixed; bottom: 15px; width: 345px; ">
-      <navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">
-        <button class="weui-btn" type="primary" >
-          创建新的账单
-        </button>
-      </navigator>
+    <view wx:else style="text-align: center;position: relative; top: 160px;">
+      <image src="/images/placeholders/1.jpg" style="width: 280px; height: 200px;"></image>
     </view>
 
   </view>
-
-
+  <view class="page__bd_spacing" style="position: fixed; padding: 15px; bottom: 0px; width: 345px; background-color: white;">
+    <navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">
+      <button class="weui-btn" type="primary" >
+        创建新的账单
+      </button>
+    </navigator>
+  </view>
 </template>
 
 <script>
@@ -108,6 +106,7 @@
     mixins = []
 
     data = {
+      user: {},
       activityId: null,
       bills: []
     }
@@ -124,7 +123,9 @@
     async onLoad(options) {
       this.activityId = options.id
     }
-    async onShow(options) {
+    async onShow() {
+      this.user = await this.$parent.getCurrentUser()
+      console.log('user:' + this.user.id)
       await this.reload()
     }
 

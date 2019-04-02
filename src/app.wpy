@@ -42,12 +42,12 @@ export default class extends wepy.app {
         selectedIconPath: 'images/icon_activities_selected.png'
       }, {
         pagePath: 'pages/users/me',
-        text: '我的',
-        iconPath: 'images/user.png',
-        selectedIconPath: 'images/user_selected.png'
+        text: '更多',
+        iconPath: 'images/icon_prompt.png',
+        selectedIconPath: 'images/icon_prompt_selected.png'
       }],
       color: '#707070',
-      selectedColor: '#4dc86f'
+      selectedColor: '#1AAD19'
     }
   }
 

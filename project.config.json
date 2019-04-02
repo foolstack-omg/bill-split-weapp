@@ -1,7 +1,7 @@
 {
 	"description": "bill-split",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
 		"minified": false,

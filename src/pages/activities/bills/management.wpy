@@ -96,7 +96,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea disabled="{{ !editable }}" value="{{ bill.description }}" @input="bindDescription" class="weui-textarea" placeholder="" style="height: 50px;">
+            <textarea disabled="{{ !editable }}" auto-height="true" maxlength="1000" value="{{ bill.description }}" @input="bindDescription" class="weui-textarea" placeholder="">
             </textarea>
           </view>
         </view>
