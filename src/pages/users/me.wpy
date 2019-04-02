@@ -26,21 +26,26 @@
     </view>
 
   </view>
+
+  <tab-bar :tabBar.sync="tabBarData"></tab-bar>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import tabBar from '@/components/tabBar'
 
   export default class Me extends wepy.page {
     config = {
       navigationBarTitleText: '更多'
     }
     components = {
+      'tab-bar': tabBar
     }
 
     mixins = []
 
     data = {
+      tabBarData: null,
       user: null
     }
 
@@ -54,8 +59,12 @@
     }
 
     async onLoad() {
+      this.tabBarData = this.$parent.globalData.tabBar
       this.user = await this.$parent.getCurrentUser()
       console.log(this.user)
+    }
+    onShow() {
+      this.tabBarData.selected = 1
     }
 
     onShareAppMessage(res) {

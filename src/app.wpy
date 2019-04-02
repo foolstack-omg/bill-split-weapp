@@ -14,6 +14,7 @@ import api from '@/utils/api'
 import { setStore } from 'wepy-redux'
 import configStore from './store'
 
+
 const store = configStore()
 setStore(store)
 
@@ -35,6 +36,8 @@ export default class extends wepy.app {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
+      selected: 0,
+      custom: true,
       list: [{
         pagePath: 'pages/activities/index',
         text: '活动',
@@ -52,7 +55,8 @@ export default class extends wepy.app {
   }
 
   globalData = {
-    userInfo: null
+    userInfo: null,
+    tabBar: this.config.tabBar
   }
 
   constructor () {
@@ -88,6 +92,11 @@ export default class extends wepy.app {
   // 用户是否已经登录
   checkLogin() {
     return (wepy.getStorageSync('access_token') !== '')
+  }
+
+  // 切换Tabbar
+  selectTabBar(index) {
+    this.globalData.tabBar.selected = index
   }
 }
 </script>
