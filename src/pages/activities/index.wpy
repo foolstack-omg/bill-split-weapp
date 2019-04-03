@@ -5,7 +5,7 @@
     overflow: hidden;
   }
   .page__bd_spacing{
-    margin-bottom: 80px;
+    padding-bottom: 75px;
     padding-left:15px;
     padding-right:15px;
   }
@@ -23,7 +23,7 @@
       height: 50px;
     }
     .top{
-      width: 270px;
+      width: 90%;
       float: left;
       margin-left: 10px;
       color: #9e9e9e;
@@ -32,7 +32,7 @@
         font-weight: bold;
         float: left;
         font-size: 16px;
-        width: 170px;
+        width: 150px;
       }
       .date{
         float: right;

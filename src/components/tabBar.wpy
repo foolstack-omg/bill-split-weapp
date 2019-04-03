@@ -4,10 +4,11 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 48px;
-        background: white;
+        height: 70px;
+        background: transparent;
         display: flex;
         padding-bottom: env(safe-area-inset-bottom);
+        overflow: visible;
     }
 
     .tab-bar-border {
@@ -41,15 +42,17 @@
 </style>
 <template>
     <cover-view class="tab-bar">
-        <cover-view class="tab-bar-border"></cover-view>
-        <navigator url="/pages/activities/management">
-            <image class="add" style="width: 60px; height: 60px; display: inline-block; position: fixed; left: 50%; margin-left: -30px; bottom: 10px;" src="/images/icon_add_selected.png"></image>
-        </navigator>
-        <cover-view wx:for="{{tabBar.list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab(index, {{ '/' + item.pagePath }})">
-            <cover-image src="{{tabBar.selected === index ? '/'+item.selectedIconPath : '/'+item.iconPath}}"></cover-image>
+        <cover-view style="height: 48px;display: flex; position: absolute; bottom: 0; left: 0; width: 100%; background: white;">
+            <cover-view class="tab-bar-border"></cover-view>
+            <cover-view wx:for="{{tabBar.list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab(index, {{ '/' + item.pagePath }})">
+                <cover-image src="{{tabBar.selected === index ? '/'+item.selectedIconPath : '/'+item.iconPath}}"></cover-image>
 
-            <cover-view style="color: {{tabBar.selected === index ? tabBar.selectedColor : tabBar.color}}">{{item.text}}</cover-view>
+                <cover-view style="color: {{tabBar.selected === index ? tabBar.selectedColor : tabBar.color}}">{{item.text}}</cover-view>
+            </cover-view>
         </cover-view>
+        <navigator url="/pages/activities/management">
+            <cover-image class="add" style="width: 60px; height: 60px; display: inline-block; position: absolute; left: 50%; margin-left: -30px; bottom: 10px;" src="/images/icon_add_selected.png"></cover-image>
+        </navigator>
     </cover-view>
 </template>
 <script>

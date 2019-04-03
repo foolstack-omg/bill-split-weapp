@@ -14,6 +14,7 @@ import api from '@/utils/api'
 import { setStore } from 'wepy-redux'
 import configStore from './store'
 
+import tabBar from '@/components/tabBar'
 
 const store = configStore()
 setStore(store)
@@ -57,6 +58,10 @@ export default class extends wepy.app {
   globalData = {
     userInfo: null,
     tabBar: this.config.tabBar
+  }
+
+  components = {
+    'tab-bar': tabBar
   }
 
   constructor () {

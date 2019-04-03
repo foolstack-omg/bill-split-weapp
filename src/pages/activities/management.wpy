@@ -12,10 +12,10 @@
   }
   .portrait_wrap{
     float: left;
-    width: 62px;
+    width: 124rpx;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 10px;
+    margin-right: 22rpx;
   }
   .portrait_wrap:nth-child(5n){
     margin-right: 0;
@@ -24,25 +24,28 @@
 
     >image, .action-wrapper{
       display: block;
-      border: 1px solid transparent;
+      border: 2rpx solid transparent;
       border-radius: 8px;
-      width: 60px;
-      height: 60px;
+      width: 120rpx;
+      height: 120rpx;
     }
     .action-wrapper{
-      border: 1px solid #f0f0f0;
+      border: 2rpx solid #f0f0f0;
       text-align: center;
-      line-height: 55px;
+      line-height: 110rpx;
+      width: 118rpx;
+      height: 118rpx;
     }
     .action-wrapper>image{
-      width: 30px;
-      height: 30px;
+      width: 60rpx;
+      height: 60rpx;
       vertical-align: middle;
     }
     .nickname{
-      font-size: 12px;
+      text-align: center;
+      font-size: 24rpx;
       display: block;
-      margin: 5px 0;
+      margin: 10rpx 0;
       text-overflow: ellipsis;
       white-space:nowrap;
       overflow: hidden;
@@ -59,8 +62,9 @@
     margin:0;
     padding:0;
     background:white;
-    width:62px;
-    height:62px;
+    box-sizing: content-box;
+    width:120rpx;
+    height:120rpx;
   }
   button#invite:after{
     border:1px solid #f0f0f0;
@@ -72,7 +76,7 @@
       <repeat for="{{ participants }}" wx:key="id" index="index" item="user">
         <view class="portrait portrait_wrap">
           <image src="{{ user.avatar_url }}"></image>
-          <text class="nickname">{{index}} - {{ user.name }}</text>
+          <text class="nickname">{{ user.name }}</text>
         </view>
       </repeat>
 

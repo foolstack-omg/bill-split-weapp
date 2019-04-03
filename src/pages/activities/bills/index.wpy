@@ -33,7 +33,7 @@
         font-weight: bold;
         float: left;
         font-size: 16px;
-        width: 160px;
+        width: 125px;
       }
       .date{
         float: right;
@@ -82,7 +82,7 @@
     </view>
 
   </view>
-  <view class="page__bd_spacing" style="position: fixed; padding: 15px; bottom: 0px; width: 345px; background-color: white;">
+  <view class="page__bd_spacing" style="position: fixed; padding: 15px; bottom: 0px; width: 100%; box-sizing: border-box; background-color: white;">
     <navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">
       <button class="weui-btn" type="primary" >
         创建新的账单

@@ -51,17 +51,17 @@
         <repeat for="{{ bill.participants.data }}" index="index" item="participant">
           <view class="weui-media-box weui-media-box_appmsg">
             <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" src="{{ participant.user.avatar_url }}"/>
+              <image style="border-radius: 5px;" class="weui-media-box__thumb" src="{{ participant.user.avatar_url }}"/>
             </view>
             <view class="weui-media-box__bd weui-media-box__bd_in-appmsg clear-fix">
-              <view class="weui-media-box__title" style="width: 238px;">
+              <view class="weui-media-box__title" style="">
                 {{ participant.user.name }}
                 <icon wx:if="{{ isOwner }}" style="float: right;" type="cancel" size="24px" @tap="removeParticipant({{ index }})"></icon>
               </view>
-              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
+              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 28rpx; margin-top: 5px;">
                 需支付：<input disabled="{{ !editable || !participant.fixed }}" @input="bindSplitMoney({{ index }})" type="digit" value="{{ participant.split_money }}" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
               </view>
-              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 14px; margin-top: 5px;">
+              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 28rpx; margin-top: 5px;">
                 自动计算：<switch disabled="{{ !editable }}" @change="bindFixed({{ index }})" checked="{{ !participant.fixed }}" style="margin-right: 10px;"></switch>
                 已支付：<switch disabled="{{ !editable }}" @change="bindPaid({{ index }})" checked="{{ participant.paid }}" style="margin-right: 10px;"></switch>
               </view>
@@ -74,16 +74,16 @@
       </view>
     </view>
 
-    <view class="section weui-cells weui-cells_after-title">
+    <view wx:if="{{ editable || (!editable && bill.items.data.length > 0 )}}" class="section weui-cells weui-cells_after-title">
       <view class="weui-cells__title">具体事项（可选填）</view>
       <view wx:if="{{ editable }}" class="weui-cell">
-        <input disabled="{{ !editable }}" value="{{ itemTitle }}" @input="bindTempItemTitle" type="text" placeholder="名称" />
+        <input disabled="{{ !editable }}" value="{{ itemTitle }}" @input="bindTempItemTitle" type="text" placeholder="请输入事项" />
         <input disabled="{{ !editable }}" value="{{ itemMoney }}" @input="bindTempItemMoney" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
-        <icon type="success_no_circle" size="24px" @tap="addItem()"></icon>
+        <image @tap="addItem()" style="width: 28px; height: 28px; vertical-align: middle; position: relative; left: -2px;" src="/images/icon_add.png"></image>
       </view>
       <repeat for="{{ bill.items.data }}" index="index" item="item">
         <view class="weui-cell">
-          <input disabled="{{ !editable }}" value="{{ item.title }}" @input="bindItemTitle({{ index }})" type="text" placeholder="名称" />
+          <input disabled="{{ !editable }}" value="{{ item.title }}" @input="bindItemTitle({{ index }})" type="text" placeholder="请输入事项" />
           <input disabled="{{ !editable }}" value="{{ item.money }}" @input="bindItemMoney({{ index }})" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
           <icon wx:if="{{ editable }}" type="cancel" size="24px" @tap="removeItem({{ index }})"></icon>
         </view>
@@ -91,12 +91,11 @@
 
     </view>
 
-    <view class="section weui-cells weui-cells_after-title">
-      <view class="weui-cells__title">账单描述（可选填）</view>
-      <view class="weui-cells weui-cells_after-title">
+      <view wx:if="{{ editable || (!editable && bill.description.length > 0 )}}" class="weui-cells__title">账单描述（可选填）</view>
+      <view wx:if="{{ editable || (!editable && bill.description.length > 0 )}}" class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea disabled="{{ !editable }}" auto-height="true" maxlength="1000" value="{{ bill.description }}" @input="bindDescription" class="weui-textarea" placeholder="">
+            <textarea wx:if="{{!showChecker}}" disabled="{{ !editable }}" auto-height="true" maxlength="1000" value="{{ bill.description }}" @input="bindDescription" class="weui-textarea" placeholder="请输入账单描述">
             </textarea>
           </view>
         </view>
@@ -297,6 +296,8 @@
           return false
         }
         this.bill.items.data.unshift({title: this.itemTitle, money: this.itemMoney})
+        this.itemTitle = ''
+        this.itemMoney = 0
       },
       removeItem(index) {
         console.log(index)
