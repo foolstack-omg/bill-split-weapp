@@ -28,7 +28,8 @@ export default class extends wepy.app {
       'pages/activities/bills/index',
       'pages/activities/bills/management',
       'pages/users/me',
-      'pages/auth/login'
+      'pages/auth/login',
+      'pages/qas/index'
     ],
     window: {
       backgroundTextStyle: 'light',

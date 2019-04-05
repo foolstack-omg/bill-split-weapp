@@ -1,0 +1,70 @@
+<style lang="less">
+  page{
+    background-color: #ebebeb; padding: 20rpx 20rpx;
+    font-size: 32rpx;
+    box-sizing: border-box;
+  }
+  text.unfold{
+    color: silver;
+  }
+</style>
+<template style="">
+  <repeat for="{{qas}}" >
+    <view style="margin: 20rpx 0;">
+      <view @tap="toggleQA({{index}})" style="padding: 14rpx; background-color: white; position: relative;">
+        <text class="{{ item.unfold ? 'unfold' : ''}}" style="font-size: 38rpx; width: 600rpx; display: block;">{{ item.question }}</text>
+        <image src="{{ !item.unfold ? '/images/unfold.png' : '/images/packup.png '}}" style="width: 56rpx; height: 56rpx; position: absolute; top: 14rpx; right: 14rpx;"></image>
+      </view>
+      <view wx:if="{{ item.unfold }}" style="padding: 20rpx; background-color: white; position: relative; border-top: 2rpx solid silver;">
+        <text>{{ item.answer }}</text>
+      </view>
+    </view>
+
+  </repeat>
+
+
+</template>
+<script>
+  import wepy from 'wepy'
+  import api from '@/utils/api'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '常见问题'
+    }
+    data = {
+      qas: []
+    }
+    methods = {
+      toggleQA(index) {
+        let qa = this.qas[index]
+        if (!qa.unfold) {
+          this.qas.forEach(item => {
+            item.unfold = false
+          })
+        }
+        qa.unfold = !qa.unfold
+      }
+    }
+
+    async onLoad() {
+      try {
+        // 请求接口，传入参数
+        let response = await api.request({
+          url: 'qas'
+        })
+
+        if (response.statusCode === 200) {
+          this.qas = response.data.data
+          this.$apply()
+        }
+      } catch (err) {
+        console.log(err)
+        wepy.showModal({
+          title: '提示',
+          content: '服务器错误，请联系管理员'
+        })
+      }
+    }
+  }
+</script>

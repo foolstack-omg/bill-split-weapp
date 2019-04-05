@@ -11,7 +11,10 @@
       </view>
       <text>{{ user.name }}</text>
       <view style="margin-top: 60rpx;">小司机帮你轻松解决账单的烦恼</view>
-      <view style="margin-top: 200rpx;">
+      <navigator url="/pages/qas/index">
+        <image src="/images/help.png" style="margin-top: 30rpx; width: 96rpx; height: 96rpx;"></image>
+      </navigator>
+      <view style="margin-top: 80rpx;">
         <button type="primary" open-type="share" id="invite" style="display: inline-block; width: 360rpx;">
           分享给好友
         </button>
