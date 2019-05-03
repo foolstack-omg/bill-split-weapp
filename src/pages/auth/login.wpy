@@ -2,11 +2,11 @@
 
 </style>
 <template>
-    <view style="text-align: center;position: relative; top: 140px;">
-        <image src="/images/placeholders/3.jpg" style="width: 200px; height: 200px;"></image>
+    <view style="text-align: center;position: relative; top: 280rpx;">
+        <image src="/images/version_1/kongbaiye1.png" style="width: 400rpx; height: 400rpx;"></image>
     </view>
     <view >
-        <button style="position: absolute; left: 95px; top: 400px; width: 50%;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">上车</button>
+        <button style="position: absolute; left: 95px; top: 400px; width: 50%;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">开始使用</button>
     </view>
 </template>
 <script>

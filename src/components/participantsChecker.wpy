@@ -6,23 +6,29 @@
         <view style="height: 50px; text-align: center; font-size: 16px; font-weight: bold; position: fixed; padding: 10px; z-index: 10; width: 100%; box-sizing: border-box; background: white;">
             选择参与人
             <text style="display: inline-block; position: absolute; left: 10px; font-weight: normal;" bindtap="onCancel">取消</text>
-            <button style="position: absolute; right:10px; margin: 0;" class="weui-btn mini-btn" disabled="{{ selectedData.length === 0 }}" type="primary" size="mini" bindtap="onFinish">完成</button>
+            <button style="position: absolute; right:10px; margin: 0; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);" class="weui-btn mini-btn" disabled="{{ selectedData.length === 0 }}" type="primary" size="mini" bindtap="onFinish">完成</button>
         </view>
-        <view style="padding-top: 60px;" class="weui-cells weui-cells_after-title">
+        <view wx:if="{{ syncData.length }}" style="width: 670rpx; margin: auto; padding-top: 120rpx;">
             <checkbox-group bindchange="checkboxChange">
-                <label class="weui-cell weui-check__label" wx:for="{{syncData}}" wx:key="value">
-                    <checkbox class="weui-check" value="{{item.id}}" checked="{{item.checked}}"/>
+                <label style="display: flex; width: 100%; height: 96rpx; flex-direction: row; align-items: center; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);" wx:for="{{syncData}}" wx:key="value">
+                    <checkbox style="display:none;" value="{{item.id}}" checked="{{item.checked}}"/>
 
-                    <view class="weui-cell__hd weui-check__hd_in-checkbox">
-                        <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"/>
-                        <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"/>
-                    </view>
-                    <view class="weui-cell__bd" style="display: flex; align-items: center;">
-                        <image src="{{item.avatar_url}}" style="width: 40px; height: 40px; border-radius: 100%; margin-right: 5px;" />{{item.name}}
+                    <view style="width: 36rpx; height: 36rpx; border:2rpx solid rgba(201,200,204,1); border-radius: 50%;" wx:if="{{!item.checked}}"/>
+                    <image style="width: 40rpx; height: 40rpx;" src="/images/version_1/selected.png" wx:if="{{item.checked}}"/>
+                    <view style="display: flex; align-items: center; margin-left: 32rpx; font-size:32rpx; color:rgba(60,38,72,1);">
+                        <image src="{{item.avatar_url}}" style="width: 64rpx; height: 64rpx; border-radius: 100%; margin-right: 14rpx;" />{{item.name}}
                     </view>
                 </label>
             </checkbox-group>
-
+        </view>
+        <view wx:else>
+            <view style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-top: 330rpx; ">
+                <image style="width: 385rpx; height: 382rpx; display: inline-block" src="/images/version_1/kongbaiye.png"></image>
+                <text style="display: block; margin-top: 48rpx; color: #3C2648; opacity:0.8;">暂无活动成员</text>
+            </view>
+            <view style="position: fixed; bottom: 0; width: 100%; height: 170rpx; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                <button open-type="share" hover-class="none" style="width:590rpx; height:96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:48px; color: white; font-size:36rpx; font-weight: bold;">邀请活动成员</button>
+            </view>
         </view>
 
     </view>

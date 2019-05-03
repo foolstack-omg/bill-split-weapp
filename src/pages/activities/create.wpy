@@ -1,0 +1,98 @@
+<style lang="less">
+
+</style>
+<template>
+  <view style="background: url('/images/version_1/headbackg.png'); background-size: 100%; height: 389rpx;">
+  </view>
+  <view style="position: absolute; top: 0;overflow: hidden; width: 100%;">
+    <view style=" width: 670rpx; margin: auto; ">
+      <text style="color: white; font-size:48rpx; margin-top: 59rpx;">创建活动</text>
+      <view style="width: 100%; padding: 48rpx 40rpx; box-shadow:0px 4px 48px 0px rgba(0,0,0, 0.08);;border-radius:8rpx; box-sizing: border-box; background: white; margin-top: 60rpx;">
+        <view style="display: flex; align-items: flex-end;">
+          <image src="/images/version_1/active.png" style="width: 40rpx; height: 40rpx;"></image>
+          <text style="font-size:32rpx; color:rgba(60,38,72,1); margin-left: 10rpx;">活动名称</text>
+        </view>
+        <view>
+          <input style="margin-top: 40rpx;height:96rpx; width: 100%; line-height: 96rpx; text-align: center; background:rgba(246,245,249,1);border:1rpx solid rgba(231,230,237,1); border-radius:4rpx; font-size: 36rpx; color: #3C2648; font-weight: bold; "
+                 placeholder-style="font-size:32rpx;color:rgba(60,38,72,0.4);"
+                 @input="bindActivityName" placeholder="输入活动名称"/>
+        </view>
+
+      </view>
+      <button @tap="save" style="display: block; width:590rpx; height:96rpx; font-size: 36rpx; line-height: 96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16); border-radius:48rpx; margin: 80rpx auto 0; color: white; ">确定</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import api from '@/utils/api'
+
+  export default class Create extends wepy.page {
+    config = {
+      navigationBarTitleText: ''
+    }
+    mixins = []
+
+    data = {
+      activity: {
+        name: ''
+      }
+    }
+
+    computed = {
+    }
+
+    methods = {
+      bindActivityName(e) {
+        console.log(e)
+        this.activity.name = e.detail.value
+        console.log(this.activity.name)
+      },
+      async save() {
+        let that = this
+        if (that.activity.name.length === 0) {
+          wepy.showToast({
+            title: '活动名称不能为空',
+            icon: 'none',
+            duration: 1500
+          })
+          return
+        }
+        if (that.activity.name.length > 20) {
+          wepy.showToast({
+            title: '活动名称不能超过20个字',
+            icon: 'none',
+            duration: 1500
+          })
+          return
+        }
+        try {
+          let response = await api.authRequest({
+            method: 'POST',
+            url: 'activities/save/',
+            data: {
+              name: that.activity.name
+            }
+          })
+          if (response.statusCode === 201) {
+            console.log('success')
+            wepy.reLaunch({
+              url: '/pages/activities/index'
+            })
+          }
+        } catch (e) {
+          console.log(e)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+      }
+    }
+    async onLoad(options) {
+    }
+    events = {
+    }
+  }
+</script>

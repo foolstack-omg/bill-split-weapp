@@ -1,130 +1,61 @@
 <style lang="less">
-  .section{
-    background-color: white;
-    border: 1px solid transparent;
-    border-left: none;
-    border-right: none;
-    margin: 10px 0;
+  page {
+    background: #F4F3F7;
+  }
 
+  .participant_warpper{
+    width: 120rpx; float: left; display: flex; flex-direction: column; align-items: center; margin: 20rpx 40rpx 0 0;
   }
-  .section:first-child{
-    border-top: none;
-  }
-  .portrait_wrap{
-    float: left;
-    width: 124rpx;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-right: 22rpx;
-  }
-  .portrait_wrap:nth-child(5n){
+  .participant_warpper:nth-child(4n){
     margin-right: 0;
   }
-  .portrait{
-
-    >image, .action-wrapper{
-      display: block;
-      border: 2rpx solid transparent;
-      border-radius: 8px;
-      width: 120rpx;
-      height: 120rpx;
-    }
-    .action-wrapper{
-      border: 2rpx solid #f0f0f0;
-      text-align: center;
-      line-height: 110rpx;
-      width: 118rpx;
-      height: 118rpx;
-    }
-    .action-wrapper>image{
-      width: 60rpx;
-      height: 60rpx;
-      vertical-align: middle;
-    }
-    .nickname{
-      text-align: center;
-      font-size: 24rpx;
-      display: block;
-      margin: 10rpx 0;
-      text-overflow: ellipsis;
-      white-space:nowrap;
-      overflow: hidden;
-    }
-  }
-  .weui-cell__bd.action{
-    text-align: center;
-  }
-  .weui-cell__bd.action.warning{
-    color: #ff3536;
-  }
-
-  button#invite{
-    margin:0;
-    padding:0;
-    background:white;
-    box-sizing: content-box;
-    width:120rpx;
-    height:120rpx;
-  }
-  button#invite:after{
-    border:1px solid #f0f0f0;
-  }
 </style>
-<template class="bg">
-  <view >
-    <view wx:if="{{activity.id}}" class="section clear-fix" style="padding: 10px;">
-      <repeat for="{{ participants }}" wx:key="id" index="index" item="user">
-        <view class="portrait portrait_wrap">
-          <image src="{{ user.avatar_url }}"></image>
-          <text class="nickname">{{ user.name }}</text>
-        </view>
-      </repeat>
-
-      <view class="portrait portrait_wrap">
-        <button open-type="share" id="invite" class="action-wrapper">
-          <image src="/images/icon_m_add.png"></image>
-        </button>
-      </view>
-      <view wx:if="{{ activity.id && user.id === activity.user_id }}" @tap="removeParticipants" class="portrait portrait_wrap">
-        <view class="action-wrapper">
-          <image src="/images/icon_m_minus.png"></image>
-        </view>
-      </view>
-
-
-    </view>
-
-    <view class="section weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">活动名称</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" disabled="{{ activity.id && user.id !== activity.user_id }}" value="{{ activity.name }}" @input="bindActivityName" placeholder="请输入活动名称"/>
-        </view>
-      </view>
-    </view>
-
-    <view wx:if="{{activity.id}}" class="section weui-cells weui-cells_after-title">
-      <navigator url="/pages/activities/code?wx_a_code={{ activity.wx_a_code }}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">活动二维码</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">
-          <image style="width: 25px; height: 25px; vertical-align: middle;" src="/images/icon_qrcode.png"></image>
+<template>
+  <view style="background: #F4F3F7; overflow: hidden; margin-bottom: 170rpx;">
+    <view style="width: 670rpx; margin: 24rpx auto 36rpx; border-radius:8rpx; padding: 24rpx 40rpx; box-sizing: border-box; background: white;">
+      <input disabled="{{ user.id !== activity.user_id }}" value="{{ activity.name }}"  style="width: 100%; height: 96rpx; line-height: 96rpx; color: #3C2648; font-size: 36rpx; display: block; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);" placeholder="请输入活动名称"/>
+      <navigator url="/pages/activities/code?wx_a_code={{ activity.wx_a_code }}" hover-class="none">
+        <view style="width: 100%; height: 96rpx; line-height: 96rpx; display: flex; flex-direction: row; justify-content: space-between; align-items: center;box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
+          <view style="font-size:32rpx; color: #3C2648; width: 100%; height: 96rpx; line-height: 96rpx;">
+            活动小程序码
+          </view>
+          <view style="vertical-align: middle; text-align: right; width: 100rpx; display: flex; flex-direction: row; align-items: center; justify-content: right;">
+            <image src="/images/version_1/xiaochengxuma.png" style="width: 40rpx; height: 40rpx; "></image>
+            <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; margin-left: 13rpx; "></image>
+          </view>
         </view>
       </navigator>
+
+      <view style="width: 100%; height: 96rpx; line-height: 96rpx; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <view style="font-size:32rpx; color: #3C2648; width: 100%; height: 96rpx; line-height: 96rpx;">
+          参与成员（{{ participants.length }}个）
+        </view>
+        <view style="vertical-align: middle; text-align: right; width: 300rpx; flex-shrink: 0; display: flex; flex-direction: row; align-items: center; justify-content: flex-end;">
+          <text wx:if="{{ user.id === activity.user_id }}" style="color: #3C2648; font-size: 28rpx;">请离</text>
+          <button wx:if="{{ user.id === activity.user_id }}" @tap="removeParticipants" style="height: 48rpx; width: 48rpx; margin-left: 13rpx; margin-right: 0; line-height: 48rpx; background: none;" hover-class="none;">
+            <image src="/images/version_1/kick.png" style="width: 48rpx; height: 48rpx;"></image>
+          </button>
+          <text style="color: #3C2648; font-size: 28rpx; margin-left: 10rpx;">邀请</text>
+          <button open-type="share" style="height: 48rpx; width: 48rpx; margin-left: 13rpx; margin-right: 0; line-height: 48rpx; background: none;" hover-class="none;">
+            <image src="/images/version_1/invite.png" style="width: 48rpx; height: 48rpx;"></image>
+          </button>
+        </view>
+      </view>
+
+      <view wx:if="{{participants}}" style="width: 100%; padding: 0 5rpx; box-sizing: border-box;">
+        <repeat for="{{ participants }}" wx:key="id" index="index" item="user">
+          <view class="participant_warpper" style="width: 120rpx; float: left; display: flex; flex-direction: column; align-items: center; margin: 20rpx 40rpx 0 0;">
+            <image style="width: 112rpx; height: 112rpx; border-radius: 50%;" src="{{ user.avatar_url }}"></image>
+            <text style="font-size:22rpx;color:rgba(60,38,72,1); width: 100%; text-align: center;" class="text-ellipsis">{{ user.name }}</text>
+          </view>
+        </repeat>
+        <view style="clear: both;"></view>
+      </view>
     </view>
 
-    <view wx:if="{{ !activity.id || (activity.id && user.id === activity.user_id) }}"  class="section weui-cells weui-cells_after-title">
-      <view wx:if="{{ !activity.id || user.id === activity.user_id }}"  class="weui-cell" hover-class="weui-cell_active" bindtap="save">
-        <view class="weui-cell__bd action">
-          保存
-        </view>
-      </view>
-      <view wx:if="{{ activity.id && user.id === activity.user_id }}" class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
-        <view class="weui-cell__bd action warning" >
-          删除并退出
-        </view>
-      </view>
+    <view wx:if="{{ user.id === activity.user_id }}"  style="position: fixed; bottom: 0; width: 100%; height: 170rpx; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+      <button bindtap="exit" hover-class="none" style="margin-left: 80rpx; width:282rpx; height:96rpx; border:2rpx solid rgba(255,89,123,1); border-radius:48px; color: #FF597B; font-size:36rpx; font-weight: bold;">删除</button>
+      <button bindtap="save" hover-class="none" style="margin-right: 80rpx; width:282rpx; height:96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:48px; color: white; font-size:36rpx; font-weight: bold;">保存</button>
     </view>
   </view>
 
@@ -139,7 +70,10 @@
 
   export default class Management extends wepy.page {
     config = {
-      navigationBarTitleText: '活动管理'
+      navigationBarTitleText: '活动管理',
+      navigationBarBackgroundColor: '#F4F3F7',
+      backgroundColor: '#F4F3F7',
+      navigationBarTextStyle: 'black'
     }
     components = {
       'participants-checker': participantsChecker
@@ -178,7 +112,7 @@
         let that = this
         wx.showActionSheet({
           itemList: ['确定'],
-          itemColor: '#ff3536',
+          itemColor: '#FF597B',
           async success(res) {
             if (that.activity.name.length === 0) {
               wepy.showToast({
@@ -228,7 +162,7 @@
         let that = this
         wx.showActionSheet({
           itemList: ['确定'],
-          itemColor: '#ff3536',
+          itemColor: '#FF597B',
           async success(res) {
             console.log(res.tapIndex)
             try {
@@ -340,7 +274,7 @@
       return {
         title: '加入活动：' + this.activity.name,
         path: '/pages/activities/index?to_activity_id=' + (this.activity.id ? this.activity.id : ''),
-        imageUrl: '/images/placeholders/4.jpg'
+        imageUrl: '/images/version_1/kongbaiye1.png'
       }
     }
     events = {

@@ -2,47 +2,58 @@
   .profile{
     text-align: center;
   }
+  .list-button{
+    display: flex;
+    align-items: center;
+    height: 136rpx;
+    line-height: 136rpx;
+    vertical-align: middle;
+    box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);
+    background: white;
+    padding: 0;
+    font-size: 36rpx;
+    color: #3C2648;
+    font-weight: bold;
+    margin-top: 2rpx;
+  }
+  .list-button > text{
+    margin-left: 23rpx;
+  }
 </style>
 <template>
-  <view class="bg">
-    <view class="profile">
-      <view style="margin-top: 80rpx; margin-bottom: 20rpx;">
-        <image style="width: 200rpx; height: 200rpx; border-radius: 100%; border: 2rpx solid" src="{{ user.avatar_url }}"></image>
-      </view>
-      <text>{{ user.name }}</text>
-      <view style="margin-top: 60rpx;">小司机帮你轻松解决账单的烦恼</view>
-      <navigator url="/pages/qas/index">
-        <image src="/images/help.png" style="margin-top: 30rpx; width: 96rpx; height: 96rpx;"></image>
-      </navigator>
-      <view style="margin-top: 80rpx;">
-        <button type="primary" open-type="share" id="invite" style="display: inline-block; width: 360rpx;">
-          分享给好友
-        </button>
-      </view>
-      <view style="margin-top: 40rpx;">
-        <button type="default" open-type="contact" style="display: inline-block; width: 360rpx;">
-          撩一下
-        </button>
-      </view>
-
-
+  <view class="profile" style="background: url('/images/version_1/minebackg.png'); width: 100%; height: 484rpx; background-size: 100%; box-sizing: border-box; overflow: hidden;">
+    <view style="margin-top: 54rpx;">
+      <image style="width: 174rpx; height: 174rpx; border-radius: 100%; border: 2rpx solid white" src="{{ user.avatar_url }}"></image>
     </view>
+    <text style="font-size: 40rpx; color: white; margin-top: 20rpx;">{{ user.name }}</text>
+    <view style="margin-top: 4rpx; color: white; font-size: 28rpx;">同游分账帮你轻松解决账单的烦恼</view>
 
+    <button type="default" open-type="contact" style="display: inline-block; width:148rpx; height:64rpx; line-height: 64rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:32rpx; margin-top: 24rpx; font-size: 28rpx; color: rgba(60,38,72,1); font-weight: bold;">
+      撩一下
+    </button>
   </view>
 
-  <tab-bar :tabBar.sync="tabBarData"></tab-bar>
+  <view style="padding: 24rpx 40rpx;">
+    <button class="list-button" @tap="toQuestion">
+      <image src="/images/version_1/question.png" style="width: 56rpx; height: 56rpx;"></image><text>常见问题</text>
+      <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; position: absolute; top: 48rpx; right: 0;"></image>
+    </button>
+    <button class="list-button" open-type="share">
+      <image src="/images/version_1/share.png" style="width: 56rpx; height: 56rpx;"></image><text>分享给好友</text>
+      <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; position: absolute; top: 48rpx; right: 0;"></image>
+    </button>
+  </view>
+
 </template>
 
 <script>
   import wepy from 'wepy'
-  import tabBar from '@/components/tabBar'
 
   export default class Me extends wepy.page {
     config = {
-      navigationBarTitleText: '更多'
+      navigationBarTitleText: '个人中心'
     }
     components = {
-      'tab-bar': tabBar
     }
 
     mixins = []
@@ -56,23 +67,26 @@
     }
 
     methods = {
+      toQuestion() {
+        wx.navigateTo({
+          url: '/pages/qas/index'
+        })
+      }
     }
 
     events = {
     }
 
     async onLoad() {
-      this.tabBarData = this.$parent.globalData.tabBar
       this.user = await this.$parent.getCurrentUser()
       console.log(this.user)
     }
     onShow() {
-      this.tabBarData.selected = 1
     }
 
     onShareAppMessage(res) {
       return {
-        title: '小司机帮你轻松解决账单的烦恼',
+        title: '同游分账帮你轻松解决账单的烦恼',
         path: '/pages/activities/index',
         imageUrl: '/images/placeholders/4.jpg'
       }

@@ -1,9 +1,20 @@
 <style lang="less">
 @import "style/weui.less";
-    .clear-fix{overflow:hidden;_zoom:1;}
-    page{
-        background-color: white;
-    }
+  .clear-fix{overflow:hidden;_zoom:1;}
+  .text-ellipsis{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  page{
+      background-color: white;
+  }
+  button{
+    padding: 0;
+  }
+  button::after{
+    border: none;
+  }
 </style>
 <script>
 import wepy from 'wepy'
@@ -23,6 +34,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/activities/index',
+      'pages/activities/create',
       'pages/activities/management',
       'pages/activities/code',
       'pages/activities/bills/index',
@@ -33,23 +45,27 @@ export default class extends wepy.app {
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: 'white',
-      navigationBarTitleText: '算账小能手',
-      navigationBarTextStyle: 'black'
+      backgroundColor: '#7C5EF2',
+      navigationBarBackgroundColor: '#7C5EF2',
+      navigationBarTitleText: '同游分账',
+      navigationBarTextStyle: 'white'
     },
     tabBar: {
-      selected: 0,
-      custom: true,
+      // selected: 0,
+      backgroundColor: '#FFFFFF',
+      custom: false,
       list: [{
         pagePath: 'pages/activities/index',
-        text: '活动',
-        iconPath: 'images/icon_activities.png',
-        selectedIconPath: 'images/icon_activities_selected.png'
+        iconPath: 'images/version_1/zhangdan_unselected.png',
+        selectedIconPath: 'images/version_1/zhangdan_selected.png'
+      }, {
+        pagePath: 'pages/activities/create',
+        iconPath: 'images/version_1/create_activity.png',
+        selectedIconPath: 'images/version_1/create_activity.png'
       }, {
         pagePath: 'pages/users/me',
-        text: '更多',
-        iconPath: 'images/icon_prompt.png',
-        selectedIconPath: 'images/icon_prompt_selected.png'
+        iconPath: 'images/version_1/more_unselected.png',
+        selectedIconPath: 'images/version_1/more_selected.png'
       }],
       color: '#707070',
       selectedColor: '#1AAD19'
@@ -57,8 +73,7 @@ export default class extends wepy.app {
   }
 
   globalData = {
-    userInfo: null,
-    tabBar: this.config.tabBar
+    userInfo: null
   }
 
   components = {
@@ -101,8 +116,8 @@ export default class extends wepy.app {
   }
 
   // 切换Tabbar
-  selectTabBar(index) {
-    this.globalData.tabBar.selected = index
-  }
+  // selectTabBar(index) {
+  //   this.globalData.tabBar.selected = index
+  // }
 }
 </script>

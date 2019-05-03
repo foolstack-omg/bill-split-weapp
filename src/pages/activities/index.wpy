@@ -4,107 +4,76 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-  .page__bd_spacing{
-    padding-bottom: 75px;
-    padding-left:15px;
-    padding-right:15px;
-  }
-  .activity{
-    position: relative;
-    border: 1px solid #9e9e9e;
-    border-radius: 5px;
-    margin: 10px 0;
-    padding: 5px;
-    .avatar{
-      display: block;
-      float: left;
-      border-radius: 5px;
-      width: 50px;
-      height: 50px;
-    }
-    .top{
-      width: 90%;
-      float: left;
-      margin-left: 10px;
-      color: #9e9e9e;
-      .title{
-        color: black;
-        font-weight: bold;
-        float: left;
-        font-size: 16px;
-        width: 150px;
-      }
-      .date{
-        float: right;
-        font-size: 12px;
-      }
-      .content{
-        font-size: 14px;
-        .total{
-
-        }
-        .unpaid{
-          //margin-left: 20px;
-        }
-      }
-    }
-  }
 </style>
 <template>
-  <view wx:if="{{ activities.length }}" class="page__bd_spacing bg">
-    <repeat for="{{ activities }}" wx:key="id" index="index" item="activity">
-      <view class="activity clear-fix">
-        <navigator url="/pages/activities/bills/index?id={{ activity.id }}" style="display: flex; align-items: center;">
-          <image class="avatar" src="{{ activity.user.avatar_url}}"></image>
-          <view class="top">
-            <view class="clear-fix">
-              <text class="title text-ellipsis">{{ activity.name }}</text>
-              <text class="date">{{ activity.created_at }}</text>
+  <view style="background: url('/images/version_1/shouyebackg.png'); background-size: 100%; width: 100%; height: 287rpx; text-align: center; color: white; overflow: hidden;">
+    <view wx:if="{{ activities.length }}">
+      <text style="display: inline-block; font-size: 40rpx; margin-top: 39rpx;">- 你的活动账单 -</text>
+    </view>
+    <view wx:else>
+      <text style="display: inline-block; font-size:32rpx; margin-top: 62rpx;">没有与你相关的活动账单，马上创建吧</text>
+      <button @tap="createActivity" style="margin-top: 47rpx; width:190rpx;height:80rpx; line-height: 80rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:40px; color: white;">创建活动</button>
+    </view>
+  </view>
+  <view wx:if="{{ activities.length }}" style="background: white;">
+    <view style="display: flex; flex-direction: column; align-items: center; position: relative; top: -180rpx;">
+      <repeat for="{{ activities }}" wx:key="id" index="index" item="activity">
+        <navigator hover-class="none" url="/pages/activities/bills/index?id={{ activity.id }}&name={{ activity.name}}">
+          <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4px 40px 0px rgba(0,0,0, 0.08);border-radius:8px; margin-top: 24rpx; background: white; box-sizing: border-box;">
+            <view style="display: flex; flex-direction: row;  padding-bottom: 32rpx; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
+              <image src="{{ activity.user.avatar_url}}" style="flex-shrink: 0;display: block; width: 88rpx; height: 88rpx; border-radius:50%;"></image>
+              <view style="display: flex; flex-direction: column; width: 100%; margin-left: 25rpx; " >
+                <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;  ">
+                  <text class="text-ellipsis" style="font-size:32rpx;color:rgba(60,38,72,1);font-weight:bold; width: 100%;">{{ activity.name }}</text>
+                  <button catchtap="management({{ activity.id }})" style="flex-shrink: 0; width:80rpx;height:44rpx; line-height: 44rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:22rpx; color:rgba(60,38,72,1); font-size:24rpx; margin-left: 24rpx;">管理</button>
+                </view>
+                <view style="font-size: 24rpx; ">
+                  <text style="color: #3C2648; opacity:0.8;">{{ activity.user.name}}</text>
+                  <text style="color: #3C2648; opacity:0.5;"> 建于{{ activity.created_at }}</text>
+                </view>
+              </view>
             </view>
-            <view class="content">
-              <text >你已消费：{{ activity.split_sum }}</text>
+            <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); height:80rpx; font-size: 24rpx; color:rgba(60,38,72,1); display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <image src="/images/version_1/spent.png" style="width: 32rpx; height: 32rpx; display: block; flex-shrink: 0;"></image>
+              <text style="margin-left: 20rpx; width: 150rpx;">你已消费</text>
+              <text style="margin-left: 20rpx; width: 100%; text-align: right; color:rgba(60,38,72,1); font-size: 28rpx;">{{ activity.split_sum }}</text>
             </view>
-            <view class="content">
-              <text >你未付款：{{ activity.unpaid_sum }}</text>
+            <view style="{{ activity.all_unpaid_sum ? 'box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); ' : '' }}height:80rpx; font-size: 24rpx; color:rgba(60,38,72,1); display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <image src="/images/version_1/unpaid.png" style="width: 32rpx; height: 32rpx; display: block; flex-shrink: 0;"></image>
+              <text style="margin-left: 20rpx; width: 150rpx;">你未付款</text>
+              <text style="margin-left: 20rpx; width: 100%; text-align: right; color:rgba(116,72,228,1); font-size: 28rpx;">{{ activity.unpaid_sum }}</text>
             </view>
-            <view wx:if="{{ activity.all_unpaid_sum }}" class="content">
-              <text >你未收款：{{ activity.all_unpaid_sum }}</text>
+            <view wx:if="{{ activity.all_unpaid_sum }}" style=" height:80rpx; font-size: 24rpx; color:rgba(60,38,72,1); display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <image src="/images/version_1/unretrive.png" style="width: 32rpx; height: 32rpx; display: block; flex-shrink: 0;"></image>
+              <text style="margin-left: 20rpx; width: 150rpx;">你未收款</text>
+              <text style="margin-left: 20rpx; width: 100%; text-align: right; color:rgba(255,89,123,1); font-size: 28rpx;">{{ activity.all_unpaid_sum }}</text>
             </view>
           </view>
-        </navigator>
-        <navigator url="/pages/activities/management?id={{ activity.id }}">
-            <button style="position: absolute; right: 5px; bottom: 5px;" class="weui-btn mini-btn" type="primary" size="mini">管理</button>
+
         </navigator>
 
-      </view>
-    </repeat>
+      </repeat>
+    </view>
   </view>
-  <view wx:else style="text-align: center;position: relative; top: 200px;">
-    <image src="/images/placeholders/4.jpg"></image>
+  <view wx:else style="margin-top: 242rpx; text-align: center;">
+    <image src="/images/version_1/kongbaiye1.png" style="width: 336rpx; height: 336rpx; "></image>
   </view>
 
-
-  <tab-bar :tabBar.sync="tabBarData"></tab-bar>
 </template>
 
 <script>
   import wepy from 'wepy'
   import api from '@/utils/api'
-  import tabBar from '@/components/tabBar'
 
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: '活动',
       enablePullDownRefresh: true
     }
-    components = {
-      'tab-bar': tabBar
-    }
 
     mixins = []
 
     data = {
-      tabBarData: null,
       options: {},
       activities: []
     }
@@ -113,6 +82,17 @@
     }
 
     methods = {
+      createActivity() {
+        wepy.switchTab({
+          url: '/pages/activities/create'
+        })
+      },
+      management(activityId, e) {
+        console.log('manage activityId' + activityId)
+        wepy.navigateTo({
+          url: '/pages/activities/management?id=' + activityId
+        })
+      }
     }
 
     events = {
@@ -120,10 +100,8 @@
 
     async onLoad(options) {
       this.options = options
-      this.tabBarData = this.$parent.globalData.tabBar
     }
     async onShow() {
-      this.tabBarData.selected = 0
       let user = await this.$parent.getCurrentUser()
       if (user) {
         console.log(this.options)

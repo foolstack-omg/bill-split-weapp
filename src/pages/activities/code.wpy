@@ -2,19 +2,25 @@
 
 </style>
 <template>
-  <view style="text-align: center;position: relative; top: 140px;">
-    <image src="{{ url }}" style="width: 200px; height: 200px;"></image>
+  <view style="text-align: center;position: relative; top: 280rpx;">
+    <image src="{{ url }}" style="width: 480rpx; height: 480rpx;"></image>
   </view>
-  <view >
-    <button style="position: absolute; left: 95px; top: 400px; width: 50%;" @tap="save" class="weui-btn" type="primary">保存</button>
+
+  <view style="display: block; position: fixed; bottom: 38rpx; width: 100%;">
+    <button style="width: 590rpx; margin: auto; height: 96rpx; color: white; text-align: center;background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16);border-radius:48rpx;" @tap="save">保存至相册</button>
   </view>
+
+
 </template>
 <script>
   import wepy from 'wepy'
 
   export default class Code extends wepy.page {
     config = {
-      navigationBarTitleText: '活动小程序码'
+      navigationBarTitleText: '活动小程序码',
+      navigationBarBackgroundColor: 'white',
+      backgroundColor: 'white',
+      navigationBarTextStyle: 'black'
     }
     components = {
 

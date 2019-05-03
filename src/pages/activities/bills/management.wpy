@@ -484,6 +484,14 @@
       this._debounceReCalculate()
     }
 
+    onShareAppMessage(res) {
+      return {
+        title: '同游分账: 加入活动',
+        path: '/pages/activities/index?to_activity_id=' + (this.bill.activity_id ? this.bill.activity_id : ''),
+        imageUrl: '/images/version_1/kongbaiye1.png'
+      }
+    }
+
     events = {
     }
   }

@@ -52,48 +52,109 @@
   }
 </style>
 <template>
-  <view>
-    <view wx:if="{{ bills.length }}" class="page__bd_spacing bg" style="margin-bottom: 80px;">
-      <repeat for="{{ bills }}" index="index" item="item">
-        <navigator url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">
-          <view class="bill clear-fix">
-            <image class="avatar" src="{{ item.user.avatar_url }}"></image>
-            <view class="top">
-              <view class="clear-fix">
-                <text class="title text-ellipsis">{{ item.title }}</text>
-                <text class="date">{{ item.created_at }}</text>
-              </view>
-              <view class="content">
-                <text >你已消费：{{ item.split_money }}</text>
-              </view>
-              <view class="content">
-                <text >你未付款：{{ item.unpaid_money }}</text>
-              </view>
-              <view wx:if="{{ item.user_id === user.id }}" class="content">
-                <text >你未收款：{{ item.all_unpaid_money }}</text>
+  <view style="background: #7C5EF2; height: {{ bills.length ? '338' : '229'}}rpx; box-sizing: border-box; padding: 40rpx;">
+    <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+      <text style="display: block; font-size:40rpx; color: white; font-weight: bold; width: 100%;">{{ activityName }}</text>
+      <button catchtap="management()" style="flex-shrink: 0;width:80rpx;height:44rpx; line-height: 44rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:22rpx; color:rgba(60,38,72,1); font-size:24rpx; margin-left: 24rpx;">管理</button>
+    </view>
+    <view style="width: 100%;height:80rpx; background:rgba(255,255,255,0.06); border-radius:8rpx; box-sizing: border-box; margin-top: 16rpx; ">
+      <view style="display: flex; height: 100%; flex-direction: row; justify-content: space-between; align-items: center; color: white; font-size: 28rpx; padding: 0 40rpx;">
+        <view>本次活动你已消费</view><view>{{ sumSplitMoney }}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{ bills.length }}" style="background: white;">
+    <view style="display: flex; flex-direction: column; align-items: center; position: relative; top: -140rpx; padding-bottom: 40rpx;">
+      <repeat for="{{ bills }}" wx:key="id" index="index" item="item">
+        <navigator hover-class="none" url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">
+          <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4px 40px 0px rgba(0,0,0, 0.08);border-radius:8px; margin-top: 24rpx; background: white; box-sizing: border-box;">
+            <view style="display: flex; flex-direction: row;  padding-bottom: 32rpx; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
+              <image src="{{ item.user.avatar_url }}" style="flex-shrink: 0;display: block; width: 88rpx; height: 88rpx; border-radius:50%;"></image>
+              <view style="display: flex; flex-direction: column; width: 100%; margin-left: 25rpx; " >
+                <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
+                  <text class="text-ellipsis" style="font-size:32rpx;color:rgba(60,38,72,1);font-weight:bold; width: 100%;">{{ item.title }}</text>
+                  <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx;"></image>
+                </view>
+                <view style="font-size: 24rpx; ">
+                  <text style="color: #3C2648; opacity:0.8;">{{ item.user.name }}</text>
+                  <text style="color: #3C2648; opacity:0.5;"> 建于{{ item.created_at }}</text>
+                </view>
               </view>
             </view>
+            <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); height:80rpx; font-size: 24rpx; color:rgba(60,38,72,1); display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <image src="/images/version_1/spent.png" style="width: 32rpx; height: 32rpx; display: block; flex-shrink: 0;"></image>
+              <text style="margin-left: 20rpx; width: 150rpx;">你已消费</text>
+              <text style="margin-left: 20rpx; width: 100%; text-align: right; color:rgba(60,38,72,1); font-size: 28rpx;">{{ item.split_money }}</text>
+            </view>
+            <view style="{{ item.user_id === user.id ? 'box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);' : '' }} height:80rpx; font-size: 24rpx; color:rgba(60,38,72,1); display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <image src="/images/version_1/unpaid.png" style="width: 32rpx; height: 32rpx; display: block; flex-shrink: 0;"></image>
+              <text style="margin-left: 20rpx; width: 150rpx;">你未付款</text>
+              <text style="margin-left: 20rpx; width: 100%; text-align: right; color:rgba(116,72,228,1); font-size: 28rpx;">{{ item.unpaid_money }}</text>
+            </view>
+            <view wx:if="{{ item.user_id === user.id }}" style=" height:80rpx; font-size: 24rpx; color:rgba(60,38,72,1); display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <image src="/images/version_1/unretrive.png" style="width: 32rpx; height: 32rpx; display: block; flex-shrink: 0;"></image>
+              <text style="margin-left: 20rpx; width: 150rpx;">你未收款</text>
+              <text style="margin-left: 20rpx; width: 100%; text-align: right; color:rgba(255,89,123,1); font-size: 28rpx;">{{ item.all_unpaid_money }}</text>
+            </view>
           </view>
+
         </navigator>
+
       </repeat>
     </view>
-    <view wx:else style="text-align: center;position: relative; top: 160px;">
-      <image src="/images/placeholders/1.jpg" style="width: 280px; height: 200px;"></image>
-    </view>
+  </view>
+  <view wx:if="{{ !bills.length }}" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-top: 191rpx; ">
+    <image style="width: 385rpx; height: 382rpx; display: inline-block" src="/images/version_1/kongbaiye.png"></image>
+    <text style="display: block; margin-top: 48rpx; color: #3C2648; opacity:0.8;">还没有相关的活动账单</text>
+  </view>
+  <view style="position: fixed; bottom: 0; width: 100%; height: 170rpx; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+    <button @tap="manageBill" hover-class="none" style="width:590rpx; height:96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:48px; color: white; font-size:36rpx; font-weight: bold;">创建活动账单</button>
+  </view>
 
-  </view>
-  <view class="page__bd_spacing" style="position: fixed; padding: 15px; bottom: 0px; width: 100%; box-sizing: border-box; background-color: white;">
-    <navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">
-      <button class="weui-btn" type="primary" >
-        创建新的账单
-      </button>
-    </navigator>
-  </view>
+  <!--<view>-->
+    <!--<view wx:if="{{ bills.length }}" class="page__bd_spacing bg" style="margin-bottom: 80px;">-->
+      <!--<repeat for="{{ bills }}" index="index" item="item">-->
+        <!--<navigator url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">-->
+          <!--<view class="bill clear-fix">-->
+            <!--<image class="avatar" src="{{ item.user.avatar_url }}"></image>-->
+            <!--<view class="top">-->
+              <!--<view class="clear-fix">-->
+                <!--<text class="title text-ellipsis">{{ item.title }}</text>-->
+                <!--<text class="date">{{ item.created_at }}</text>-->
+              <!--</view>-->
+              <!--<view class="content">-->
+                <!--<text >你已消费：{{ item.split_money }}</text>-->
+              <!--</view>-->
+              <!--<view class="content">-->
+                <!--<text >你未付款：{{ item.unpaid_money }}</text>-->
+              <!--</view>-->
+              <!--<view wx:if="{{ item.user_id === user.id }}" class="content">-->
+                <!--<text >你未收款：{{ item.all_unpaid_money }}</text>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</navigator>-->
+      <!--</repeat>-->
+    <!--</view>-->
+    <!--<view wx:else style="text-align: center;position: relative; top: 160px;">-->
+      <!--<image src="/images/placeholders/1.jpg" style="width: 280px; height: 200px;"></image>-->
+    <!--</view>-->
+
+  <!--</view>-->
+  <!--<view class="page__bd_spacing" style="position: fixed; padding: 15px; bottom: 0px; width: 100%; box-sizing: border-box; background-color: white;">-->
+    <!--<navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">-->
+      <!--<button class="weui-btn" type="primary" >-->
+        <!--创建新的账单-->
+      <!--</button>-->
+    <!--</navigator>-->
+  <!--</view>-->
 </template>
 
 <script>
   import wepy from 'wepy'
   import api from '@/utils/api'
+  import Decimal from 'decimal'
 
   export default class Index extends wepy.page {
     config = {
@@ -107,14 +168,32 @@
 
     data = {
       user: {},
+      activityName: '',
       activityId: null,
       bills: []
     }
 
     computed = {
+      sumSplitMoney() {
+        let sum = '0.00'
+        this.bills.forEach(item => {
+          sum = new Decimal(sum).add(new Decimal(item.split_money)).toNumber()
+        })
+        return sum
+      }
     }
 
     methods = {
+      management() {
+        wepy.navigateTo({
+          url: '/pages/activities/management?id=' + this.activityId
+        })
+      },
+      manageBill() {
+        wepy.navigateTo({
+          url: '/pages/activities/bills/management?activity_id=' + this.activityId
+        })
+      }
     }
 
     events = {
@@ -122,6 +201,7 @@
 
     async onLoad(options) {
       this.activityId = options.id
+      this.activityName = options.name
     }
     async onShow() {
       this.user = await this.$parent.getCurrentUser()
