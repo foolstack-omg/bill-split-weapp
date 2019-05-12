@@ -6,7 +6,7 @@
         <image src="/images/version_1/kongbaiye1.png" style="width: 400rpx; height: 400rpx;"></image>
     </view>
     <view >
-        <button style="position: absolute; left: 95px; top: 400px; width: 50%;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">开始使用</button>
+        <button style="position: absolute; left: 95px; top: 400px; width: 50%; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16); border-radius:48rpx; color: white;" open-type="getUserInfo" @getuserinfo="agreeGetUser" class="weui-btn" type="primary">开始使用</button>
     </view>
 </template>
 <script>

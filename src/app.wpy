@@ -58,15 +58,15 @@ export default class extends wepy.app {
       list: [{
         pagePath: 'pages/activities/index',
         iconPath: 'images/version_1/zhangdan_unselected.png',
-        selectedIconPath: 'images/version_1/zhangdan_selected.png'
+        selectedIconPath: 'images/version_1/zhangdan_selected.png',
       }, {
         pagePath: 'pages/activities/create',
         iconPath: 'images/version_1/create_activity.png',
-        selectedIconPath: 'images/version_1/create_activity.png'
+        selectedIconPath: 'images/version_1/create_activity.png',
       }, {
         pagePath: 'pages/users/me',
         iconPath: 'images/version_1/more_unselected.png',
-        selectedIconPath: 'images/version_1/more_selected.png'
+        selectedIconPath: 'images/version_1/more_selected.png',
       }],
       color: '#707070',
       selectedColor: '#1AAD19'

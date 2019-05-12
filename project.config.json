@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -89,17 +89,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 8,
 					"name": "pages/activities/bills/show",
 					"pathName": "pages/activities/bills/show",
-					"query": "activity_id=1&id=20",
+					"query": "activity_id=1&id=24",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "pages/activities/bills/management",
 					"pathName": "pages/activities/bills/management",
-					"query": "activity_id=1&id=20",
+					"query": "activity_id=1&id=24",
 					"scene": null
 				}
 			]

@@ -17,102 +17,155 @@
   .weui-cell__bd.action.warning{
     color: #ff3536;
   }
-  input[disabled]{
-    border: 1px solid transparent !important;
+
+  // ----
+  .items {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 10rpx;
+  }
+  .items:first-child {
+    margin-top: 0;
+  }
+  .wx-switch-input{
+    box-sizing: border-box;
+    width:80rpx !important;
+    height:40rpx !important;
+    line-height:40rpx !important;
+    background:linear-gradient(90deg, rgb(80, 80, 80), rgb(201, 201, 201));
+    border: transparent !important; /* 2018-07-18 重置开关边框颜色 */
+  }
+  .wx-switch-input-checked {
+    background:linear-gradient(90deg,rgba(133,91,243,1),rgba(172,97,246,1));
+  }
+  /*白色样式（false的样式）*/
+  .wx-switch-input::before{
+    margin: 6rpx;
+    width:28rpx !important;
+    height: 28rpx !important;
+    border-radius: 50%;
+    color: black;
+  }
+  /*绿色样式（true的样式）*/
+  .wx-switch-input::after{
+    margin: 6rpx;
+    width:28rpx !important;
+    height: 28rpx !important;
+    border-radius: 50%;
   }
 </style>
 <template class="bg">
-  <view >
-    <view class="section weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">账单描述</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input disabled="{{ !editable }}" class="weui-input" placeholder="请输入账单标题" value="{{ bill.title }}" @input="bindTitle"/>
-        </view>
+  <view>
+    <view style="overflow: hidden; margin: 40rpx 40rpx 0; padding-bottom: 30rpx; display: flex; justify-content: space-between; align-items: center; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+      <view style="width: 100%;"><input style="font-weight: bold;font-size:40rpx; width: 100%;" placeholder="请输入账单标题" value="{{ bill.title }}" @input="bindTitle" /></view>
+    </view>
+    <view style="margin: 24rpx 40rpx 0;">
+      <view style="padding: 28rpx 36rpx; background:rgba(246,245,249,1);border-radius:8rpx; display: flex; justify-content: space-between; align-items: center;">
+        <text style="font-size:28rpx;color:rgba(60,38,72,1);opacity:0.8; display: block;">账单总金额</text>
+        <input  id="abc"  style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:block; text-align: right;" placeholder="请输入账单总金额"  value="{{ bill.money }}" @input="bindMoney"/>
       </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">账单金额</view>
+    </view>
+    <view style="">
+      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+        <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; margin: 0 40rpx 0;">
+          <view style="display:flex; justify-content: left;  align-items: center;">
+            <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">具体事项</text>
+            <text style="font-size:24rpx;color:rgba(60,38,72,1);opacity:0.4;display: block; font-weight:bold;">（可选填）</text>
+          </view>
+          <view style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
+            <text style="display: block; font-size: 28rpx;color:rgba(60,38,72,1);opacity:0.8;">新增</text>
+            <image @tap="addItem()" src="/images/version_1/invite.png" style="width: 48rpx; height: 48rpx; margin-left: 20rpx;"></image>
+
+          </view>
         </view>
-        <view class="weui-cell__bd">
-          <input disabled="{{ !editable }}" type="digit" class="weui-input" placeholder="请输入账单金额"  value="{{ bill.money }}" @input="bindMoney"/>
+        <view wx:if="{{ bill.items.data.length}}" style="margin-right: 40rpx; margin-bottom: 28rpx;">
+          <repeat for="{{ bill.items.data }}" index="index" item="item">
+            <view style="display: flex; justify-content: flex-start; align-items: center; margin-top: 10rpx;">
+              <image @tap="removeItem({{ index }})" src="/images/version_1/-.png" style="display: block; flex-shrink: 0; width: 32rpx; height: 32rpx; padding: 16rpx;"></image>
+              <view class="items" style=" width: 100%; padding: 28rpx 36rpx; background:rgba(246,245,249,1);border-radius:8rpx; margin-top: 0;">
+                <input value="{{ item.title }}" @input="bindItemTitle({{ index }})" style="font-size:28rpx;color:rgba(60,38,72,1);opacity:0.8; display: block;" type="text" placeholder="请输入事项及对应金额" />
+                <input value="{{ item.money }}" @input="bindItemMoney({{ index }})" style="width: 246rpx; flex-shrink: 0;font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:block; text-align: right; border-left: 1rpx solid rgba(191,190,196,1); padding-left: 10rpx;" type="digit" placeholder="金额"/>
+              </view>
+            </view>
+
+          </repeat>
+        </view>
+
+      </view>
+
+    </view>
+    <view style="margin: 0 40rpx 0;">
+      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+        <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center;">
+          <view style="display:flex; justify-content: left;  align-items: center;">
+            <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">备注</text>
+            <text style="font-size:24rpx;color:rgba(60,38,72,1);opacity:0.4;display: block; font-weight:bold;">（可选填）</text>
+          </view>
+
+        </view>
+        <view style="padding: 28rpx 36rpx; background:rgba(246,245,249,1);border-radius:8rpx; margin-bottom: 28rpx;">
+          <textarea  style="font-size:28rpx;color:rgba(60,38,72,1);opacity:0.8; display: block;" wx:if="{{!showChecker}}" auto-height="true" maxlength="1000" value="{{ bill.description }}" @input="bindDescription" placeholder="请输入账单描述"></textarea>
         </view>
       </view>
 
     </view>
+    <view style="margin: 0 40rpx 0;">
+      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+        <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; ">
+          <view style="display:flex; justify-content: left;  align-items: center;">
+            <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">参与成员</text>
+            <text style="font-size:24rpx;color:rgba(60,38,72,1);opacity:0.4;display: block; font-weight:bold;">（{{ bill.participants.data.length }}个）</text>
+          </view>
+          <view style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
+            <text style="display: block; font-size: 28rpx;color:rgba(60,38,72,1);opacity:0.8;">邀请</text>
+            <image @tap="showChecker()" src="/images/version_1/invite.png" style="width: 48rpx; height: 48rpx; margin-left: 20rpx;"></image>
+          </view>
+        </view>
 
-    <view class="section weui-panel weui-panel_access">
-      <view class="weui-panel__hd">参与人员
-        <image wx:if="{{ editable }}" bindtap="showChecker" style="width: 20px; height: 20px; vertical-align: middle; position: relative; top: -1px; margin-left: 10px;" src="/images/icon_add.png"></image>
-      </view>
-      <view class="weui-panel__bd">
         <repeat for="{{ bill.participants.data }}" index="index" item="participant">
-          <view class="weui-media-box weui-media-box_appmsg">
-            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image style="border-radius: 5px;" class="weui-media-box__thumb" src="{{ participant.user.avatar_url }}"/>
-            </view>
-            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg clear-fix">
-              <view class="weui-media-box__title" style="">
-                {{ participant.user.name }}
-                <icon wx:if="{{ isOwner }}" style="float: right;" type="cancel" size="24px" @tap="removeParticipant({{ index }})"></icon>
+          <view style="margin-bottom: 24rpx; position: relative; padding: 32rpx 40rpx;box-shadow:0px 4rpx 48rpx 0rpx rgba(234,235,241,1); border-radius:8rpx;">
+            <image wx:if="{{ user.id === participant.user.id }}" style="width: 32rpx; height: 32rpx; top: 0; left: 0; position: absolute;" src="/images/version_1/zijidezhangdan.png"></image>
+
+            <view style="display: flex; justify-content: space-between; align-items: center;">
+              <view style="display: flex; justify-content: space-between; align-items: center;">
+                <image style="width:56rpx;height:56rpx; background:rgba(221,221,221,1); border-radius:50%;" src="{{ participant.user.avatar_url }}"></image>
+                <text style="display: block; margin-left: 24rpx; height:30rpx; line-height: 30rpx;font-size:32rpx; font-weight:bold; color:rgba(60,38,72,1);">{{ participant.user.name }}</text>
               </view>
-              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 28rpx; margin-top: 5px;">
-                需支付：<input disabled="{{ !editable || !participant.fixed }}" @input="bindSplitMoney({{ index }})" type="digit" value="{{ participant.split_money }}" style="width: 180px; display: inline-block; padding: 2px; border: 1px solid lightgrey; height: 24px; min-height: 0; "/>
-              </view>
-              <view class="weui-media-box__desc" style="display: flex; align-items: center; font-size: 28rpx; margin-top: 5px;">
-                自动计算：<switch disabled="{{ !editable }}" @change="bindFixed({{ index }})" checked="{{ !participant.fixed }}" style="margin-right: 10px;"></switch>
-                已支付：<switch disabled="{{ !editable }}" @change="bindPaid({{ index }})" checked="{{ participant.paid }}" style="margin-right: 10px;"></switch>
-              </view>
+              <label style="display: block;">
+                <switch @change="bindPaid({{ index }})" checked="{{ participant.paid }}" style="display:none;"></switch>
+                <view wx:if="{{ participant.paid }}"  style="font-size:28rpx;line-height: 28rpx;">
+                  已支付<image style="width: 40rpx; height: 40rpx; display: inline-block; vertical-align: middle; margin-left: 16rpx; " src="/images/version_1/selected.png"/>
+                </view>
+                <view wx:else style="font-size:28rpx;line-height: 28rpx;">
+                  未支付<view style="width: 36rpx; height: 36rpx; border:2rpx solid rgba(201,200,204,1); border-radius: 50%; display: inline-block; margin-left: 16rpx; vertical-align: middle;"/>
+                </view>
+              </label>
 
             </view>
+            <view style="margin-top: 20rpx; padding: 25rpx; background:rgba(246,245,249,1); border-radius:4rpx; display: flex; justify-content: space-between;  align-items: center; ">
+              <text style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1);opacity:0.8; display: block;">需支付</text>
+              <input  disabled="{{ !participant.fixed }}" value="{{ participant.split_money }}" @input="bindSplitMoney({{ index }})" focus="{{ focusingParticipant && focusingParticipant.id === participant.id && focusingParticipant.focus}}" @blur="splitMoneyBlur" style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1); display:block; text-align: right;" placeholder="请输入均摊金额" type="digit" />
+            </view>
+            <view style="margin-top: 26rpx; display: flex; justify-content: space-between;  align-items: center; ">
+              <view style="display: flex; justify-content: flex-start;  align-items: center; ">
+                <view style="font-size:24rpx;color:rgba(60,38,72,1);">自动计算</view>
+                <view style="height: 52rpx; line-height: 36rpx;">
+                  <switch @change="bindFixed({{ index }})" checked="{{ !participant.fixed }}" style="margin-left: 16rpx; vertical-align: middle;"></switch>
+                </view>
+              </view>
+              <view @tap="removeParticipant({{ index }})"  style="font-size:24rpx;color:rgba(255,89,123,1);">移除</view>
+            </view>
+
+
+
+
           </view>
         </repeat>
-
-
       </view>
-    </view>
-
-    <view wx:if="{{ editable || (!editable && bill.items.data.length > 0 )}}" class="section weui-cells weui-cells_after-title">
-      <view class="weui-cells__title">具体事项（可选填）</view>
-      <view wx:if="{{ editable }}" class="weui-cell">
-        <input disabled="{{ !editable }}" value="{{ itemTitle }}" @input="bindTempItemTitle" type="text" placeholder="请输入事项" />
-        <input disabled="{{ !editable }}" value="{{ itemMoney }}" @input="bindTempItemMoney" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
-        <image @tap="addItem()" style="width: 28px; height: 28px; vertical-align: middle; position: relative; left: -2px;" src="/images/icon_add.png"></image>
-      </view>
-      <repeat for="{{ bill.items.data }}" index="index" item="item">
-        <view class="weui-cell">
-          <input disabled="{{ !editable }}" value="{{ item.title }}" @input="bindItemTitle({{ index }})" type="text" placeholder="请输入事项" />
-          <input disabled="{{ !editable }}" value="{{ item.money }}" @input="bindItemMoney({{ index }})" style="width: 80px; margin: 0 10px;" type="digit" placeholder="金额"/>
-          <icon wx:if="{{ editable }}" type="cancel" size="24px" @tap="removeItem({{ index }})"></icon>
-        </view>
-      </repeat>
 
     </view>
 
-      <view wx:if="{{ editable || (!editable && bill.description.length > 0 )}}" class="weui-cells__title">账单描述（可选填）</view>
-      <view wx:if="{{ editable || (!editable && bill.description.length > 0 )}}" class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <textarea wx:if="{{!showChecker}}" disabled="{{ !editable }}" auto-height="true" maxlength="1000" value="{{ bill.description }}" @input="bindDescription" class="weui-textarea" placeholder="请输入账单描述">
-            </textarea>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view wx:if="{{ editable }}" class="section weui-cells weui-cells_after-title">
-      <view class="weui-cell" hover-class="weui-cell_active" bindtap="save">
-        <view class="weui-cell__bd action">
-          保存账单
-        </view>
-      </view>
-      <view wx:if="{{ isOwner }}" class="weui-cell" hover-class="weui-cell_active" bindtap="exit">
-        <view class="weui-cell__bd action warning" >
-          删除账单
-        </view>
-      </view>
+    <view style="overflow: hidden;">
+      <button @tap="exit" style="display: block; width:590rpx; border:2rpx solid rgba(255,89,123,1); border-radius:48rpx; font-size:36rpx; height:96rpx; line-height: 96rpx;color:rgba(255,89,123,1); margin: 40rpx auto; background: white;">删除账单</button>
+      <button @tap="save" style="display: block; width:590rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16); border-radius:48rpx; font-size:36rpx; height:96rpx; line-height: 96rpx;color:white; margin: 20rpx auto 40rpx;">保存</button>
     </view>
   </view>
 
@@ -128,7 +181,8 @@
 
   export default class Management extends wepy.page {
     config = {
-      navigationBarTitleText: '账单管理'
+      navigationBarTitleText: '账单管理',
+      backgroundColor: '#FFFFFF',
     }
     components = {
       'participants-checker': participantsChecker
@@ -152,6 +206,7 @@
           data: []
         }
       },
+      focusingParticipant: null,
       activityParticipants: [],
       showChecker: false,
       calculating: false
@@ -233,10 +288,19 @@
           this.reCaculateBill()
         }
       },
+      splitMoneyBlur() {
+        this.focusingParticipant = null
+      },
       bindFixed(index, e) {
         let participant = this.bill.participants.data[index]
         participant.fixed = !e.detail.value
         this.reCaculateBill()
+        if (participant.fixed) {
+          this.focusingParticipant = participant
+          this.focusingParticipant.focus = true
+        } else {
+          this.focusingParticipant = null
+        }
       },
       bindPaid(index, e) {
         let participant = this.bill.participants.data[index]
@@ -284,20 +348,7 @@
         }
       },
       addItem() {
-        console.log(this.itemMoney)
-        console.log(this.itemTitle)
-        let money = Number.parseFloat(this.itemMoney)
-        if (Number.isNaN(money)) {
-          return false
-        }
-        this.itemMoney = money.toFixed(2)
-        console.log(this.itemMoney)
-        if (this.itemTitle.length === 0) {
-          return false
-        }
-        this.bill.items.data.unshift({title: this.itemTitle, money: this.itemMoney})
-        this.itemTitle = ''
-        this.itemMoney = 0
+        this.bill.items.data.unshift({title: '', money: '0.00'})
       },
       removeItem(index) {
         console.log(index)
@@ -332,7 +383,7 @@
         let that = this
         wx.showActionSheet({
           itemList: ['确定'],
-          itemColor: '#ff3536',
+          itemColor: '#FF597B',
           async success(res) {
             console.log(res.tapIndex)
             try {
@@ -365,7 +416,7 @@
         let that = this
         wx.showActionSheet({
           itemList: ['确定'],
-          itemColor: '#ff3536',
+          itemColor: '#FF597B',
           async success(res) {
             try {
               // 请求接口，传入参数

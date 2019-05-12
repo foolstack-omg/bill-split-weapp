@@ -6,7 +6,7 @@
   }
 </style>
 <template>
-  <view style="background: url('/images/version_1/shouyebackg.png'); background-size: 100%; width: 100%; height: 287rpx; text-align: center; color: white; overflow: hidden;">
+  <view style="background: url('__HTTP__/images/version_1/shouyebackg.png'); background-size: 100%; width: 100%; height: 287rpx; text-align: center; color: white; overflow: hidden;">
     <view wx:if="{{ activities.length }}">
       <text style="display: inline-block; font-size: 40rpx; margin-top: 39rpx;">- 你的活动账单 -</text>
     </view>
@@ -149,7 +149,7 @@
         })
 
         if (response.statusCode === 200) {
-          this.activities = response.data.data
+          //this.activities = response.data.data
           this.$apply()
         }
       } catch (err) {

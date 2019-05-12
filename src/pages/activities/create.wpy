@@ -2,7 +2,7 @@
 
 </style>
 <template>
-  <view style="background: url('/images/version_1/headbackg.png'); background-size: 100%; height: 389rpx;">
+  <view style="background: url('__HTTP__/images/version_1/headbackg.png'); background-size: 100%; height: 389rpx;">
   </view>
   <view style="position: absolute; top: 0;overflow: hidden; width: 100%;">
     <view style=" width: 670rpx; margin: auto; ">

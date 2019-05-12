@@ -1,27 +1,5 @@
 <style lang="less">
-  .section{
-    background-color: white;
-    border: 1px solid transparent;
-    border-left: none;
-    border-right: none;
-    margin: 10px 0;
 
-  }
-  .section:first-child{
-    border-top: none;
-  }
-
-  .weui-cell__bd.action{
-    text-align: center;
-  }
-  .weui-cell__bd.action.warning{
-    color: #ff3536;
-  }
-  input[disabled]{
-    border: 1px solid transparent !important;
-  }
-
-  // 分割线
   .items {
     display: flex; justify-content: space-between; align-items: center; margin-top: 10rpx;
   }
@@ -50,7 +28,7 @@
       <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
         <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; ">
           <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">具体事项</text>
-          <view @tap="toggleItems()" style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
+          <view @tap="toggleItems" style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
             <text style="display: block;">{{ bill.items.data.length }}条事项</text>
             <image wx:if="{{ bill.items.data.length && !showingItems  }}" src="/images/version_1/open.png" style="width: 32rpx; height: 32rpx; margin-left: 20rpx;"></image>
             <image wx:if="{{ bill.items.data.length && showingItems}}" src="/images/version_1/close.png" style="width: 32rpx; height: 32rpx; margin-left: 20rpx;"></image>
@@ -72,7 +50,7 @@
       <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
         <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center;">
           <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">备注</text>
-          <view @tap="toggleDescription()" style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
+          <view @tap="toggleDescription" style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
             <text wx:if="{{ bill.description.length && !showingDescription }}"  style="display: block;">展开</text>
             <text wx:if="{{ bill.description.length && showingDescription }}" style="display: block;">收起</text>
             <text wx:if="{{ !bill.description.length }}">暂无备注</text>
@@ -88,36 +66,36 @@
 
     </view>
     <view style="margin: 0 40rpx 0;">
-      <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; ">
-        <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">参与成员</text>
-        <view style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
-          <text style="display: block;">{{ bill.participants.data.length }}个</text>
+      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+        <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; ">
+          <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">参与成员</text>
+          <view style="font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:flex; justify-content: right;  align-items: center;">
+            <text style="display: block;">{{ bill.participants.data.length }}个</text>
+          </view>
         </view>
-      </view>
-    </view>
-    <view style="margin: 0 40rpx 0;">
-      <repeat for="{{ bill.participants.data }}" index="index" item="participant">
-        <view style="margin-bottom: 24rpx; position: relative; padding: 32rpx 40rpx;box-shadow:0px 4rpx 48rpx 0rpx rgba(234,235,241,1); border-radius:8rpx;">
-          <view style="display: flex; justify-content: space-between; align-items: center;">
+        <repeat for="{{ bill.participants.data }}" index="index" item="participant">
+          <view style="margin-bottom: 24rpx; position: relative; padding: 32rpx 40rpx;box-shadow:0px 4rpx 48rpx 0rpx rgba(234,235,241,1); border-radius:8rpx;">
             <view style="display: flex; justify-content: space-between; align-items: center;">
-              <image style="width:56rpx;height:56rpx; background:rgba(221,221,221,1); border-radius:50%;" src="{{ participant.user.avatar_url }}"></image>
-              <text style="display: block; margin-left: 24rpx; height:30rpx; line-height: 30rpx;font-size:32rpx; font-weight:bold; color:rgba(60,38,72,1);">{{ participant.user.name }}</text>
+              <view style="display: flex; justify-content: space-between; align-items: center;">
+                <image style="width:56rpx;height:56rpx; background:rgba(221,221,221,1); border-radius:50%;" src="{{ participant.user.avatar_url }}"></image>
+                <text style="display: block; margin-left: 24rpx; height:30rpx; line-height: 30rpx;font-size:32rpx; font-weight:bold; color:rgba(60,38,72,1);">{{ participant.user.name }}</text>
+              </view>
+              <view wx:if="{{ participant.paid }}"  style="font-size:28rpx;line-height: 28rpx;color:rgba(116,72,228,1);">
+                已支付
+              </view>
+              <view wx:else style="font-size:28rpx;line-height: 28rpx;color:rgba(255,89,123,1);">
+                未支付
+              </view>
             </view>
-            <view wx:if="{{ participant.paid }}"  style="font-size:28rpx;line-height: 28rpx;color:rgba(116,72,228,1);">
-              已支付
+            <view style="margin-top: 20rpx; padding: 25rpx; background:rgba(246,245,249,1); border-radius:4rpx; display: flex; justify-content: space-between;  align-items: center; ">
+              <view style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1);opacity:0.8;">需支付</view>
+              <view style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1);">{{ participant.split_money }}</view>
             </view>
-            <view wx:else style="font-size:28rpx;line-height: 28rpx;color:rgba(255,89,123,1);">
-              未支付
-            </view>
-          </view>
-          <view style="margin-top: 20rpx; padding: 25rpx; background:rgba(246,245,249,1); border-radius:4rpx; display: flex; justify-content: space-between;  align-items: center; ">
-            <view style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1);opacity:0.8;">需支付</view>
-            <view style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1);">{{ participant.split_money }}</view>
-          </view>
-          <image wx:if="{{ user.id === participant.user.id }}" style="width: 32rpx; height: 32rpx; top: 0; left: 0; position: absolute;" src="/images/version_1/zijidezhangdan.png"></image>
+            <image wx:if="{{ user.id === participant.user.id }}" style="width: 32rpx; height: 32rpx; top: 0; left: 0; position: absolute;" src="/images/version_1/zijidezhangdan.png"></image>
 
-        </view>
-      </repeat>
+          </view>
+        </repeat>
+      </view>
 
     </view>
   </view>
@@ -132,6 +110,7 @@
   export default class Show extends wepy.page {
     config = {
       navigationBarTitleText: '账单详情',
+      backgroundColor: '#FFFFFF',
       enablePullDownRefresh: true
     }
     components = {
@@ -141,8 +120,6 @@
 
     data = {
       options: {},
-      itemTitle: '',
-      itemMoney: 0,
       user: {},
       bill: {
         title: '',
@@ -157,10 +134,7 @@
         }
       },
       showingItems: false,
-      showingDescription: false,
-      activityParticipants: [],
-      showChecker: false,
-      calculating: false
+      showingDescription: false
     }
 
     computed = {
@@ -172,11 +146,14 @@
       toggleItems() {
         if (this.bill.items.data.length) {
           this.showingItems = !this.showingItems
+          console.log(this.showingItems)
         }
       },
       toggleDescription() {
         if (this.bill.description.length) {
+
           this.showingDescription = !this.showingDescription
+          console.log(this.showingDescription)
         }
       }
     }

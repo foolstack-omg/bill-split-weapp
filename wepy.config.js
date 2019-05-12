@@ -3,7 +3,7 @@ var prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
   wpyExt: '.wpy',
-  eslint: true,
+  eslint: false,
   cliLogs: !prod,
   build: {
     web: {
@@ -41,13 +41,22 @@ module.exports = {
     }
   },
   plugins: {
-    replace: {
-      filter: /\.js$/,
-      config: {
-        find: /__BASE_URL__/g,
-        replace: prod ? "'https://bill-split.ergou.live/api'" : "'http://bill-split.test/api'"
+    replace: [
+      {
+        filter: /\.js$/,
+        config: {
+          find: /__BASE_URL__/g,
+          replace: prod ? "'https://bill-split.ergou.live/api'" : "'http://bill-split.test/api'"
+        }
+      },
+      {
+        filter: /\.wxml$/,
+        config: {
+          find: /__HTTP__/g,
+          replace: prod ? "https://bill-split.ergou.live" : "http://bill-split.test"
+        }
       }
-    }
+    ]
   },
   appConfig: {
     noPromiseAPI: ['createSelectorQuery']
@@ -77,12 +86,21 @@ if (prod) {
     //     }
     //   }
     // },
-    replace: {
-      filter: /\.js$/,
-      config: {
-        find: /__BASE_URL__/g,
-        replace: prod ? "'https://bill-split.ergou.live/api'" : "'http://bill-split.test/api'"
+    replace: [
+      {
+        filter: /\.js$/,
+        config: {
+          find: /__BASE_URL__/g,
+          replace: prod ? "'https://bill-split.ergou.live/api'" : "'http://bill-split.test/api'"
+        }
+      },
+      {
+        filter: /\.wxml$/,
+        config: {
+          find: /__HTTP__/g,
+          replace: prod ? "https://bill-split.ergou.live" : "http://bill-split.test"
+        }
       }
-    }
+    ]
   }
 }
