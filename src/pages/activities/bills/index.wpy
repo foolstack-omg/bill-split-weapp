@@ -4,52 +4,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-  .page__bd_spacing{
-    padding-left:15px;
-    padding-right:15px;
-  }
-  // 活动账单
-  .bill{
-    border: 1px solid #9e9e9e;
-    border-radius: 5px;
-    margin: 8px 0;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    .avatar{
-      display: block;
-      float: left;
-      border-radius: 5px;
-      width: 50px;
-      height: 50px;
-    }
-    .top{
-      width: 270px;
-      float: left;
-      margin-left: 10px;
-      color: #9e9e9e;
-      .title{
-        color: black;
-        font-weight: bold;
-        float: left;
-        font-size: 16px;
-        width: 125px;
-      }
-      .date{
-        float: right;
-        font-size: 12px;
-      }
-      .content{
-        font-size: 14px;
-        .total{
 
-        }
-        .unpaid{
-          //margin-left: 20px;
-        }
-      }
-    }
-  }
 </style>
 <template>
   <view style="background: #7C5EF2; height: {{ bills.length ? '338' : '229'}}rpx; box-sizing: border-box; padding: 40rpx;">
@@ -67,7 +22,7 @@
   <view wx:if="{{ bills.length }}" style="background: white;">
     <view style="display: flex; flex-direction: column; align-items: center; position: relative; top: -140rpx; padding-bottom: 40rpx;">
       <repeat for="{{ bills }}" wx:key="id" index="index" item="item">
-        <navigator hover-class="none" url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">
+        <navigator hover-class="none" url="/pages/activities/bills/show?id={{ item.id }}&activity_id={{ activityId }}">
           <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4px 40px 0px rgba(0,0,0, 0.08);border-radius:8px; margin-top: 24rpx; background: white; box-sizing: border-box;">
             <view style="display: flex; flex-direction: row;  padding-bottom: 32rpx; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
               <image src="{{ item.user.avatar_url }}" style="flex-shrink: 0;display: block; width: 88rpx; height: 88rpx; border-radius:50%;"></image>
@@ -111,44 +66,6 @@
   <view style="position: fixed; bottom: 0; width: 100%; height: 170rpx; display: flex; flex-direction: row; justify-content: center; align-items: center;">
     <button @tap="manageBill" hover-class="none" style="width:590rpx; height:96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:48px; color: white; font-size:36rpx; font-weight: bold;">创建活动账单</button>
   </view>
-
-  <!--<view>-->
-    <!--<view wx:if="{{ bills.length }}" class="page__bd_spacing bg" style="margin-bottom: 80px;">-->
-      <!--<repeat for="{{ bills }}" index="index" item="item">-->
-        <!--<navigator url="/pages/activities/bills/management?id={{ item.id }}&activity_id={{ activityId }}">-->
-          <!--<view class="bill clear-fix">-->
-            <!--<image class="avatar" src="{{ item.user.avatar_url }}"></image>-->
-            <!--<view class="top">-->
-              <!--<view class="clear-fix">-->
-                <!--<text class="title text-ellipsis">{{ item.title }}</text>-->
-                <!--<text class="date">{{ item.created_at }}</text>-->
-              <!--</view>-->
-              <!--<view class="content">-->
-                <!--<text >你已消费：{{ item.split_money }}</text>-->
-              <!--</view>-->
-              <!--<view class="content">-->
-                <!--<text >你未付款：{{ item.unpaid_money }}</text>-->
-              <!--</view>-->
-              <!--<view wx:if="{{ item.user_id === user.id }}" class="content">-->
-                <!--<text >你未收款：{{ item.all_unpaid_money }}</text>-->
-              <!--</view>-->
-            <!--</view>-->
-          <!--</view>-->
-        <!--</navigator>-->
-      <!--</repeat>-->
-    <!--</view>-->
-    <!--<view wx:else style="text-align: center;position: relative; top: 160px;">-->
-      <!--<image src="/images/placeholders/1.jpg" style="width: 280px; height: 200px;"></image>-->
-    <!--</view>-->
-
-  <!--</view>-->
-  <!--<view class="page__bd_spacing" style="position: fixed; padding: 15px; bottom: 0px; width: 100%; box-sizing: border-box; background-color: white;">-->
-    <!--<navigator url="/pages/activities/bills/management?activity_id={{ activityId }}">-->
-      <!--<button class="weui-btn" type="primary" >-->
-        <!--创建新的账单-->
-      <!--</button>-->
-    <!--</navigator>-->
-  <!--</view>-->
 </template>
 
 <script>

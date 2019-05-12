@@ -88,7 +88,7 @@
       return {
         title: '同游分账帮你轻松解决账单的烦恼',
         path: '/pages/activities/index',
-        imageUrl: '/images/placeholders/4.jpg'
+        imageUrl: null
       }
     }
   }

@@ -38,6 +38,7 @@ export default class extends wepy.app {
       'pages/activities/management',
       'pages/activities/code',
       'pages/activities/bills/index',
+      'pages/activities/bills/show',
       'pages/activities/bills/management',
       'pages/users/me',
       'pages/auth/login',
