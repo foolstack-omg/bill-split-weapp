@@ -34,7 +34,7 @@
   <view>
     <view style="overflow: hidden; margin: 40rpx 40rpx 0; display: flex; justify-content: space-between; align-items: center;">
       <view><text style="font-weight: bold;font-size:40rpx;">{{ bill.title }}</text></view>
-      <view wx:if="isOwner">
+      <view wx:if="{{ isOwner }}">
         <navigator hover-class="none" url="/pages/activities/bills/management?id={{ bill.id }}&activity_id={{ bill.activity_id }}">
           <button style="width: 104rpx; height: 52rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,198,87,1));border-radius:26rpx;font-size:28rpx; color: black; line-height: 52rpx;">编辑</button>
         </navigator>
@@ -131,7 +131,8 @@
 
   export default class Show extends wepy.page {
     config = {
-      navigationBarTitleText: '账单详情'
+      navigationBarTitleText: '账单详情',
+      enablePullDownRefresh: true
     }
     components = {
     }
@@ -139,6 +140,7 @@
     mixins = []
 
     data = {
+      options: {},
       itemTitle: '',
       itemMoney: 0,
       user: {},
@@ -179,13 +181,19 @@
       }
     }
     async onLoad(options) {
+      this.options = options;
       this.user = await this.$parent.getCurrentUser()
       this.bill.activity_id = options.activity_id
-      if (options.id) {
+    }
+    async onShow() {
+      await this.loadData()
+    }
+    async loadData() {
+      if (this.options.id) {
         try {
           // 请求接口，传入参数
           let response = await api.authRequest({
-            url: 'bills/' + options.id + '?include=items,participants.user'
+            url: 'bills/' + this.options.id + '?include=items,participants.user'
           })
 
           if (response.statusCode === 200) {
@@ -200,6 +208,11 @@
           })
         }
       }
+    }
+    async onPullDownRefresh() {
+      // 调用组件的 reload 方法
+      await this.loadData()
+      wepy.stopPullDownRefresh()
     }
 
     onShareAppMessage(res) {
