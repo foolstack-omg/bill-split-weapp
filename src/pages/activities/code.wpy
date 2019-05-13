@@ -19,7 +19,7 @@
     config = {
       navigationBarTitleText: '活动小程序码',
       navigationBarBackgroundColor: 'white',
-      backgroundColor: 'white',
+      backgroundColor: '#FFFFFF',
       navigationBarTextStyle: 'black'
     }
     components = {

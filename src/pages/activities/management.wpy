@@ -4,7 +4,7 @@
   }
 
   .participant_warpper{
-    width: 120rpx; float: left; display: flex; flex-direction: column; align-items: center; margin: 20rpx 40rpx 0 0;
+    width: 120rpx; float: left; display: flex; flex-direction: column; align-items: center; margin: 20rpx 35rpx 0 0;
   }
   .participant_warpper:nth-child(4n){
     margin-right: 0;
@@ -13,7 +13,7 @@
 <template>
   <view style="background: #F4F3F7; overflow: hidden; margin-bottom: 170rpx;">
     <view style="width: 670rpx; margin: 24rpx auto 36rpx; border-radius:8rpx; padding: 24rpx 40rpx; box-sizing: border-box; background: white;">
-      <input disabled="{{ user.id !== activity.user_id }}" value="{{ activity.name }}"  style="width: 100%; height: 96rpx; line-height: 96rpx; color: #3C2648; font-size: 36rpx; display: block; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);" placeholder="请输入活动名称"/>
+      <input @input="bindActivityName" disabled="{{ user.id !== activity.user_id }}" value="{{ activity.name }}"  style="width: 100%; height: 96rpx; line-height: 96rpx; color: #3C2648; font-size: 36rpx; display: block; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);" placeholder="请输入活动名称"/>
       <navigator url="/pages/activities/code?wx_a_code={{ activity.wx_a_code }}" hover-class="none">
         <view style="width: 100%; height: 96rpx; line-height: 96rpx; display: flex; flex-direction: row; justify-content: space-between; align-items: center;box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
           <view style="font-size:32rpx; color: #3C2648; width: 100%; height: 96rpx; line-height: 96rpx;">
@@ -44,7 +44,7 @@
 
       <view wx:if="{{participants}}" style="width: 100%; padding: 0 5rpx; box-sizing: border-box;">
         <repeat for="{{ participants }}" wx:key="id" index="index" item="user">
-          <view class="participant_warpper" style="width: 120rpx; float: left; display: flex; flex-direction: column; align-items: center; margin: 20rpx 40rpx 0 0;">
+          <view class="participant_warpper" style="">
             <image style="width: 112rpx; height: 112rpx; border-radius: 50%;" src="{{ user.avatar_url }}"></image>
             <text style="font-size:22rpx;color:rgba(60,38,72,1); width: 100%; text-align: center;" class="text-ellipsis">{{ user.name }}</text>
           </view>
