@@ -6,7 +6,7 @@
         <view style="height: 50px; text-align: center; font-size: 16px; font-weight: bold; position: fixed; padding: 10px; z-index: 10; width: 100%; box-sizing: border-box; background: white;">
             选择参与人
             <text style="display: inline-block; position: absolute; left: 10px; font-weight: normal;" bindtap="onCancel">取消</text>
-            <button style="position: absolute; right:10px; margin: 0; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);" class="weui-btn mini-btn" disabled="{{ selectedData.length === 0 }}" type="primary" size="mini" bindtap="onFinish">完成</button>
+            <button style="position: absolute; right:10px; margin: 0; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16);" class="weui-btn mini-btn" disabled="{{ selectedData.length === 0 }}" type="primary" size="mini" bindtap="onFinish">完成</button>
         </view>
         <view wx:if="{{ syncData.length }}" style="width: 670rpx; margin: auto; padding-top: 120rpx;">
             <checkbox-group bindchange="checkboxChange">
@@ -27,7 +27,7 @@
                 <text style="display: block; margin-top: 48rpx; color: #3C2648; opacity:0.8;">暂无活动成员</text>
             </view>
             <view wx:if="{{ syncInvite }}" style="position: fixed; bottom: 0; width: 100%; height: 170rpx; display: flex; flex-direction: row; justify-content: center; align-items: center;">
-                <button open-type="share" hover-class="none" style="width:590rpx; height:96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:48px; color: white; font-size:36rpx; font-weight: bold;">邀请活动成员</button>
+                <button open-type="share" hover-class="none" style="width:590rpx; height:96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16);border-radius:48px; color: white; font-size:36rpx; font-weight: bold;">邀请活动成员</button>
             </view>
         </view>
 

@@ -23,7 +23,7 @@
 <template>
   <view class="profile" style="background: url('__HTTP__/images/version_1/minebackg.png'); width: 100%; height: 484rpx; background-size: 100%; box-sizing: border-box; overflow: hidden;">
     <view style="margin-top: 54rpx;">
-      <image style="width: 174rpx; height: 174rpx; border-radius: 100%; border: 2rpx solid white" src="/images/version_1/tudaren.png"></image>
+      <image style="width: 174rpx; height: 174rpx;" src="/images/version_1/tudaren.png"></image>
     </view>
     <text style="font-size: 40rpx; color: white; margin-top: 20rpx;">AA兔达人</text>
     <view style="margin-top: 4rpx; color: white; font-size: 28rpx;">同游分账帮你轻松解决账单的烦恼</view>

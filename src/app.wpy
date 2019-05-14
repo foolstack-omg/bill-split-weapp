@@ -45,7 +45,6 @@ export default class extends wepy.app {
       'pages/qas/index'
     ],
     window: {
-      backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#8457FB',
       navigationBarTitleText: '同游分账',
       navigationBarTextStyle: 'white'

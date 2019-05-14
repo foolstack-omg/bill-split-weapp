@@ -166,7 +166,7 @@
 
     <view style="overflow: hidden;">
       <button @tap="exit" style="display: block; width:590rpx; border:2rpx solid rgba(255,89,123,1); border-radius:48rpx; font-size:36rpx; height:96rpx; line-height: 96rpx;color:rgba(255,89,123,1); margin: 40rpx auto; background: white;">删除账单</button>
-      <button @tap="save" style="display: block; width:590rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16); border-radius:48rpx; font-size:36rpx; height:96rpx; line-height: 96rpx;color:white; margin: 20rpx auto 40rpx;">保存</button>
+      <button @tap="save" style="display: block; width:590rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16); border-radius:48rpx; font-size:36rpx; height:96rpx; line-height: 96rpx;color:white; margin: 20rpx auto 40rpx;">保存</button>
     </view>
   </view>
 

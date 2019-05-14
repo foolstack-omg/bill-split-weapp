@@ -12,14 +12,14 @@
     </view>
     <view wx:else>
       <text style="display: inline-block; font-size:32rpx; margin-top: 62rpx;">没有与你相关的活动账单，马上创建吧</text>
-      <button @tap="createActivity" style="margin-top: 47rpx; width:190rpx;height:80rpx; line-height: 80rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4px 0px 1px rgba(255,87,119,0.16);border-radius:40px; color: white;">创建活动</button>
+      <button @tap="createActivity" style="margin-top: 47rpx; width:190rpx;height:80rpx; line-height: 80rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1)); box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16);border-radius:40px; color: white;">创建活动</button>
     </view>
   </view>
   <view wx:if="{{ activities.length }}" style="background: white;">
     <view style="display: flex; flex-direction: column; align-items: center; position: relative; top: -180rpx;">
       <repeat for="{{ activities }}" wx:key="id" index="index" item="activity">
         <navigator hover-class="none" url="/pages/activities/bills/index?id={{ activity.id }}&name={{ activity.name}}">
-          <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4px 40px 0px rgba(0,0,0, 0.08);border-radius:8px; margin-top: 24rpx; background: white; box-sizing: border-box;">
+          <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4rpx 48rpx 0px rgba(0, 0, 0, 0.08);border-radius:8rpx; margin-top: 24rpx; background: white; box-sizing: border-box;">
             <view style="display: flex; flex-direction: row;  padding-bottom: 32rpx; box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
               <image src="{{ activity.user.avatar_url}}" style="flex-shrink: 0;display: block; width: 88rpx; height: 88rpx; border-radius:50%;"></image>
               <view style="display: flex; flex-direction: column; width: 100%; margin-left: 25rpx; " >

@@ -7,7 +7,7 @@
   <view style="position: absolute; top: 0;overflow: hidden; width: 100%;">
     <view style=" width: 670rpx; margin: auto; ">
       <text style="color: white; font-size:48rpx; margin-top: 59rpx;">创建活动</text>
-      <view style="width: 100%; padding: 48rpx 40rpx; box-shadow:0px 4px 48px 0px rgba(0,0,0, 0.08);;border-radius:8rpx; box-sizing: border-box; background: white; margin-top: 60rpx;">
+      <view style="width: 100%; padding: 48rpx 40rpx; box-shadow:0px 4rpx 48rpx 0px rgba(0,0,0, 0.08);;border-radius:8rpx; box-sizing: border-box; background: white; margin-top: 60rpx;">
         <view style="display: flex; align-items: flex-end;">
           <image src="/images/version_1/active.png" style="width: 40rpx; height: 40rpx;"></image>
           <text style="font-size:32rpx; color:rgba(60,38,72,1); margin-left: 10rpx;">活动名称</text>
