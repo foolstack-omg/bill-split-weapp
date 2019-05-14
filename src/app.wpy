@@ -46,8 +46,7 @@ export default class extends wepy.app {
     ],
     window: {
       backgroundTextStyle: 'light',
-      backgroundColor: '#7C5EF2',
-      navigationBarBackgroundColor: '#7C5EF2',
+      navigationBarBackgroundColor: '#8457FB',
       navigationBarTitleText: '同游分账',
       navigationBarTextStyle: 'white'
     },

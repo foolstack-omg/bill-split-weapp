@@ -64,7 +64,7 @@
       </view>
     </view>
     <view style="">
-      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+      <view style="">
         <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; margin: 0 40rpx 0;">
           <view style="display:flex; justify-content: left;  align-items: center;">
             <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">具体事项</text>
@@ -88,6 +88,7 @@
 
           </repeat>
         </view>
+        <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); height: 2rpx; overflow: hidden; margin: 0 40rpx 0;">_</view>
 
       </view>
 
@@ -108,7 +109,7 @@
 
     </view>
     <view style="margin: 0 40rpx 0;">
-      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1); overflow: hidden;">
+      <view style="box-shadow:0px 2rpx 0px 0px rgba(240,240,240,1);">
         <view style="padding: 28rpx 0; display: flex; justify-content: space-between; align-items: center; ">
           <view style="display:flex; justify-content: left;  align-items: center;">
             <text style="font-size:28rpx;color:rgba(60,38,72,1);display: block; font-weight:bold;">参与成员</text>

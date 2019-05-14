@@ -7,7 +7,7 @@
 
 </style>
 <template>
-  <view style="background: #7C5EF2; height: {{ bills.length ? '338' : '229'}}rpx; box-sizing: border-box; padding: 40rpx;">
+  <view style="background: #8457FB; height: {{ bills.length ? '338' : '229'}}rpx; box-sizing: border-box; padding: 40rpx;">
     <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
       <text style="display: block; font-size:40rpx; color: white; font-weight: bold; width: 100%;">{{ activityName }}</text>
       <button catchtap="management()" style="flex-shrink: 0;width:80rpx;height:44rpx; line-height: 44rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:22rpx; color:rgba(60,38,72,1); font-size:24rpx; margin-left: 24rpx;">管理</button>

@@ -13,6 +13,8 @@
 	"projectname": "bill-split-weapp",
 	"miniprogramRoot": "dist/",
 	"libVersion": "2.4.4",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

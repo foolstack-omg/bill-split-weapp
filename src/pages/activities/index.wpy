@@ -67,7 +67,7 @@
 
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: '活动',
+      navigationBarTitleText: '同游分账',
       enablePullDownRefresh: true
     }
 
