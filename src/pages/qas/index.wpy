@@ -9,12 +9,12 @@
 <template style="">
   <repeat for="{{qas}}" >
     <view style="margin: 20rpx 0;border: none; border-radius: 16rpx; overflow: hidden;">
-      <view @tap="toggleQA({{index}})" style="padding: 32rpx; background-color: white; position: relative; ">
-        <text class="{{ item.unfold ? 'unfold' : ''}}" style="font-size: 38rpx; width: 600rpx; display: block;">{{ item.question }}</text>
-        <image src="{{ !item.unfold ? '/images/version_1/open.png' : '/images/version_1/close.png '}}" style="width: 32rpx; height: 32rpx; position: absolute; top: 46rpx; right: 30rpx;"></image>
+      <view @tap="toggleQA({{index}})" style="padding: 24rpx; background-color: white; position: relative; ">
+        <text class="{{ item.unfold ? 'unfold' : ''}}" style="font-size: 32rpx; width: 600rpx; display: block;">{{ item.question }}</text>
+        <image src="{{ !item.unfold ? '/images/version_1/open.png' : '/images/version_1/close.png '}}" style="width: 32rpx; height: 32rpx; position: absolute; top: 32rpx; right: 30rpx;"></image>
       </view>
-      <view wx:if="{{ item.unfold }}" style="padding: 32rpx; background-color: white; position: relative; padding-top: 0; ">
-        <view style="padding-top: 32rpx;  box-shadow:0px -1px 0px 0px rgba(240,240,240,1);"></view>
+      <view wx:if="{{ item.unfold }}" style="padding: 28rpx; background-color: white; position: relative; padding-top: 0; ">
+        <view style="padding-top: 28rpx;  box-shadow:0px -1px 0px 0px rgba(240,240,240,1);"></view>
         <text>{{ item.answer }}</text>
       </view>
     </view>

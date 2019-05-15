@@ -78,8 +78,6 @@
     }
 
     async onLoad() {
-      this.user = await this.$parent.getCurrentUser()
-      console.log(this.user)
     }
     onShow() {
     }
