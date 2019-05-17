@@ -16,7 +16,7 @@ const request = async (options, showLoading = true) => {
   }
     // 显示加载中
   if (showLoading) {
-    wepy.showLoading({title: '加载中'})
+    wepy.showLoading({title: '加载中', mask: true})
   }
     // 拼接请求地址
   finalOptions.url = host + '/' + finalOptions.url

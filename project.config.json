@@ -32,7 +32,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 10,
 			"list": [
 				{
 					"id": -1,
@@ -102,6 +102,13 @@
 					"name": "pages/activities/bills/management",
 					"pathName": "pages/activities/bills/management",
 					"query": "activity_id=1&id=24",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/activities/bills/management",
+					"pathName": "pages/activities/bills/management",
+					"query": "id=51&activity_id=61",
 					"scene": null
 				}
 			]
