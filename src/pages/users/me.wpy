@@ -15,6 +15,7 @@
     color: #3C2648;
     font-weight: bold;
     margin-top: 2rpx;
+    border-radius: 0;
   }
   .list-button > text{
     margin-left: 23rpx;

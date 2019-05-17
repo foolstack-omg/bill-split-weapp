@@ -15,7 +15,7 @@
       </view>
       <view wx:if="{{ item.unfold }}" style="padding: 28rpx; background-color: white; position: relative; padding-top: 0; ">
         <view style="padding-top: 28rpx;  box-shadow:0px -1px 0px 0px rgba(240,240,240,1);"></view>
-        <text>{{ item.answer }}</text>
+        <text style="font-size: 28rpx;">{{ item.answer }}</text>
       </view>
     </view>
 

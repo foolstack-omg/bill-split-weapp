@@ -409,7 +409,7 @@
               })
               if (response.statusCode === 204) {
                 wepy.navigateBack({
-                  delta: 1
+                  delta: 2
                 })
               }
             } catch (err) {
