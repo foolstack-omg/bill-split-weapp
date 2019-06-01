@@ -75,9 +75,9 @@ export default class extends wepy.app {
     userInfo: null
   }
 
-  components = {
-    'tab-bar': tabBar
-  }
+  // components = {
+  //   'tab-bar': tabBar
+  // }
 
   constructor () {
     super()

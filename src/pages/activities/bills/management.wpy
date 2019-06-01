@@ -82,7 +82,7 @@
               <image @tap="removeItem({{ index }})" src="/images/version_1/-.png" style="display: block; flex-shrink: 0; width: 32rpx; height: 32rpx; padding: 16rpx;"></image>
               <view class="items" style=" width: 100%; padding: 28rpx 36rpx; background:rgba(246,245,249,1);border-radius:8rpx; margin-top: 0;">
                 <input value="{{ item.title }}" @input="bindItemTitle({{ index }})" focus="{{ item.focus }}" @blur="itemTitleBlur({{ index }})" style="font-size:28rpx;color:rgba(60,38,72,1);opacity:0.8; display: block;" type="text" placeholder="请输入事项及对应金额" />
-                <input value="{{ item.money }}" maxlength="{{ item.maxlength ? item.maxlength : -1 }}" @input="bindItemMoney({{ index }})" style="width: 246rpx; flex-shrink: 0;font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:block; text-align: right; border-left: 1rpx solid rgba(191,190,196,1); padding-left: 10rpx;" type="digit" placeholder="0.00"/>
+                <input value="{{ item.money }}" maxlength="{{ item.maxlength ? item.maxlength : 140 }}" @input="bindItemMoney({{ index }})" style="width: 246rpx; flex-shrink: 0;font-size:32rpx;color:rgba(60,38,72,1);opacity:0.8; line-height: 32rpx; display:block; text-align: right; border-left: 1rpx solid rgba(191,190,196,1); padding-left: 10rpx;" type="digit" placeholder="0.00"/>
               </view>
             </view>
 
@@ -143,7 +143,7 @@
             </view>
             <view style="margin-top: 20rpx; padding: 25rpx; background:rgba(246,245,249,1); border-radius:4rpx; display: flex; justify-content: space-between;  align-items: center; ">
               <text style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1);opacity:0.8; display: block;">需支付</text>
-              <input  disabled="{{ !participant.fixed }}" maxlength="{{ participant.maxlength }}" value="{{ participant.split_money }}" @input="bindSplitMoney({{ index }})" focus="{{ focusingParticipant && focusingParticipant.user_id === participant.user_id && focusingParticipant.focus}}" @blur="splitMoneyBlur" style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1); display:block; text-align: right;" placeholder="请输入均摊金额" type="digit" />
+              <input  disabled="{{ !participant.fixed }}" maxlength="{{ participant.maxlength ? participant.maxlength : 140 }}" value="{{ participant.split_money }}" @input="bindSplitMoney({{ index }})" focus="{{ focusingParticipant && focusingParticipant.user_id === participant.user_id && focusingParticipant.focus}}" @blur="splitMoneyBlur" style="font-size:28rpx; line-height: 28rpx; color:rgba(60,38,72,1); display:block; text-align: right;" placeholder="请输入均摊金额" type="digit" />
             </view>
             <view style="margin-top: 26rpx; display: flex; justify-content: space-between;  align-items: center; ">
               <view style="display: flex; justify-content: flex-start;  align-items: center; ">
@@ -214,7 +214,6 @@
     computed = {
       billMoneyMaxLength() {
         return this.decideMaxLength(this.bill.money)
-
       },
       otherParticipants() {
         let otherParticipants = []
@@ -271,29 +270,6 @@
       },
       bindSplitMoney(index, e) {
         let participant = this.bill.participants.data[index]
-        // if (e.detail.value.length === 0) {
-        //   participant.split_money = 0
-        //   this.reCaculateBill()
-        //   return participant.split_money
-        // } else {
-        //   if ((/^0[1-9]\d*$/.test(e.detail.value.toString()))) {
-        //     participant.split_money = Number.parseFloat(e.detail.value)
-        //     this.reCaculateBill()
-        //     return participant.split_money
-        //   }
-        //   let regex = /^(0|[1-9]\d*)(\.(\d){0,2})?$/
-        //   if (!regex.test(e.detail.value.toString())) {
-        //     return participant.split_money
-        //   }
-        //   let money = Number.parseFloat(e.detail.value)
-        //   if (Number.isNaN(money)) {
-        //     return participant.split_money
-        //   }
-        //   participant.split_money = e.detail.value
-        //   console.log(this.bill.participants.data[index].split_money)
-        //   this.reCaculateBill()
-        // }
-
         if (e.detail.value.length === 0 || (e.detail.value.length === 1 && e.detail.value === '-')) {
           participant.split_money = 0
           participant.maxlength = this.decideMaxLength(participant.split_money)
@@ -580,7 +556,7 @@
       if (content.indexOf('.') !== -1) {
         return content.indexOf('.') + 3
       } else {
-        return -1
+        return 140
       }
     }
 
