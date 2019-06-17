@@ -50,9 +50,9 @@ export default class extends wepy.app {
       navigationBarTextStyle: 'white'
     },
     tabBar: {
-      // selected: 0,
+      selected: 0,
       backgroundColor: '#FFFFFF',
-      custom: false,
+      custom: true,
       list: [{
         pagePath: 'pages/activities/index',
         iconPath: 'images/version_1/zhangdan_unselected.png',
@@ -72,12 +72,13 @@ export default class extends wepy.app {
   }
 
   globalData = {
-    userInfo: null
+    userInfo: null,
+    tabBar: this.config.tabBar
   }
 
-  // components = {
-  //   'tab-bar': tabBar
-  // }
+  components = {
+    'tab-bar': tabBar
+  }
 
   constructor () {
     super()
@@ -87,6 +88,23 @@ export default class extends wepy.app {
 
   async onLaunch() {
     console.log('launch')
+
+    // 适配Tabbar
+    wx.getSystemInfo({
+      success: function (res) {
+        // 判断SDK版本
+        let sdkv = res.SDKVersion
+        console.log('当前版本： ' + sdkv)
+        let basicsVersion = [2, 5, 0]
+        sdkv = sdkv.split('.')
+        for (let i in sdkv) {
+          if (parseInt(basicsVersion[i]) > parseInt(sdkv[i])) {
+            console.warn('当前版本小于2.5.0')
+            wx.hideTabBar()
+          }
+        }
+      }
+    })
   }
 
   // 获取当前登录用户信息

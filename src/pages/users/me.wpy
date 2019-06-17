@@ -44,17 +44,19 @@
       <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; position: absolute; top: 48rpx; right: 0;"></image>
     </button>
   </view>
-
+  <tab-bar :tabBar.sync="tabBarData"></tab-bar>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import tabBar from '@/components/tabBar'
 
   export default class Me extends wepy.page {
     config = {
       navigationBarTitleText: ''
     }
     components = {
+      'tab-bar': tabBar
     }
 
     mixins = []
@@ -79,8 +81,10 @@
     }
 
     async onLoad() {
+      this.tabBarData = this.$parent.globalData.tabBar
     }
     onShow() {
+      this.tabBarData.selected = 2
     }
 
     onShareAppMessage(res) {

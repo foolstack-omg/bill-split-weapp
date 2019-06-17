@@ -4,11 +4,10 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 70px;
-        background: transparent;
+        height: 96rpx;
+        background: white;
         display: flex;
         padding-bottom: env(safe-area-inset-bottom);
-        overflow: visible;
     }
 
     .tab-bar-border {
@@ -17,7 +16,7 @@
         left: 0;
         top: 0;
         width: 100%;
-        height: 1px;
+        height: 2rpx;
         transform: scaleY(0.5);
     }
 
@@ -31,28 +30,29 @@
     }
 
     .tab-bar-item cover-image {
-        width: 27px;
-        height: 27px;
+        width: 54rpx;
+        height: 54rpx;
     }
 
     .tab-bar-item cover-view {
-        font-size: 10px;
+        font-size: 20rpx;
     }
 
 </style>
 <template>
     <cover-view class="tab-bar">
-        <cover-view style="height: 48px;display: flex; position: absolute; bottom: 0; left: 0; width: 100%; background: white;">
-            <cover-view class="tab-bar-border"></cover-view>
-            <cover-view wx:for="{{tabBar.list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab(index, {{ '/' + item.pagePath }})">
+        <cover-view class="tab-bar-border"></cover-view>
+        <cover-view class="tab-bar-item" wx:for="{{tabBar.list}}" wx:key="index">
+            <cover-view wx:if="{{ index === 1}}" data-path="{{item.pagePath}}" data-index="{{index}}" @tap="switchTab({{ index}}, {{ '/' + item.pagePath }})">
                 <cover-image src="{{tabBar.selected === index ? '/'+item.selectedIconPath : '/'+item.iconPath}}"></cover-image>
-
                 <cover-view style="color: {{tabBar.selected === index ? tabBar.selectedColor : tabBar.color}}">{{item.text}}</cover-view>
             </cover-view>
+            <cover-view wx:else="{{ index != 2}}" data-path="{{item.pagePath}}" data-index="{{index}}" @tap="switchTab({{ index}}, {{ '/' + item.pagePath }})">
+                <cover-image src="{{tabBar.selected === index ? '/'+item.selectedIconPath : '/'+item.iconPath}}"></cover-image>
+                <cover-view style="color: {{tabBar.selected === index ? tabBar.selectedColor : tabBar.color}}">{{item.text}}</cover-view>
+            </cover-view>
+
         </cover-view>
-        <navigator url="/pages/activities/management">
-            <cover-image class="add" style="width: 60px; height: 60px; display: inline-block; position: absolute; left: 50%; margin-left: -30px; bottom: 10px;" src="/images/icon_add_selected.png"></cover-image>
-        </navigator>
     </cover-view>
 </template>
 <script>
@@ -66,7 +66,18 @@
     }
     methods = {
       switchTab(index, url) {
-        wx.switchTab({url})
+        console.log(index)
+        if (index === 1) {
+          console.log(index)
+          wx.vibrateShort({
+            complete(res) {
+              console.log('complete vibrate:' + res.data)
+              wx.switchTab({url})
+            }
+          })
+        } else {
+          wx.switchTab({url})
+        }
       }
     }
   }

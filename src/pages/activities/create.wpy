@@ -22,19 +22,25 @@
       <button @tap="save" style="display: block; width:590rpx; height:96rpx; font-size: 36rpx; line-height: 96rpx; background:linear-gradient(90deg,rgba(255,117,169,1),rgba(255,86,118,1));box-shadow:0px 4rpx 0px 1rpx rgba(255,87,119,0.16); border-radius:48rpx; margin: 80rpx auto 0; color: white; ">确定</button>
     </view>
   </view>
+  <tab-bar :tabBar.sync="tabBarData"></tab-bar>
 </template>
 
 <script>
   import wepy from 'wepy'
   import api from '@/utils/api'
+  import tabBar from '@/components/tabBar'
 
   export default class Create extends wepy.page {
     config = {
       navigationBarTitleText: ''
     }
+    components = {
+      'tab-bar': tabBar
+    }
     mixins = []
 
     data = {
+      tabBarData: null,
       activity: {
         name: ''
       }
@@ -91,6 +97,10 @@
       }
     }
     async onLoad(options) {
+      this.tabBarData = this.$parent.globalData.tabBar
+    }
+    async onShow() {
+      this.tabBarData.selected = 1
     }
     events = {
     }

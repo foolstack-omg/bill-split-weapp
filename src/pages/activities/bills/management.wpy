@@ -328,7 +328,7 @@
       onCheckerFinished(detail) {
         console.log(detail)
         detail.selected.forEach(item => {
-          this.bill.participants.data.unshift({user_id: item.id, fixed: 0, paid: 0, user: item})
+          this.bill.participants.data.unshift({user_id: item.id, fixed: 0, paid: item.id === this.user.id ? 1 : 0, user: item})
         })
         this.reCaculateBill()
       },
