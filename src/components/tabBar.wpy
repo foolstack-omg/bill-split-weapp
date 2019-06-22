@@ -4,14 +4,14 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 96rpx;
+        height: 98rpx;
         background: white;
         display: flex;
         padding-bottom: env(safe-area-inset-bottom);
     }
 
     .tab-bar-border {
-        background-color: rgba(0, 0, 0, 0.33);
+        background-color: #EAEAEA;
         position: absolute;
         left: 0;
         top: 0;
@@ -27,11 +27,12 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
     }
 
     .tab-bar-item cover-image {
-        width: 54rpx;
-        height: 54rpx;
+        width: 64rpx;
+        height: 64rpx;
     }
 
     .tab-bar-item cover-view {
@@ -44,7 +45,7 @@
         <cover-view class="tab-bar-border"></cover-view>
         <cover-view class="tab-bar-item" wx:for="{{tabBar.list}}" wx:key="index">
             <cover-view wx:if="{{ index === 1}}" data-path="{{item.pagePath}}" data-index="{{index}}" @tap="switchTab({{ index}}, {{ '/' + item.pagePath }})">
-                <cover-image src="{{tabBar.selected === index ? '/'+item.selectedIconPath : '/'+item.iconPath}}"></cover-image>
+                <cover-image style="width: 72rpx; height: 72rpx;" src="{{tabBar.selected === index ? '/'+item.selectedIconPath : '/'+item.iconPath}}"></cover-image>
                 <cover-view style="color: {{tabBar.selected === index ? tabBar.selectedColor : tabBar.color}}">{{item.text}}</cover-view>
             </cover-view>
             <cover-view wx:else="{{ index != 2}}" data-path="{{item.pagePath}}" data-index="{{index}}" @tap="switchTab({{ index}}, {{ '/' + item.pagePath }})">

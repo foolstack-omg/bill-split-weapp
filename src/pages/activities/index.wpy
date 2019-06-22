@@ -8,7 +8,7 @@
 <template>
   <view style="background: url('__HTTP__/images/version_1/shouyebackg.png'); background-size: 100%; width: 100%; height: 287rpx; text-align: center; color: white; overflow: hidden;">
     <view wx:if="{{ activities.length }}">
-      <text style="display: inline-block; font-size: 40rpx; margin-top: 39rpx;">- 你的活动 -</text>
+      <text style="display: inline-block; font-size: 40rpx; margin-top: 39rpx;">- 你参与的活动 -</text>
     </view>
     <view wx:else>
       <text style="display: inline-block; font-size:32rpx; margin-top: 62rpx;">没有与你相关的活动，马上创建吧</text>
