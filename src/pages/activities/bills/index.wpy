@@ -9,7 +9,7 @@
 <template>
   <view style="background: #8457FB; height: {{ bills.length ? '338' : '229'}}rpx; box-sizing: border-box; padding: 40rpx;">
     <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-      <text style="display: block; font-size:40rpx; color: white; font-weight: bold; width: 100%;">{{ activityName }}</text>
+      <text class="text-ellipsis" style="display: block; font-size:40rpx; color: white; font-weight: bold; width: 100%;">{{ activityName }}</text>
       <button catchtap="management()" style="flex-shrink: 0;width:80rpx;height:44rpx; line-height: 44rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:22rpx; color:rgba(60,38,72,1); font-size:24rpx; margin-left: 24rpx;">管理</button>
     </view>
     <view style="width: 100%;height:80rpx; background:rgba(255,255,255,0.06); border-radius:8rpx; box-sizing: border-box; margin-top: 16rpx; ">
@@ -28,8 +28,8 @@
               <image src="{{ item.user.avatar_url }}" style="flex-shrink: 0;display: block; width: 88rpx; height: 88rpx; border-radius:50%;"></image>
               <view style="display: flex; flex-direction: column; width: 100%; margin-left: 25rpx; " >
                 <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; ">
-                  <text class="text-ellipsis" style="font-size:32rpx;color:rgba(60,38,72,1);font-weight:bold; width: 100%;">{{ item.title }}</text>
-                  <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx;"></image>
+                  <text class="text-ellipsis" style="display: block;font-size:32rpx;color:rgba(60,38,72,1);font-weight:bold; width: 410rpx;">{{ item.title }}</text>
+                  <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; display: block;"></image>
                 </view>
                 <view style="font-size: 24rpx; ">
                   <text style="color: #3C2648; opacity:0.8;">{{ item.user.name }}</text>

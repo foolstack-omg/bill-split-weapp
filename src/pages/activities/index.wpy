@@ -24,8 +24,8 @@
               <image src="{{ activity.user.avatar_url}}" style="flex-shrink: 0;display: block; width: 88rpx; height: 88rpx; border-radius:50%;"></image>
               <view style="display: flex; flex-direction: column; width: 100%; margin-left: 25rpx; " >
                 <view style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;  ">
-                  <text class="text-ellipsis" style="font-size:32rpx;color:rgba(60,38,72,1);font-weight:bold; width: 100%;">{{ activity.name }}</text>
-                  <button catchtap="management({{ activity.id }})" style="flex-shrink: 0; width:80rpx;height:44rpx; line-height: 44rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:22rpx; color:rgba(60,38,72,1); font-size:24rpx; margin-left: 24rpx;">管理</button>
+                  <text class="text-ellipsis" style="display: block;font-size:32rpx;color:rgba(60,38,72,1);font-weight:bold; width: 360rpx; ">{{ activity.name }}</text>
+                  <button catchtap="management({{ activity.id }})" style="flex-shrink: 0; width:80rpx;height:44rpx; line-height: 44rpx; background:linear-gradient(90deg,rgba(255,229,86,1),rgba(255,199,87,1));border-radius:22rpx; color:rgba(60,38,72,1); font-size:24rpx; margin-left: 24rpx; margin-right: 0;">管理</button>
                 </view>
                 <view style="font-size: 24rpx; ">
                   <text style="color: #3C2648; opacity:0.8;">{{ activity.user.name}}</text>
