@@ -1,0 +1,99 @@
+<style lang="less">
+
+</style>
+<template>
+  <view style="position: fixed; left: 0; right: 0; top: 0; bottom: 0;">
+    <view style="width: 100%; height: 100%;">
+      <view wx:if="{{ tempFilePath === null }}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+        <view style="font-size: 48rpx;">海报生成中，请稍等</view>
+      </view>
+      <scroll-view wx:else style="width: 100%; height: 100%;" scroll-y="true">
+        <image mode="widthFix"  src="{{tempFilePath}}"  style="display: block; box-sizing: border-box; width: 100%;padding-bottom: 98rpx;"></image>
+      </scroll-view>
+
+    </view>
+    <view wx:if="{{ tempFilePath }}" style="position: fixed; bottom: 0; left: 0; right: 0; height: 98rpx; background: white; flex-direction: row; display: flex; justify-content: space-evenly; align-items: center;">
+      <view @tap="save" style="font-size: 32rpx; height: 32rpx; line-height: 32rpx;">
+        <image style="width: 32rpx; height: 32rpx; margin-right: 15rpx; vertical-align: middle;" src="/images/version_1/poster-save.png"></image>
+        <text>保存</text>
+      </view>
+      <view style="width: 1rpx; height: 40rpx; background:rgba(224,224,224,1);"></view>
+      <view @tap="share" style="font-size: 32rpx; height: 32rpx; line-height: 32rpx;">
+        <image style="width: 32rpx; height: 32rpx; margin-right: 15rpx; vertical-align: middle;" src="/images/version_1/poster-share.png"></image>
+        <text>分享</text>
+      </view>
+    </view>
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  import api from '@/utils/api'
+
+  export default class Poster extends wepy.page {
+    config = {
+      navigationBarTitleText: '海报预览',
+      backgroundColor: '#FFFFFF',
+      navigationBarBackgroundColor: '#FFFFFF',
+      navigationBarTextStyle: 'black'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+      tempFilePath: null
+    }
+
+    computed = {
+    }
+    methods = {
+      save() {
+        wx.saveImageToPhotosAlbum({
+          filePath: this.tempFilePath,
+          success(res) {
+            wx.showToast({
+              title: '保存成功！',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+      },
+      share() {
+        wx.showToast({
+          title: '即将进入图片预览，长按图片发送给朋友吧',
+          icon: 'none',
+          duration: 3000
+        })
+        setTimeout(() => {
+          wx.previewImage({
+            urls: [
+              this.tempFilePath
+            ] // 需要预览的图片http链接列表
+          })
+        }, 2000)
+      }
+    }
+    async onLoad(options) {
+      console.log(options)
+      let accessToken = await api.getToken()
+      let res = await wepy.downloadFile({
+        url: api.host + '/bills/' + options.id + '/poster',
+        header: {
+          Authorization: 'Bearer ' + accessToken
+        }
+      })
+      console.log(res)
+      this.tempFilePath = res.tempFilePath
+      console.log(res.tempFilePath)
+      this.$apply()
+    }
+
+    events = {
+    }
+  }
+</script>

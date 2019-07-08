@@ -6,7 +6,8 @@
 		"postcss": false,
 		"minified": false,
 		"newFeature": true,
-		"autoAudits": false
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
 	"appid": "wxa9f86c634c79cd53",

@@ -192,7 +192,7 @@ const logout = async (params = {}) => {
   return logoutResponse
 }
 
-const updateFile = async (options = {}) => {
+const uploadFile = async (options = {}) => {
     // 显示loading
   wepy.showLoading({title: '上传中'})
 
@@ -216,10 +216,12 @@ const updateFile = async (options = {}) => {
 }
 
 export default {
+  host,
   request,
   authRequest,
+  getToken,
   refreshToken,
   login,
   logout,
-  updateFile
+  uploadFile
 }
