@@ -27,6 +27,7 @@
     "wepy": "^1.6.0",
     "wepy-async-function": "^1.4.4",
     "wepy-com-toast": "^1.0.2",
+    "wepy-image-cropper": "^1.0.1",
     "wepy-plugin-imagemin": "^1.5.3",
     "wepy-plugin-replace": "^1.5.10",
     "wepy-redux": "^1.5.3"

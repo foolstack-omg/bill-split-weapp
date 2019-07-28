@@ -79,18 +79,34 @@
       }
     }
     async onLoad(options) {
-      console.log(options)
       let accessToken = await api.getToken()
-      let res = await wepy.downloadFile({
-        url: api.host + '/bills/' + options.id + '/poster',
-        header: {
-          Authorization: 'Bearer ' + accessToken
+      try{
+        let res = await wepy.downloadFile({
+          url: api.host + '/bills/' + options.id + '/poster?type=' + options.type,
+          header: {
+            Authorization: 'Bearer ' + accessToken
+          }
+        })
+        if(res.statusCode !== 200) {
+          wx.showToast({
+            title: '图片生成失败',
+            icon: 'none',
+            duration: 2000
+          })
         }
-      })
-      console.log(res)
-      this.tempFilePath = res.tempFilePath
-      console.log(res.tempFilePath)
-      this.$apply()
+        console.log(res)
+        this.tempFilePath = res.tempFilePath
+        this.$apply()
+      } catch (e) {
+        wx.showToast({
+          title: '图片生成失败',
+          icon: 'none',
+          duration: 2000
+        })
+
+      }
+
+
     }
 
     events = {

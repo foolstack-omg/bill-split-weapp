@@ -35,6 +35,10 @@
   </view>
 
   <view style="padding: 24rpx 40rpx;">
+    <button class="list-button" @tap="toPayment">
+      <image src="/images/version_2/shoukuanma.png" style="width: 56rpx; height: 56rpx;"></image><text>我的收款码</text>
+      <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; position: absolute; top: 48rpx; right: 0;"></image>
+    </button>
     <button class="list-button" @tap="toQuestion">
       <image src="/images/version_1/question.png" style="width: 56rpx; height: 56rpx;"></image><text>常见问题</text>
       <image src="/images/version_1/click.png" style="width: 32rpx; height: 32rpx; position: absolute; top: 48rpx; right: 0;"></image>
@@ -73,6 +77,11 @@
       toQuestion() {
         wx.navigateTo({
           url: '/pages/qas/index'
+        })
+      },
+      toPayment() {
+        wx.navigateTo({
+          url: '/pages/users/payment'
         })
       }
     }

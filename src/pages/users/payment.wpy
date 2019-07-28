@@ -1,0 +1,232 @@
+<style lang="less">
+  page{
+    background: #F4F3F7;
+  }
+</style>
+<template style="background-color: #F4F3F7;">
+  <view>
+    <view style="width: 670rpx; height: 742rpx; background: white;box-shadow:0rpx 4rpx 48rpx 0rpx rgba(234,235,241,1); border-radius:8rpx; margin: 44rpx auto 36rpx; overflow: hidden;">
+      <view style="height: 112rpx; background:rgba(94,191,111,1); line-height: 112rpx; font-size: 36rpx;">
+        <image src="/images/version_2/wxpay.png" style="width: 54rpx; height: 54rpx; vertical-align: middle; margin: 0 23rpx 0 33rpx;"></image>
+        <text style="font-weight:bold; color: white;">微信收款码</text>
+      </view>
+      <view wx:if="{{user && user.wxpay }}" style="width:390rpx; height:390rpx; margin: 72rpx auto;">
+        <image src="{{ user.wxpay }}" style="height: 100%; width: 100%;"/>
+      </view>
+      <view wx:else style="width:390rpx; height:390rpx; margin: 72rpx auto;">
+        <view @tap="upload('wxpay')" style="width: 100%; height: 100%; background:rgba(248,248,248,1); line-height: 390rpx; text-align: center;">
+          <image src="/images/version_2/+.png" style="width: 100rpx; height: 100rpx; vertical-align: middle;"></image>
+        </view>
+      </view>
+      <view style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; margin-top: 64rpx;">
+        <view @tap="upload('wxpay')" style="font-size:32rpx; color:rgba(60,38,72,1);opacity:0.8;">上传收款码</view>
+        <view style="width:1rpx; height: 40rpx;background:rgba(224,224,224,1);"></view>
+        <view @tap="delete('wxpay')" style="font-size:32rpx; color:rgba(60,38,72,1);opacity:{{ user && user.wxpay ? 0.8 : 0.5 }};">删除收款码</view>
+      </view>
+    </view>
+
+    <view style="width: 670rpx; height: 742rpx; background: white;box-shadow:0rpx 4rpx 48rpx 0rpx rgba(234,235,241,1); border-radius:8rpx; margin: 36rpx auto 36rpx; overflow: hidden;">
+      <view style="height: 112rpx; background: #56BEE9; line-height: 112rpx; font-size: 36rpx;">
+        <image src="/images/version_2/alipay.png" style="width: 54rpx; height: 54rpx; vertical-align: middle; margin: 0 23rpx 0 33rpx;"></image>
+        <text style="font-weight:bold; color: white;">支付宝收款码</text>
+      </view>
+      <view wx:if="{{ user && user.alipay }}" style="width:390rpx; height:390rpx; margin: 72rpx auto;">
+        <image src="{{ user.alipay }}" style="height: 100%; width: 100%;"/>
+      </view>
+      <view wx:else style="width:390rpx; height:390rpx; margin: 72rpx auto;">
+        <view @tap="upload('alipay')" style="width: 100%; height: 100%; background:rgba(248,248,248,1); line-height: 390rpx; text-align: center;">
+          <image src="/images/version_2/+.png" style="width: 100rpx; height: 100rpx; vertical-align: middle;"></image>
+        </view>
+      </view>
+      <view style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; margin-top: 64rpx;">
+        <view @tap="upload('alipay')" style="font-size:32rpx; color:rgba(60,38,72,1);opacity:0.8;">上传收款码</view>
+        <view style="width:1rpx; height: 40rpx;background:rgba(224,224,224,1);"></view>
+        <view @tap="delete('alipay')" style="font-size:32rpx; color:rgba(60,38,72,1);opacity:{{ user && user.alipay ? 0.8 : 0.5 }};">删除收款码</view>
+      </view>
+    </view>
+  </view>
+
+  <div wx:if="{{show_cropper}}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: black;">
+    <wepy-image-cropper id="image-cropper" :limit_move="limit_move" :disable_rotate="disable_rotate" :disable_ratio="disable_ratio" :borderColor="borderColor" :width="width" :height="height" @load.user="cropperload" @imageload.user="loadimage"></wepy-image-cropper>
+    <view style="height: 100rpx; box-shadow:0px -2rpx 0px 0px white; display: flex; flex-direction: row; align-items: center; justify-content: space-around; position: absolute; width: 100%; bottom: 0; z-index: 9999;">
+      <view @tap="hide_cropper" style="font-size: 36rpx; color: white;">取消</view>
+      <view @tap="finish_cut" style="font-size: 36rpx; color: white;">完成</view>
+    </view>
+  </div>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import WepyImageCropper from 'wepy-image-cropper'
+  import api from '@/utils/api'
+
+  export default class Payment extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的收款码',
+      backgroundColor: '#F4F3F7',
+      navigationBarBackgroundColor: '#F4F3F7',
+      navigationBarTextStyle: 'black'
+    }
+    components = {
+      'wepy-image-cropper': WepyImageCropper
+    }
+
+    mixins = []
+
+    cropper = null
+
+    data = {
+      user: null,
+      type: null, // 上传的图片类型
+      width: 250,//宽度
+      height: 250,//高度
+      limit_move: true,
+      disable_rotate: true,
+      borderColor: 'white',
+      disable_ratio: true,
+
+      show_cropper: false,
+    }
+
+    computed = {
+    }
+
+    methods = {
+      cropperload(e) {
+        console.log("cropper初始化完成:" + e);
+        this.cropper = e.cropper
+        this.cropper.$wxpage.imgReset()
+        this.$apply()
+      },
+      loadimage(e){
+        console.log("图片加载完成",e);
+      },
+      // 上传收款码
+      upload(type) {
+        let that = this
+        this.type = type
+        this.cropper.$wxpage.setWidth(this.width)
+        this.cropper.$wxpage.setHeight(this.height)
+        this.cropper.$wxpage.imgReset()
+        this.cropper.$wxpage.setCutCenter();
+
+        wx.chooseImage({
+          count: 1,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera'],
+          success: function success(res) {
+            var tempFilePaths = res.tempFilePaths[0];
+            that.cropper.$wxpage.pushImg(tempFilePaths);
+            that.show_cropper = true;
+            that.$apply();
+            wx.showLoading({
+              title: '加载中...'
+            });
+          }
+        });
+      },
+      hide_cropper() {
+        this.show_cropper = false
+      },
+      async finish_cut() {
+        this.cropper.$wxpage.getImg(async (e) => {
+          try {
+            // 获取选择的图片
+            let image = e.url
+
+            // 调用上传图片接口
+            let imageResponse = await api.uploadFile({
+              url: 'user/store_images',
+              method: 'POST',
+              name: 'image',
+              formData: {
+                type: this.type
+              },
+              filePath: image
+            })
+
+            // 上传成功成功记录数据
+            if (imageResponse.statusCode === 201) {
+              // 小程序上传结果没有做 JSON.parse，需要手动处理
+              let responseData = JSON.parse(imageResponse.data)
+              this.user = responseData
+              wepy.setStorageSync('user', responseData)
+              this.$apply()
+            }
+          } catch (err) {
+            console.log(err)
+            wepy.showModal({
+              title: '提示',
+              content: '服务器错误，请联系管理员'
+            })
+          }
+
+          this.show_cropper = false
+          this.$apply()
+        })
+      },
+      async delete(type) {
+        if(!(this.user && this.user[type])) {
+          return
+        }
+
+        try {
+          // 请求接口，传入参数
+          let response = await api.authRequest({
+            url: 'user/delete_images',
+            method: 'DELETE',
+            data: {
+              type: type
+            }
+          })
+
+          if (response.statusCode === 201) {
+            this.user = response.data
+            wepy.setStorageSync('user', this.user)
+            this.$apply()
+          }
+        } catch (err) {
+          console.log(err)
+          wepy.showModal({
+            title: '提示',
+            content: '服务器错误，请联系管理员'
+          })
+        }
+      }
+
+    }
+
+    events = {
+    }
+
+    onLoad(options) {
+      if(options.type) {
+        if(options.type === 'wxpay') {
+          wx.showToast({
+            title: '请先上传微信收款二维码',
+            icon: 'none',
+            duration: 3000
+          })
+        }
+        if(options.type === 'alipay') {
+          wx.showToast({
+            title: '请先上传支付宝收款二维码',
+            icon: 'none',
+            duration: 3000
+          })
+        }
+      }
+    }
+
+    onUnload() {
+      this.cropper = null
+    }
+    async onShow() {
+      this.user = await this.$parent.getCurrentUser();
+      this.$apply()
+    }
+
+
+  }
+</script>

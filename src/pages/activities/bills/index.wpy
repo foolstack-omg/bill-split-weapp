@@ -120,9 +120,14 @@
       this.activityId = options.id
       this.activityName = options.name
     }
+    async onUnload() {
+      await wepy.switchTab({
+        url: `/pages/activities/index`
+      })
+    }
+
     async onShow() {
       this.user = await this.$parent.getCurrentUser()
-      console.log('user:' + this.user.id)
       await this.reload()
     }
 

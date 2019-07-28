@@ -51,9 +51,7 @@
 
     methods = {
       bindActivityName(e) {
-        console.log(e)
         this.activity.name = e.detail.value
-        console.log(this.activity.name)
       },
       async save() {
         let that = this
@@ -82,9 +80,8 @@
             }
           })
           if (response.statusCode === 201) {
-            console.log('success')
-            wepy.reLaunch({
-              url: '/pages/activities/index'
+            wepy.navigateTo({
+              url: '/pages/activities/management?navigateType=1&&id=' + response.data.id
             })
           }
         } catch (e) {

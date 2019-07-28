@@ -82,6 +82,7 @@
     mixins = []
 
     data = {
+      navigateType: 0, // 默认返回上一页，1, 则跳到活动账单页
       user: null,
       activity: {
         name: ''
@@ -176,6 +177,8 @@
                 wepy.reLaunch({
                   url: '/pages/activities/index'
                 })
+                that.navigateType = 0
+                that.$apply
               }
             } catch (e) {
               console.log(e)
@@ -226,6 +229,11 @@
       this.user = await this.$parent.getCurrentUser()
       console.log('user_id:' + this.user.id)
 
+      if(options.navigateType) {
+        this.navigateType = options.navigateType
+      }
+      this.$apply()
+
       if (options.id) {
         this.activity.id = options.id
         try {
@@ -252,6 +260,15 @@
         // 加载参与成员数据
         await this.loadParticipants(options.id)
       }
+    }
+
+    async onUnload() {
+      if(this.navigateType == 1) {
+        await wepy.navigateTo({
+          url: `/pages/activities/bills/index?id=${this.activity.id}&name=${this.activity.name}`
+        })
+      }
+
     }
 
     async loadParticipants(activityId) {
