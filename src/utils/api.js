@@ -91,8 +91,7 @@ const login = async (params = {}) => {
       url: 'user'
     })
     if (response.statusCode === 200) {
-      params.id = response.data.id
-      wepy.setStorageSync('user', params)
+      wepy.setStorageSync('user', response.data)
     }
   }
   return authResponse

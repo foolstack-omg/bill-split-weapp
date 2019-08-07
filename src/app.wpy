@@ -112,6 +112,7 @@ export default class extends wepy.app {
     if (!this.checkLogin() || !user) {
       try {
         await api.login()
+        user = wepy.getStorageSync('user')
       } catch (err) {
         console.log(err)
         wepy.showModal({

@@ -112,6 +112,8 @@
       this.tabBarData.selected = 0
       console.log(this.tabBarData.selected)
       let user = await this.$parent.getCurrentUser()
+      console.log('on show: ' + user);
+
       if (user) {
         console.log(this.options)
         let activityId = null

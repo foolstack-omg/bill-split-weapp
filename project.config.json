@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -50,10 +50,10 @@
 					"scene": 1047
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "扫描小程序码邀请成员",
 					"pathName": "pages/activities/index",
-					"query": "scene=activity_id:9",
+					"query": "scene=activity_id:18",
 					"scene": 1047
 				},
 				{
