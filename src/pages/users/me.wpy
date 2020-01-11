@@ -62,12 +62,12 @@
     components = {
       'tab-bar': tabBar
     }
-
     mixins = []
 
     data = {
       tabBarData: null,
-      user: null
+      user: null,
+      createAd: false
     }
 
     computed = {
@@ -91,9 +91,29 @@
 
     async onLoad() {
       this.tabBarData = this.$parent.globalData.tabBar
+
+
     }
     onShow() {
       this.tabBarData.selected = 2
+      // 在页面onLoad回调事件中创建插屏广告实例
+      if (!this.createAd) {
+        console.log('create ad')
+        let interstitialAd = wx.createInterstitialAd({
+          adUnitId: 'adunit-26e1f7a6d63f0f95'
+        })
+        if (interstitialAd) {
+          console.log('show Ad')
+          interstitialAd.show().catch((err) => {
+            console.error(err)
+          })
+          interstitialAd.onLoad(() => {})
+          interstitialAd.onError((err) => {})
+          interstitialAd.onClose(() => {})
+        }
+
+
+      }
     }
 
     onShareAppMessage(res) {

@@ -21,6 +21,9 @@
 
   <view wx:if="{{ bills.length }}" style="background: white;">
     <view style="display: flex; flex-direction: column; align-items: center; position: relative; top: -140rpx; padding-bottom: 40rpx;">
+      <view style="width: 670rpx; margin-top: 24rpx; background: white;">
+        <ad unit-id="adunit-5bb90f723521c0a7"></ad>
+      </view>
       <repeat for="{{ bills }}" wx:key="id" index="index" item="item">
         <navigator hover-class="none" url="/pages/activities/bills/show?id={{ item.id }}&activity_id={{ activityId }}">
           <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4px 40px 0px rgba(0,0,0, 0.08);border-radius:8px; margin-top: 24rpx; background: white; box-sizing: border-box;">

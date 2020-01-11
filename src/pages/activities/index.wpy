@@ -17,6 +17,10 @@
   </view>
   <view wx:if="{{ activities.length }}" style="background: white;">
     <view style="display: flex; flex-direction: column; align-items: center; position: relative; top: -180rpx;">
+      <!-- Banner 广告 -->
+      <view style="width: 670rpx; margin-top: 24rpx; background: white;">
+        <ad unit-id="adunit-034bd541afa3029e" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad>
+      </view>
       <repeat for="{{ activities }}" wx:key="id" index="index" item="activity">
         <navigator hover-class="none" url="/pages/activities/bills/index?id={{ activity.id }}&name={{ activity.name}}">
           <view style="width:670rpx; padding: 32rpx 40rpx 0; box-shadow: 0px 4rpx 48rpx 0px rgba(0, 0, 0, 0.08);border-radius:8rpx; margin-top: 24rpx; background: white; box-sizing: border-box;">
