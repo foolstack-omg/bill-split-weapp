@@ -43,7 +43,8 @@
       tabBarData: null,
       activity: {
         name: ''
-      }
+      },
+      user: null
     }
 
     computed = {
@@ -54,43 +55,51 @@
         this.activity.name = e.detail.value
       },
       async save() {
-        let that = this
-        if (that.activity.name.length === 0) {
-          wepy.showToast({
-            title: '活动名称不能为空',
-            icon: 'none',
-            duration: 1500
-          })
-          return
-        }
-        if (that.activity.name.length > 20) {
-          wepy.showToast({
-            title: '活动名称不能超过20个字',
-            icon: 'none',
-            duration: 1500
-          })
-          return
-        }
-        try {
-          let response = await api.authRequest({
-            method: 'POST',
-            url: 'activities/save/',
-            data: {
-              name: that.activity.name
+        if(this.user) {
+          let that = this
+          if (that.activity.name.length === 0) {
+            wepy.showToast({
+              title: '活动名称不能为空',
+              icon: 'none',
+              duration: 1500
+            })
+            return
+          }
+          if (that.activity.name.length > 20) {
+            wepy.showToast({
+              title: '活动名称不能超过20个字',
+              icon: 'none',
+              duration: 1500
+            })
+            return
+          }
+          try {
+            let response = await api.authRequest({
+              method: 'POST',
+              url: 'activities/save/',
+              data: {
+                name: that.activity.name
+              }
+            })
+            if (response.statusCode === 201) {
+              wepy.navigateTo({
+                url: '/pages/activities/management?navigateType=1&&id=' + response.data.id
+              })
             }
-          })
-          if (response.statusCode === 201) {
-            wepy.navigateTo({
-              url: '/pages/activities/management?navigateType=1&&id=' + response.data.id
+          } catch (e) {
+            console.log(e)
+            wepy.showModal({
+              title: '提示',
+              content: '服务器错误，请联系管理员'
             })
           }
-        } catch (e) {
-          console.log(e)
-          wepy.showModal({
-            title: '提示',
-            content: '服务器错误，请联系管理员'
+        } else {
+          wx.navigateTo({
+            url: '/pages/auth/login'
           })
         }
+
+
       }
     }
     async onLoad(options) {
@@ -98,6 +107,10 @@
     }
     async onShow() {
       this.tabBarData.selected = 1
+      let user = await this.$parent.getCurrentUser()
+      if(user) {
+        this.user = user
+      }
     }
     events = {
     }

@@ -84,7 +84,8 @@
     data = {
       tabBarData: null,
       options: {},
-      activities: []
+      activities: [],
+      user: null
     }
 
     computed = {
@@ -92,9 +93,17 @@
 
     methods = {
       createActivity() {
-        wepy.switchTab({
-          url: '/pages/activities/create'
-        })
+        if(this.user) {
+          wepy.switchTab({
+            url: '/pages/activities/create'
+          })
+        } else {
+          wx.navigateTo({
+            url: '/pages/auth/login'
+          })
+        }
+
+
       },
       management(activityId, e) {
         console.log('manage activityId' + activityId)
@@ -119,6 +128,7 @@
       console.log('on show: ' + user);
 
       if (user) {
+        this.user = user
         console.log(this.options)
         let activityId = null
         if (this.options.scene) {

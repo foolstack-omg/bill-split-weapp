@@ -80,9 +80,16 @@
         })
       },
       toPayment() {
-        wx.navigateTo({
-          url: '/pages/users/payment'
-        })
+        if(this.user) {
+          wx.navigateTo({
+            url: '/pages/users/payment'
+          })
+        } else {
+          wx.navigateTo({
+            url: '/pages/auth/login'
+          })
+        }
+
       }
     }
 
@@ -91,10 +98,12 @@
 
     async onLoad() {
       this.tabBarData = this.$parent.globalData.tabBar
-
-
     }
-    onShow() {
+    async onShow() {
+      let user = await this.$parent.getCurrentUser()
+      if(user) {
+        this.user = user
+      }
       this.tabBarData.selected = 2
       // 在页面onLoad回调事件中创建插屏广告实例
       if (!this.createAd) {

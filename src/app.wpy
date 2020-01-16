@@ -111,7 +111,10 @@ export default class extends wepy.app {
     // 如果用户未登录
     if (!this.checkLogin() || !user) {
       try {
-        await api.login()
+        let result = await api.login()
+        if(result === false) {
+          return false
+        }
         user = wepy.getStorageSync('user')
       } catch (err) {
         console.log(err)

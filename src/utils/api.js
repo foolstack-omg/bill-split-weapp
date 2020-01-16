@@ -56,9 +56,7 @@ const login = async (params = {}) => {
   if (!settingData.authSetting['scope.userInfo']) {
     console.log('用户没有授权')
     console.log(settingData.authSetting['scope.userInfo'])
-    wepy.navigateTo({
-      url: '/pages/auth/login'
-    })
+
     return false
   } else {
     console.log('用户已授权')
@@ -134,6 +132,12 @@ const getToken = async (options) => {
     } else {
             // 刷新失败了，重新调用登录方法，设置 Token
       let authResponse = await login()
+      if(false === authResponse) {
+        wepy.navigateTo({
+          url: '/pages/users/me'
+        })
+        return false
+      }
       if (authResponse.statusCode === 201) {
         accessToken = authResponse.data.access_token
       }
@@ -163,6 +167,12 @@ const authRequest = async (options, showLoading = true) => {
   if (response.statusCode === 401) {
     wepy.clearStorage()
     let loginResponse = await login()
+    if(loginResponse === false) {
+      wepy.navigateTo({
+        url: '/pages/users/me'
+      })
+      return false
+    }
     console.log(loginResponse)
     if (loginResponse.statusCode === 201) {
       response = await authRequest(options, showLoading)
