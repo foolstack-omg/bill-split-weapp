@@ -85,7 +85,8 @@
       tabBarData: null,
       options: {},
       activities: [],
-      user: null
+      user: null,
+      navigateToLogin: false
     }
 
     computed = {
@@ -122,24 +123,25 @@
       console.log(this.tabBarData)
     }
     async onShow() {
+
       this.tabBarData.selected = 0
-      console.log(this.tabBarData.selected)
+      let activityId = null
+      if (this.options.scene) {
+        const scene = decodeURIComponent(this.options.scene)
+        const params = scene.split(':')
+        activityId = params[1]
+        console.log(params[1])
+      }
+      if (this.options.to_activity_id) {
+        activityId = this.options.to_activity_id
+      }
+
       let user = await this.$parent.getCurrentUser()
-      console.log('on show: ' + user);
 
       if (user) {
         this.user = user
         console.log(this.options)
-        let activityId = null
-        if (this.options.scene) {
-          const scene = decodeURIComponent(this.options.scene)
-          const params = scene.split(':')
-          activityId = params[1]
-          console.log(params[1])
-        }
-        if (this.options.to_activity_id) {
-          activityId = this.options.to_activity_id
-        }
+
         if (activityId) {
           try {
             // 请求接口，传入参数
@@ -157,6 +159,13 @@
           }
         }
         await this.reload()
+      } else {
+        if(activityId && !this.navigateToLogin) {
+          this.navigateToLogin = true
+          wx.navigateTo({
+            url: '/pages/auth/login'
+          })
+        }
       }
     }
 
