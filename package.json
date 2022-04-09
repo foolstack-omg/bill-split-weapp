@@ -19,7 +19,7 @@
   "dependencies": {
     "debounce": "^1.2.0",
     "decimal": "0.0.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "promise-polyfill": "^8.1.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
